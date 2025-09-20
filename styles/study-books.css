@@ -1,0 +1,279 @@
+.top-bg {
+    background: url("../assets/images/pages/study/top-bg.png") no-repeat center;
+    background-size: cover;
+    height: 530px;
+}
+
+/* BOOKS */
+.books {
+    margin-top: -413px;
+}
+
+.books__inner {
+    width: 100%;
+}
+
+.books__title {
+    color: #FFF;
+    font-size: 48px;
+    font-weight: 300;
+    margin-bottom: 36px;
+    text-transform: uppercase;
+}
+
+.books__navigation {
+    gap: 30px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 128px;
+}
+
+.books__navigation-link {
+    border-radius: 20px;
+    background: rgba(23, 23, 23, 0.50);
+    color: #FFF;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    max-width: 166px;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.books__navigation-link--current {
+    color: #FFB800;
+    background: #171717;
+}
+
+.books__cards {
+    gap: 80px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 90px;
+}
+
+.books__card {
+    border-radius: 20px;
+    background: #FFF;
+    display: flex;
+    gap: 36px;
+    padding: 23px 32px 23px 13px;
+    max-width: 558px;
+    position: relative;
+}
+
+.books__card-image {
+    max-width: 215px;
+    max-height: 315px;
+}
+
+.books__card-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 17px;
+}
+
+.books__card-top__stats {
+    gap: 12px;
+    display: flex;
+    align-items: center;
+    color: #DFDFDF;
+    font-size: 10px;
+    font-weight: 300;
+}
+
+.books__card-top__stat {
+    gap: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.books__card-top__lessons {
+    font-size: 12px;
+    font-weight: 600;
+    position: relative;
+}
+
+.books__card-top__lessons::before {
+    position: absolute;
+    content: url("../assets/icons/purple-notes.svg");
+    left: -23px;
+    top: 1px;
+}
+
+.books__card-name {
+    color: #A15FD4;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.books__card-author {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.books__card-author strong {
+    color: #A15FD4;
+}
+
+.books__card-divider {
+    width: 50px;
+    height: 1px;
+    background: #A15FD4;
+    margin-bottom: 20px;
+}
+
+.books__card-description {
+    font-size: 10px;
+    font-weight: 300;
+    margin-bottom: 17px;
+}
+
+.books__card-additional {
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.books__card-additional__elem {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.books__card-additional__elem strong {
+    color: #A15FD4;
+}
+
+.books__card-link {
+    position: absolute;
+    right: 0;
+    bottom: -27px;
+    color: #FFF;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-radius: 0 20px;
+    background: linear-gradient(84deg, #C446FF 16.49%, #9920F9 87.03%);
+    box-shadow: 0 7px 37px 0 rgba(161, 95, 212, 0.30);
+    padding: 20px 49px;
+}
+
+.books__card:nth-child(even) .books__card-top__lessons::before {
+    content: url("../assets/icons/orange-notes.svg");
+}
+
+.books__card:nth-child(even) .books__card-name {
+    color: #171717;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.books__card:nth-child(even) .books__card-author {
+    margin-bottom: 72px;
+}
+
+.books__card:nth-child(even) .books__card-author strong {
+    color: #FFB800;
+}
+
+.books__card:nth-child(even) .books__card-divider {
+    background: #FFB800;
+}
+
+.books__card:nth-child(even) .books__card-additional__elem strong {
+    color: #FFB800;
+}
+
+.books__card:nth-child(even) .books__card-link {
+    box-shadow: 0 7px 37px 0 rgba(255, 138, 0, 0.30);
+    background: linear-gradient(273deg, #FF8A00 10.97%, #FFC700 80.05%);
+}
+
+@media (max-width: 1200px) {
+    .books__navigation {
+        margin-bottom: 45px;
+    }
+
+    .books__cards {
+        gap: 30px;
+    }
+
+    .books__card {
+        padding: 20px;
+        max-width: unset;
+    }
+
+    .books__card-image {
+        max-height: 225px;
+    }
+
+    .books__card:nth-child(even) .books__card-author {
+        margin-bottom: 20px;
+    }
+
+    .books__card-link {
+        bottom: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .books__card {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 640px) {
+    .books__title {
+        font-size: 34px;
+        margin-bottom: 20px;
+    }
+
+    .books__card {
+        align-items: center;
+    }
+
+    .books__card-link {
+        position: static;
+        max-width: unset;
+        display: block;
+    }
+
+    .books__card-additional {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .books {
+        margin-top: -450px;
+    }
+
+    .books__card {
+        flex-direction: column;
+    }
+
+    .books__cards {
+        margin-bottom: 40px;
+    }
+
+    .books__title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .books__navigation {
+        gap: 5px;
+        margin-bottom: 20px;
+    }
+
+    .books__navigation-link {
+        font-size: 10px;
+    }
+}

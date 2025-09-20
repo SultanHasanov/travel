@@ -1,0 +1,381 @@
+/* MODALS */
+.modal-wrapper {
+    align-items: center;
+    justify-content: center;
+    background: rgba(24, 24, 24, 0.80);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    display: none;
+}
+
+.modal-wrapper.modal-wrapper--book {
+
+}
+
+.book__form {
+    border-radius: 20px;
+    background: #FFF;
+    box-shadow: 0 40px 80px 0 rgba(0, 0, 0, 0.40);
+    max-width: 1016px;
+    width: 100%;
+    margin: 0 10px;
+}
+
+.book__main {
+    padding: 30px 30px 27px 30px;
+}
+
+.book__main-top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 31px;
+    justify-content: space-between;
+}
+
+.book__main-title {
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0 30px;
+    text-transform: uppercase;
+}
+
+.book__main-divider {
+    width: 1px;
+    height: 58px;
+    background-color: #FFB800;
+    margin-right: 30px;
+}
+
+.book__main-text {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.book__main-price {
+    color: #FFB800;
+    font-size: 25px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.book__main-price span {
+    font-size: 14px;
+}
+
+.book__inputs {
+    gap: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.book__input-name {
+    position: relative;
+    border-radius: 20px;
+    border: 1px solid rgba(229, 229, 229, 0.50);
+    background: #FFF;
+    padding: 30px 49px 12px;
+    height: 55px;
+    max-width: 362px;
+    width: 100%;
+}
+
+.book__input-name::before {
+    top: 20px;
+    left: 23px;
+    z-index: 1;
+    position: absolute;
+    content: url(../../assets/icons/user.svg);
+}
+
+.book__input-name__label {
+    color: #FFB800;
+    position: absolute;
+    z-index: 1;
+    left: 49px;
+    top: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.book__input-name__input {
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    position: absolute;
+    border-radius: 20px;
+    padding: 30px 49px 10px;
+}
+
+.book__input-name:hover,
+.book__input-phone:hover {
+    border: 1px solid #FFB800;
+}
+
+.book__input-name__input::placeholder,
+.book__input-phone__input::placeholder {
+    color: #C4C4C4;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.book__input-phone {
+    position: relative;
+    border-radius: 20px;
+    border: 1px solid rgba(229, 229, 229, 0.50);
+    background: #FFF;
+    padding: 22px 54px 11px;
+    height: 55px;
+    max-width: 362px;
+    width: 100%;
+}
+
+.book__input-phone::before {
+    top: 20px;
+    left: 20px;
+    z-index: 1;
+    position: absolute;
+    content: url(../../assets/icons/phone.svg);
+}
+
+.book__input-phone__label {
+    color: #FFB800;
+    position: absolute;
+    z-index: 1;
+    left: 50px;
+    top: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.book__input-phone__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    outline: none;
+    border: none;
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    padding: 30px 50px 10px;
+}
+
+.book__inputs-button {
+    border-radius: 0 30px;
+    background: linear-gradient(273deg, #FF8A00 10.97%, #FFB800 80.05%);
+    box-shadow: 0 7px 37px 0 rgba(255, 138, 0, 0.30);
+    padding: 20px 0;
+    color: #FFF;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border: unset;
+    cursor: pointer;
+    min-width: 164px;
+}
+
+.book__agreements {
+    display: flex;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.book__agreement {
+    margin-bottom: 23px;
+    padding-left: 16px;
+}
+
+.book__agreement-checkbox {
+    padding: 0;
+    height: initial;
+    width: initial;
+    margin-bottom: 0;
+    display: none;
+    cursor: pointer;
+}
+
+.book__agreement-text {
+    position: relative;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: #171717;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.book__agreement-checkbox:checked + .book__agreement-text:after {
+    content: url(../../assets/icons/checkmark.svg);
+    position: absolute;
+    top: 1px;
+    left: 2px;
+}
+
+
+.book__agreement-text:before {
+    content: '';
+    -webkit-appearance: none;
+    background-color: transparent;
+    border: 1px solid #FFB800;
+    padding: 7px;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    vertical-align: middle;
+}
+
+@media (max-width: 1000px) {
+    .book__agreements {
+        gap: 15px;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: unset;
+    }
+
+    .book__inputs {
+        gap: 10px;
+    }
+
+    .book__agreement:first-child {
+        margin-bottom: unset;
+    }
+}
+
+@media (max-width: 768px) {
+    .book__main {
+        padding: 15px 15px 27px 15px;
+    }
+
+    .book__main-top{
+        gap: 10px;
+        margin-bottom: 15px;
+        flex-direction: column;
+        align-items: unset;
+    }
+
+    .book__main-title {
+        margin: unset;
+        max-width: unset;
+    }
+
+    .book__inputs {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .book__input-name {
+        width: 48%;
+    }
+
+    .book__input-phone {
+        width: 48%;
+    }
+
+    .book__inputs-button {
+        width: 100%;
+    }
+
+    .book__agreements {
+        padding-left: 15px;
+    }
+
+    .book__agreement {
+        padding-left: unset;
+    }
+
+    .book__agreement-text {
+        gap: 5px;
+        font-size: 9px;
+    }
+
+    .book__agreement-checkbox:checked + .book__agreement-text:after {
+        top: 2px;
+    }
+
+    .modal-wrapper--book .consultation__agreement {
+        padding-left: unset;
+    }
+
+    .modal-wrapper--book .consultation__agreement-text {
+        gap: 5px;
+    }
+
+    .modal-wrapper--book .consultation__inputs-name::before,
+    .modal-wrapper--book .consultation__inputs-phone::before {
+        content: unset;
+    }
+
+    .modal-wrapper--book .consultation__inputs-name__input,
+    .modal-wrapper--book .consultation__inputs-phone__input {
+        padding: 30px 20px 10px;
+    }
+
+    .modal-wrapper--consultation .consultation__inputs-name__label,
+    .modal-wrapper--consultation .consultation__inputs-phone__label {
+        left: 20px;
+    }
+
+    .modal-wrapper--book .consultation__agreement-text {
+        font-size: 9px;
+    }
+
+    .modal-wrapper--book .consultation__main {
+        padding: 20px;
+    }
+
+    .modal-wrapper--book .consultation__agreements {
+        padding: 0 20px 20px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* CONSULTATION */
+    .book__input-name,
+    .book__input-phone {
+        width: 100%;
+        max-width: unset;
+    }
+
+    .book__input-name__input,
+    .book__input-phone__input {
+        padding-right: 20px;
+    }
+
+    .book__agreement:nth-child(1) .book__agreement-checkbox:checked + .book__agreement-text:after,
+    .book__agreement:nth-child(2) .book__agreement-checkbox:checked + .book__agreement-text:after {
+        top: 4px;
+    }
+
+    .modal-wrapper--book .consultation__main-text {
+        font-size: 9px;
+    }
+
+    .modal-wrapper--book .consultation__main-top{
+        margin-bottom: 10px;
+    }
+
+    .modal-wrapper--book .consultation__agreements {
+        align-items: unset;
+    }
+
+    .modal-wrapper--book .consultation__main-title {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 459px) {
+    .book__agreement:nth-child(1) .book__agreement-checkbox:checked + .book__agreement-text:after {
+        top: 6px;
+    }
+}

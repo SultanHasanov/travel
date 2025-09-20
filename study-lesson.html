@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        Урок
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/study-lesson.css">
+</head>
+<body>
+<header class="header header--study-lesson">
+    <div class="container">
+        <div class="header__inner">
+            <div class="header__left">
+                <button class="header__left-burger">
+                    <img src="assets/icons/blocks/header/burger.svg" alt="Burger Button">
+                </button>
+                <a href="/" class="header__left-logo">
+                    <img src="assets/logo.svg" alt="Manasik Travel">
+                </a>
+                <div class="header__left-divider"></div>
+                <div class="header__left-city">
+                    <img src="assets/icons/location-tag.svg" alt="Location Tag">
+                    <span>Москва</span>
+                </div>
+            </div>
+            <div class="header__middle">
+                <div class="header__middle-date">
+                    <div class="header__middle-date__gregorian">
+                        1 августа
+                    </div>
+                    <div class="header__middle-date__divider">
+                        /
+                    </div>
+                    <div class="header__middle-date__hijri">
+                        10 зуль-хиджа
+                    </div>
+                </div>
+                <div class="header__middle-form">
+                    <input type="text" class="header__middle-form__input" placeholder="Введите слово...">
+                    <button class="header__middle-form__button">
+                        <img src="assets/icons/loupe.svg" alt="Loupe">
+                    </button>
+                </div>
+            </div>
+            <div class="header__right">
+                <div class="header__right-contact">
+                    <div class="header__right-contact__text">
+                        Представитель в Москве
+                    </div>
+                    <a href="tel:" class="header__right-contact__phone">
+                        <span>
+                            8-800-899-00-66
+                        </span>
+                        <img src="assets/icons/whatsapp.svg" alt="WhatsApp">
+                    </a>
+                </div>
+                <div class="header__right-currencies">
+                    <div class="header__right-currency">
+                        1
+                        &nbsp;
+                        <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign">
+                        &nbsp;
+                        <span>=</span>
+                        &nbsp;
+                        65,26 руб.
+                    </div>
+                    <hr class="header__right-currencies__divider">
+                    <div class="header__right-currency">
+                        1
+                        &nbsp;
+                        <span>риял =</span>
+                        &nbsp;
+                        17,40 руб.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="lesson">
+        <div class="lesson__top">
+            <div class="container">
+                <div class="lesson__top-inner">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="#">
+                                Главная страница
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Подготовка и уроки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Уроки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Китаб ат Таухид
+                            </a>
+                        </li>
+                        <li class="current-page">
+                            <a href="#">
+                                Урок №1
+                            </a>
+                        </li>
+                    </ol>
+                    <h1 class="lesson__top-title">
+                        Урок №1. И здесь обозначена тема урока
+                    </h1>
+                    <div class="lesson__top-author">
+                        <strong>Книга:</strong> Китаб ат Таухид
+                    </div>
+                    <ul class="lesson__top-people">
+                        <li>
+                            <strong>Автор:</strong> Мухаммад ибн Абдуль Уаххаб
+                        </li>
+                        <li>
+                            <strong>Шарх:</strong> Шейх аль Усаймин
+                        </li>
+                        <li>
+                            <strong>Перевод:</strong> Абу Яхья Крымский
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="lesson__main">
+            <div class="container">
+                <div class="lesson__main-inner">
+                    <aside class="lesson__aside">
+                        <div class="lesson__aside-booking">
+                            <h2 class="lesson__aside-booking__title">
+                                до окончания записи на хадж осталось
+                            </h2>
+                            <div class="lesson__aside-booking__time">
+                                <div class="lesson__aside-booking__time-measurement">
+                                    <div class="lesson__aside-measurement-inner">
+                                        <div class="lesson__aside-measurement__int">24</div>
+                                        <div class="lesson__aside-measurement__name">дня</div>
+                                    </div>
+                                </div>
+                                <div class="lesson__aside-booking__time-measurement">
+                                    <div class="lesson__aside-measurement-inner">
+                                        <div class="lesson__aside-measurement__int">15</div>
+                                        <div class="lesson__aside-measurement__name">часов</div>
+                                    </div>
+                                </div>
+                                <div class="lesson__aside-booking__time-measurement">
+                                    <div class="lesson__aside-measurement-inner">
+                                        <div class="lesson__aside-measurement__int">58</div>
+                                        <div class="lesson__aside-measurement__name">минут</div>
+                                    </div>
+                                </div>
+                                <div class="lesson__aside-booking__time-measurement">
+                                    <div class="lesson__aside-measurement-inner">
+                                        <div class="lesson__aside-measurement__int">10</div>
+                                        <div class="lesson__aside-measurement__name">секунд</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a href="#" class="lesson__aside-booking__button">
+                                забронировать
+                            </a>
+                        </div>
+                        <div class="lesson__aside-tours">
+                            <div class="lesson__aside-tour">
+                                <div class="lesson__aside-tour__name">
+                                    Хадж программа
+                                    “супер эконом из москвы”
+                                </div>
+                                <img src="assets/images/blocks/aside/tours/1.png" alt=""
+                                     class="lesson__aside-tour__image">
+                                <div class="lesson__aside-tour__buy">
+                                    <div class="lesson__aside-tour__price">
+                                        154 000 <span>руб.</span>
+                                    </div>
+                                    <button class="lesson__aside-tour__button">
+                                        купить путевку
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="lesson__aside-tour">
+                                <div class="lesson__aside-tour__name">
+                                    Хадж программа
+                                    “супер эконом из москвы”
+                                </div>
+                                <img src="assets/images/blocks/aside/tours/2.png" alt=""
+                                     class="lesson__aside-tour__image">
+                                <div class="lesson__aside-tour__buy">
+                                    <div class="lesson__aside-tour__price">
+                                        154 000 <span>руб.</span>
+                                    </div>
+                                    <button class="lesson__aside-tour__button">
+                                        купить путевку
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lesson__aside-weather">
+                            <div class="lesson__aside-weather__widget">
+                                <div class="lesson__aside-weather__widget-info">
+                                    <div class="lesson__aside-weather__widget-place">
+                                        погода в медине
+                                    </div>
+                                    <div class="lesson__aside-weather__widget-degrees">
+                                        + 36
+                                    </div>
+                                    <div class="lesson__aside-weather__widget-summary">
+                                        безоблачно,
+                                        ветер 4 м/с
+                                    </div>
+                                </div>
+                                <img src="assets/images/blocks/aside/weather/medina.png" alt=""
+                                     class="lesson__aside-weather__widget-image">
+                            </div>
+                            <div class="lesson__aside-weather__widget">
+                                <div class="lesson__aside-weather__widget-info">
+                                    <div class="lesson__aside-weather__widget-place">
+                                        погода в мекке
+                                    </div>
+                                    <div class="lesson__aside-weather__widget-degrees">
+                                        + 41
+                                    </div>
+                                    <div class="lesson__aside-weather__widget-summary">
+                                        безоблачно,
+                                        ветер 4 м/с
+                                    </div>
+                                </div>
+                                <img src="assets/images/blocks/aside/weather/mecca.png" alt=""
+                                     class="lesson__aside-weather__widget-image">
+                            </div>
+                        </div>
+                    </aside>
+                    <div class="lesson__content">
+                        <div class="lesson__content-top">
+                            <div class="lesson__content-top__date">
+                                25 августа, 2019
+                            </div>
+                            <div class="lesson__content-top__stats">
+                                <div class="lesson__content-top__stat">
+                                    <img src="assets/icons/pages/lesson/comment.svg" alt="Comments">
+                                    <span>21</span>
+                                </div>
+                                <div class="lesson__content-top__stat">
+                                    <img src="assets/icons/pages/lesson/repost.svg" alt="Reposts">
+                                    <span>8</span>
+                                </div>
+                                <div class="lesson__content-top__stat">
+                                    <img src="assets/icons/pages/lesson/view.svg" alt="Views">
+                                    <span>246</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lesson__content-photo">
+                            <img src="assets/images/pages/article/content/main-image.png" alt="">
+                        </div>
+                        <div class="lesson__content-section">
+                            <p class="lesson__content-paragraph">
+                                Российская специфика, следовательно, консолидирует популярный рекламный макет. Изменение
+                                глобальной стратегии, пренебрегая деталями, методически стабилизирует рекламный макет.
+                            </p>
+                            <p class="lesson__content-paragraph">
+                                Раскрутка, не меняя концепции, изложенной выше, очевидна не для всех. Бюджет на
+                                размещение
+                                экономит SWOT-анализ. Информационная связь с потребителем, безусловно, неверно
+                                транслирует ребрендинг.
+                            </p>
+                        </div>
+                        <h2 class="lesson__content-title">
+                            Тема: «Межличностный бренд — актуальная национальная задача»
+                        </h2>
+                        <div class="lesson__content-section">
+                            <p class="lesson__content-paragraph">
+                                Медиа оправдывает социометрический пресс-клиппинг. Размещение уравновешивает креативный
+                                стратегический маркетинг. Медиавес, не меняя концепции, изложенной выше, транслирует
+                                SWOT-анализ.
+                            </p>
+                            <p class="lesson__content-paragraph">
+                                Медийная связь слабо усиливает инвестиционный продукт, осознав маркетинг как часть
+                                производства. Управление брендом пока плохо искажает институциональный продуктовый
+                                ассортимент. Рекламоноситель по-прежнему устойчив к изменениям спроса. Воздействие на
+                                потребителя упорядочивает комплексный креатив.
+                            </p>
+                            <p class="lesson__content-paragraph">
+                                Российская специфика, следовательно, консолидирует популярный рекламный макет. Изменение
+                                глобальной стратегии, пренебрегая деталями, методически стабилизирует рекламный макет.
+                                Раскрутка, не меняя концепции, изложенной выше, очевидна не для всех. Бюджет на
+                                размещение
+                                экономит SWOT-анализ. Информационная связь с потребителем, безусловно, неверно
+                                транслирует
+                                ребрендинг.
+                            </p>
+                        </div>
+                        <div class="lesson__content-photos">
+                            <div class="lesson__content-photos-elem">
+                                <img src="assets/images/pages/article/content/content-1.png" alt="">
+                            </div>
+                            <div class="lesson__content-photos-elem">
+                                <img src="assets/images/pages/article/content/content-2.png" alt="">
+                            </div>
+                        </div>
+                        <div class="lesson__content-section lesson__content-section--margin_unset">
+                            <p class="lesson__content-paragraph">
+                                Российская специфика, следовательно, консолидирует популярный рекламный макет. Изменение
+                                глобальной стратегии, пренебрегая деталями, методически стабилизирует рекламный макет.
+                            </p>
+                            <p class="lesson__content-paragraph">
+                                Раскрутка, не меняя концепции, изложенной выше, очевидна не для всех. Бюджет на
+                                размещение
+                                экономит SWOT-анализ. Информационная связь с потребителем, безусловно, неверно
+                                транслирует
+                                ребрендинг.
+                            </p>
+                        </div>
+                        <div class="lesson__content-slider">
+                            <div class="lesson__content-slider__inner swiper">
+                                <div class="swiper-wrapper">
+                                    <div class="lesson__content-slider__slide swiper-slide">
+                                        <img src="assets/images/pages/article/content/slider/1.png" alt="">
+                                    </div>
+                                    <div class="lesson__content-slider__slide swiper-slide">
+                                        <img src="assets/images/pages/article/content/slider/1.png" alt="">
+                                    </div>
+                                    <div class="lesson__content-slider__slide swiper-slide">
+                                        <img src="assets/images/pages/article/content/slider/1.png" alt="">
+                                    </div>
+                                    <div class="lesson__content-slider__slide swiper-slide">
+                                        <img src="assets/images/pages/article/content/slider/1.png" alt="">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="lesson__content-slider__arrows">
+                                <div class="lesson__content-slider__arrow lesson__content-slider__arrow--left">
+                                    <img src="assets/icons/short-white-arrow-left.svg" alt="Arrow Left">
+                                </div>
+                                <div class="lesson__content-slider__arrow lesson__content-slider__arrow--right">
+                                    <img src="assets/icons/short-white-arrow-right.svg" alt="Arrow Right">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="lesson__content-section">
+                            <p class="lesson__content-paragraph">
+                                Российская специфика, следовательно, консолидирует популярный рекламный макет. Изменение
+                                глобальной стратегии, пренебрегая деталями, методически стабилизирует рекламный макет.
+                            </p>
+                            <p class="lesson__content-paragraph">
+                                Раскрутка, не меняя концепции, изложенной выше, очевидна не для всех. Бюджет на
+                                размещение
+                                экономит SWOT-анализ. Информационная связь с потребителем, безусловно, неверно
+                                транслирует
+                                ребрендинг.
+                            </p>
+                        </div>
+                        <div class="lesson__content-video">
+                            <div class="lesson__content-video__holder">
+                                <iframe width="754" height="412"
+                                        src="https://www.youtube.com/embed/WcFfPbjmP04?si=fpK67gX44TQyImIL"
+                                        title="YouTube video player" frameborder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                        referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                            </div>
+                            <div class="lesson__content-video__name">
+                                Здесь располагается ваш очень длинный и содержательный заголовок, который должны видеть
+                                все потенциальные паломники
+                            </div>
+                        </div>
+                        <div class="lesson__content-bottom">
+                            <div class="lesson__content-bottom__date">
+                                25 августа, 2019
+                            </div>
+                            <div class="lesson__content-bottom__stats">
+                                <div class="lesson__content-bottom__stat">
+                                    <img src="assets/icons/comment.svg" alt="Comments">
+                                    <span>21</span>
+                                </div>
+                                <div class="lesson__content-bottom__stat">
+                                    <img src="assets/icons/repost.svg" alt="Reposts">
+                                    <span>8</span>
+                                </div>
+                                <div class="lesson__content-bottom__stat">
+                                    <img src="assets/icons/view.svg" alt="Views">
+                                    <span>246</span>
+                                </div>
+                            </div>
+                        </div>
+                        <ul class="lesson__content-hashtags">
+                            <li class="lesson__content-hashtag">
+                                #новости_компании
+                            </li>
+                            <li class="lesson__content-hashtag">
+                                #новости_хаджа
+                            </li>
+                            <li class="lesson__content-hashtag">
+                                #интересные_интересности
+                            </li>
+                            <li class="lesson__content-hashtag">
+                                #новости_хаджа
+                            </li>
+                            <li class="lesson__content-hashtag">
+                                #интересные_интересности
+                            </li>
+                            <li class="lesson__content-hashtag">
+                                #новости_хаджа
+                            </li>
+                        </ul>
+                        <div class="lesson__content-navigation">
+                            <a href="#"
+                               class="lesson__content-navigation__arrow lesson__content-navigation__arrow--left">
+                                <img src="assets/icons/arrow-left.svg" alt="Arrow Left">
+                                <span>предыдущий <br> урок</span>
+                            </a>
+                            <a href="#"
+                               class="lesson__content-navigation__arrow lesson__content-navigation__arrow--right">
+                                <span>следующий <br> урок</span>
+                                <img src="assets/icons/arrow-right.svg" alt="Arrow Right">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<section class="recommendations">
+    <div class="container">
+        <div class="recommendations__inner">
+            <div class="recommendations__top">
+                <h2 class="recommendations__top-title">
+                    рекомендуемые уроки
+                </h2>
+                <button class="recommendations__top-next">
+                    <span>далее</span>
+                    <img src="assets/icons/arrow-right.svg" alt="Arrow Right">
+                </button>
+            </div>
+            <div class="recommendations__cards swiper">
+                <div class="swiper-wrapper">
+                    <div class="recommendations__card swiper-slide">
+                        <div class="recommendations__card-lectures">
+                            30 лекций
+                        </div>
+                        <h2 class="recommendations__card-name">
+                            3 основы
+                        </h2>
+                        <div class="recommendations__card-author">
+                            <strong>Автор:</strong> Мухаммад ибн Абдуль Уаххаб
+                        </div>
+                        <div class="recommendations__card-divider"></div>
+                        <p class="recommendations__card-description">
+                            Российская специфика, следовательно, консолидирует популярный рекламный макет. Изменение
+                            глобальной стратегии, пренебрегая деталями, методически стабилизирует рекламный макет.
+                        </p>
+                        <div class="recommendations__card-additional">
+                            <div class="recommendations__card-additional__elem">
+                                <strong>Шарх:</strong> шейх аль Усаймин
+                            </div>
+                            <div class="recommendations__card-additional__elem">
+                                <strong>Перевод:</strong> Абу Яхья Крымский
+                            </div>
+                        </div>
+                        <a href="#" class="recommendations__card-link">
+                            начать обучение
+                        </a>
+                    </div>
+                    <div class="recommendations__card swiper-slide">
+                        <div class="recommendations__card-lectures">
+                            30 лекций
+                        </div>
+                        <h2 class="recommendations__card-name">
+                            3 основы
+                        </h2>
+                        <div class="recommendations__card-author">
+                            <strong>Автор:</strong> Мухаммад ибн Абдуль Уаххаб
+                        </div>
+                        <div class="recommendations__card-divider"></div>
+                        <p class="recommendations__card-description">
+                            Российская специфика, следовательно, консолидирует популярный рекламный макет. Изменение
+                            глобальной стратегии, пренебрегая деталями, методически стабилизирует рекламный макет.
+                        </p>
+                        <div class="recommendations__card-additional">
+                            <div class="recommendations__card-additional__elem">
+                                <strong>Перевод:</strong> Абу Яхья Крымский
+                            </div>
+                        </div>
+                        <a href="#" class="recommendations__card-link">
+                            начать обучение
+                        </a>
+                    </div>
+                    <div class="recommendations__card swiper-slide">
+                        <div class="recommendations__card-lectures">
+                            30 лекций
+                        </div>
+                        <h2 class="recommendations__card-name">
+                            3 основы
+                        </h2>
+                        <div class="recommendations__card-author">
+                            <strong>Автор:</strong> Мухаммад ибн Абдуль Уаххаб
+                        </div>
+                        <div class="recommendations__card-divider"></div>
+                        <p class="recommendations__card-description">
+                            Российская специфика, следовательно, консолидирует популярный рекламный макет. Изменение
+                            глобальной стратегии, пренебрегая деталями, методически стабилизирует рекламный макет.
+                        </p>
+                        <div class="recommendations__card-additional">
+                            <div class="recommendations__card-additional__elem">
+                                <strong>Шарх:</strong> шейх аль Усаймин
+                            </div>
+                            <div class="recommendations__card-additional__elem">
+                                <strong>Перевод:</strong> Абу Яхья Крымский
+                            </div>
+                        </div>
+                        <a href="#" class="recommendations__card-link">
+                            начать обучение
+                        </a>
+                    </div>
+                    <div class="recommendations__card swiper-slide">
+                        <div class="recommendations__card-lectures">
+                            30 лекций
+                        </div>
+                        <h2 class="recommendations__card-name">
+                            3 основы
+                        </h2>
+                        <div class="recommendations__card-author">
+                            <strong>Автор:</strong> Мухаммад ибн Абдуль Уаххаб
+                        </div>
+                        <div class="recommendations__card-divider"></div>
+                        <p class="recommendations__card-description">
+                            Российская специфика, следовательно, консолидирует популярный рекламный макет. Изменение
+                            глобальной стратегии, пренебрегая деталями, методически стабилизирует рекламный макет.
+                        </p>
+                        <div class="recommendations__card-additional">
+                            <div class="recommendations__card-additional__elem">
+                                <strong>Перевод:</strong> Абу Яхья Крымский
+                            </div>
+                        </div>
+                        <a href="#" class="recommendations__card-link">
+                            начать обучение
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<article class="social-media">
+    <div class="container">
+        <div class="social-media__inner">
+            <div class="social-media__text">
+                Подпишитесь на нас и будьте в курсе новостей хаджа и акций компании!
+            </div>
+            <div class="social-media__list">
+                <a href="#" class="social-media__list-elem">
+                    вконтакте
+                </a>
+                <a href="#" class="social-media__list-elem">
+                    Instagram
+                </a>
+                <a href="#" class="social-media__list-elem">
+                    telegram
+                </a>
+            </div>
+        </div>
+    </div>
+</article>
+<footer class="footer">
+    <div class="container">
+        <div class="footer__inner">
+            <div class="footer__top">
+                <div class="footer__top-left">
+                    <a href="/" class="footer__top-left__logo">
+                        <img src="assets/logo.svg" alt="Manasik Travel">
+                    </a>
+                    <div class="footer__top-left__divider"></div>
+                    <div class="footer__top-left__city">
+                        <img src="assets/icons/location-tag.svg" alt="Location Tag">
+                        <span>Москва</span>
+                    </div>
+                </div>
+                <div class="footer__top-middle">
+                    <div class="footer__middle-form">
+                        <input type="text" class="footer__middle-form__input" placeholder="Введите слово...">
+                        <button class="footer__middle-form__button">
+                            <img src="assets/icons/loupe.svg" alt="Loupe">
+                        </button>
+                    </div>
+                </div>
+                <div class="footer__top-right">
+                    <div class="footer__top-social_media">
+                        <div class="footer__top-social_media-label">
+                            Социальные сети
+                        </div>
+                        <div class="footer__top-social_media-list">
+                            <a href="#">
+                                <img src="assets/icons/blocks/footer/instagram.svg" alt="Instagram">
+                            </a>
+                            <a href="#">
+                                <img src="assets/icons/blocks/footer/vk.svg" alt="VKontakte">
+                            </a>
+                            <a href="#">
+                                <img src="assets/icons/blocks/footer/telegram.svg" alt="Telegram">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer__top-phone">
+                        <div class="footer__top-phone__label">
+                            Представитель в Москве
+                        </div>
+                        <a href="#" class="footer__top-phone__number">
+                            8-800-899-00-66
+                            <img src="assets/icons/whatsapp.svg" alt="WhatsApp">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__divider"></div>
+            <div class="footer__navigation">
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        Хадж 2019
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Туры в Хадж
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Необходимые документы на Хадж
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Информация о дате начала хаджа
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Проверить доплату за повторный Хадж
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        новости
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        умра 2019
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Туры на Умру
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Необходимые документы на Умру
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Проверить доплату за повторную Умру
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        Погода в Мекке и Медине
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        подготовка и уроки
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Советы паломникам
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Уроки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Часто задаваемые вопросы
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Адреса вакцинаций
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        Карта Мекки / Медины
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        медиа
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Фото хаджа и умры
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Видео хаджа и умры
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Онлайн трансляция Мекки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Онлайн трансляция Медины
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        время намаза мекка и медина
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        о компании
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                О нас
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Филиалы и контакты
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Сотрудничество
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Обратная связь
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Банковские реквизиты
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Вакансии
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Пресса о нас
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        клиентам
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Проверить договор
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Узнать дату вылета
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Проверка готовности визы
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        отзывы
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <div class="footer__bottom-copyright">
+                    ООО “Манасик Тревел” 2019
+                </div>
+                <div class="footer__bottom-made_by">
+                    <a href="#" class="footer__bottom-made_by-elem">
+                        Дизайн сайта:
+                        <strong>Лия Сечка</strong>
+                    </a>
+                    <a href="#" class="footer__bottom-made_by-elem">
+                        Верстка сайта:
+                        <strong>Николай Берсенев</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/index.js"></script>
+<script src="js/study-lesson/index.js"></script>
+</body>
+</html>

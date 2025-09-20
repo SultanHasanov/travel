@@ -1,0 +1,564 @@
+main {
+    background: #171717;
+}
+
+.namaz__top {
+    padding: 39px 0 83px;
+    background: linear-gradient(273deg, #FF8A00 10.97%, #FFC700 80.05%);
+}
+
+.namaz__inner .breadcrumbs {
+    margin-bottom: 34px;
+}
+
+.namaz__top-title {
+    color: #FFF;
+    font-size: 48px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.tours--namaz .tours-top__title {
+    color: #fff;
+}
+
+.namaz__time {
+    background: url("../assets/images/pages/namaz-time/mecca-bg.png") no-repeat center;
+    background-size: cover;
+    color: #fff;
+    border-radius: 20px;
+    margin-top: -20px;
+    padding: 43px 0 137px;
+}
+
+.namaz__time.namaz__time--medina {
+    background: url("../assets/images/pages/namaz-time/medina-bg.png") no-repeat center;
+    background-size: cover;
+}
+
+.namaz__inner {
+    width: 100%;
+    max-width: 1010px;
+}
+
+.namaz__time-top {
+    gap: 20px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 96px;
+    justify-content: space-between;
+}
+
+.namaz__time-top__date {
+    gap: 15px;
+    display: flex;
+    align-items: center;
+    font-size: 24px;
+}
+
+.namaz__time-top__date-regular {
+    color: #FFF;
+    font-weight: 600;
+}
+
+.namaz__time-top__date-slash {
+    color: rgba(255, 184, 0, 0.60);
+}
+
+.namaz__time-top__date-hijri {
+    color: #FFF;
+    font-weight: 300;
+}
+
+.namaz__time-top__cta {
+    gap: 13px;
+    display: flex;
+    align-items: center;
+}
+
+.namaz__time-top__cta-text {
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 600;
+    max-width: 198px;
+}
+
+.namaz__time-top__cta-link {
+    border-radius: 10px;
+    background: linear-gradient(273deg, #FF8A00 10.97%, #FFC700 80.05%);
+    padding: 7px 17px;
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration-line: underline;
+}
+
+.namaz__time-cards {
+    gap: 1px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.namaz__time-elem {
+    max-width: 156px;
+    width: 100%;
+    position: relative;
+}
+
+.namaz__time-elem.namaz__time-elem--active {
+    padding: 7px;
+    min-width: 240px;
+    min-height: 172px;
+    max-width: unset;
+    border-radius: 24px;
+    border: 1px solid rgba(255, 255, 255, 0.40);
+}
+
+.namaz__time-elem.namaz__time-elem--active::before {
+    position: absolute;
+    content: url("../assets/icons/pages/namaz-time/active-namaz-time-card-bg-decoration.svg");
+    left: 50%;
+    top: -4px;
+    transform: translate(-50%);
+}
+
+.namaz__time-elem.namaz__time-elem--sunrise .namaz__time-card__time,
+.namaz__time-elem.namaz__time-elem--sunrise .namaz__time-card__name {
+    color: rgba(255, 184, 0, 0.40);
+}
+
+.namaz__time-elem__time_left {
+    display: none;
+}
+
+.namaz__time-elem.namaz__time-elem--active .namaz__time-elem__time_left {
+    display: block;
+    color: #FFF;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 300;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -63px;
+    width: 147px;
+}
+
+.namaz__time-card {
+    border-radius: 20px;
+    background: #242424;
+}
+
+.namaz__time-elem.namaz__time-elem--active .namaz__time-card {
+    border: 1px solid #FFF;
+    background: linear-gradient(273deg, #FF8A00 10.97%, #FFC700 80.05%);
+    box-shadow: 0 40px 60px 0 rgba(0, 0, 0, 0.30);
+    position: relative;
+}
+
+.namaz__time-card__inner {
+    text-align: center;
+    padding: 26px 20px 20px 20px;
+}
+
+.namaz__time-elem.namaz__time-elem--active .namaz__time-card__inner {
+    padding-top: 15px;
+}
+
+.namaz__time-card__time {
+    color: #FFB800;
+    font-size: 30px;
+    font-weight: 600;
+    text-transform: uppercase;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+    padding-bottom: 30px;
+    margin-bottom: 15px;
+}
+
+.namaz__time-elem.namaz__time-elem--active .namaz__time-card__time {
+    color: #FFF;
+    font-size: 48px;
+    font-weight: 300;
+    text-transform: uppercase;
+    border-bottom-color: #ffffff;
+    margin-bottom: 19px;
+}
+
+.namaz__time-card__name {
+    color: #FFB800;
+    font-size: 24px;
+    font-weight: 300;
+}
+
+.namaz__time-elem.namaz__time-elem--active .namaz__time-card__name {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.namaz__time-additional {
+    gap: 1px;
+    display: flex;
+    align-items: center;
+}
+
+.namaz__time-additional__card {
+    width: 50%;
+    border-radius: 20px;
+    background: #242424;
+    padding: 19px 23px 19px 54px;
+    gap: 26px;
+    display: flex;
+    align-items: center;
+}
+
+.namaz__time-additional__card-time {
+    font-size: 30px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.namaz__time-additional__card-title {
+    color: #FFB800;
+    font-size: 14px;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 11px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.namaz__time-additional__card-description {
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.namaz__widgets {
+    margin: -76px 0 92px;
+}
+
+.namaz__widgets-time {
+    margin-bottom: 73px;
+    display: block;
+    position: relative;
+}
+
+.namaz__widgets-time__info {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.namaz__widgets-time__info-title {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 17px;
+    text-transform: uppercase;
+}
+
+.namaz__widgets-time__image {
+    display: block;
+    margin-left: auto;
+    max-width: 882px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.namaz__widgets-bottom {
+    gap: 10px;
+    justify-content: space-between;
+    display: flex;
+    align-items: center;
+}
+
+.namaz__widgets-weather {
+    border-radius: 20px;
+    background: #FFB800;
+    max-width: 489px;
+    width: 100%;
+    position: relative;
+    padding: 29px 39px 23px 39px;
+}
+
+.namaz--mecca .namaz__widgets-weather:nth-child(1)::before {
+    position: absolute;
+    content: url("../assets/images/pages/weather/widgets/suns-decorations.png");
+    right: 94px;
+    bottom: 6px;
+}
+
+.namaz--mecca .namaz__widgets-weather:nth-child(1)::after {
+    position: absolute;
+    content: url("../assets/images/pages/weather/widgets/mosque.png");
+    right: 0;
+    bottom: -5px;
+}
+
+.namaz--mecca .namaz__widgets-weather:nth-child(2)::before {
+    position: absolute;
+    content: url("../assets/images/pages/weather/widgets/clouds-decorations.png");
+    right: 100px;
+    bottom: -9px;
+}
+
+.namaz--mecca .namaz__widgets-weather:nth-child(2)::after {
+    position: absolute;
+    content: url("../assets/images/pages/weather/widgets/qibla.png");
+    right: 0;
+    bottom: -5px;
+}
+
+.namaz__widgets-weather__title {
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 600;
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.namaz__widgets-weather__description {
+    gap: 17px;
+    display: flex;
+    align-items: center;
+}
+
+.namaz__widgets-weather__description-degrees {
+    color: #FFF;
+    font-size: 36px;
+    font-weight: 600;
+    display: block;
+    text-transform: uppercase;
+}
+
+.namaz__widgets-weather__description-text {
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 400;
+    max-width: 88px;
+    display: block;
+}
+
+@media (max-width: 1100px) {
+    .namaz--mecca .namaz__widgets-weather:nth-child(1)::before,
+    .namaz--mecca .namaz__widgets-weather:nth-child(2)::before {
+        content: unset;
+    }
+}
+
+@media (max-width: 970px) {
+    .namaz__time-additional__card {
+        gap: 15px;
+        padding: 20px;
+    }
+}
+
+@media (max-width: 900px) {
+    .namaz__widgets-bottom {
+        flex-wrap: wrap;
+    }
+
+    .namaz__widgets-weather {
+        width: 100%;
+        max-width: unset;
+    }
+
+    .namaz--mecca .namaz__widgets-weather:nth-child(1)::before {
+        content: url("../assets/images/pages/weather/widgets/suns-decorations.png");
+    }
+
+    .namaz--mecca .namaz__widgets-weather:nth-child(1)::after {
+        content: url("../assets/images/pages/weather/widgets/mosque.png");
+    }
+
+    .namaz--mecca .namaz__widgets-weather:nth-child(2)::before {
+        content: url("../assets/images/pages/weather/widgets/clouds-decorations.png");
+    }
+
+    .namaz--mecca .namaz__widgets-weather:nth-child(2)::after {
+        content: url("../assets/images/pages/weather/widgets/qibla.png");
+    }
+}
+
+@media (max-width: 865px) {
+    .namaz__time-top__date {
+        font-size: 20px;
+    }
+
+    .namaz__time-top {
+        margin-bottom: 20px;
+    }
+
+    .namaz__time-elem.namaz__time-elem--active {
+        min-width: unset;
+        max-width: unset;
+        width: 33%;
+    }
+
+    .namaz__time-elem.namaz__time-elem--active::before {
+        content: unset;
+    }
+
+    .namaz__time-elem.namaz__time-elem--active .namaz__time-elem__time_left {
+        display: none;
+    }
+
+    .namaz__time-elem {
+        max-width: unset;
+        width: 33%;
+    }
+
+    .namaz__time-cards {
+        flex-wrap: wrap;
+    }
+
+    .namaz__time-additional__card-description {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .namaz__top-title {
+        font-size: 32px;
+    }
+
+    .namaz__top {
+        padding: 39px 0 53px;
+    }
+
+    .namaz__time-top__cta-text {
+        display: none;
+    }
+
+    .namaz__time-additional__card {
+        gap: 15px;
+    }
+
+    .namaz__time-additional__card-info {
+        width: 100%;
+    }
+
+    .namaz__time-additional {
+        gap: 5px;
+        flex-wrap: wrap;
+    }
+
+    .namaz__time-additional__card {
+        width: 100%;
+    }
+
+    .namaz__widgets-time__info {
+        left: 10px;
+    }
+
+    .namaz__widgets-time__image {
+        min-height: 123px;
+    }
+}
+
+@media (max-width: 600px) {
+    .namaz__time-elem.namaz__time-elem--active {
+        min-height: unset;
+        padding: unset;
+        border: unset;
+    }
+
+    .namaz__time-elem.namaz__time-elem--active .namaz__time-card__time {
+        font-size: 30px;
+        font-weight: 600;
+        padding-bottom: 30px;
+        margin-bottom: 15px;
+    }
+
+    .namaz__time-elem.namaz__time-elem--active .namaz__time-card__inner{
+        padding: 26px 20px 20px 20px;
+    }
+}
+
+@media (max-width: 550px) {
+    .namaz__time-top__cta-link {
+        display: none;
+    }
+
+    .namaz__time-top {
+        gap: unset;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .namaz__top-title {
+        font-size: 22px;
+        font-weight: 400;
+    }
+
+    .namaz__time {
+        border-radius: 12px;
+        padding: 20px 0 137px;
+    }
+
+    .namaz__time-top__date {
+        font-size: 14px;
+    }
+
+    .namaz__time-card__inner,
+    .namaz__time-elem.namaz__time-elem--active .namaz__time-card__inner {
+        padding: 10px;
+    }
+
+    .namaz__time-card__time,
+    .namaz__time-elem.namaz__time-elem--active .namaz__time-card__time {
+        padding-bottom: 15px;
+    }
+
+    .namaz__time-card__time,
+    .namaz__time-elem.namaz__time-elem--active .namaz__time-card__time {
+        font-size: 26px;
+    }
+
+    .namaz__time-card__name,
+    .namaz__time-elem.namaz__time-elem--active .namaz__time-card__name {
+        font-size: 16px;
+    }
+
+    .namaz__time-cards {
+        margin-bottom: 20px;
+    }
+
+    .namaz--mecca .namaz__widgets-weather:nth-child(1)::before,
+    .namaz--mecca .namaz__widgets-weather:nth-child(2)::before {
+        content: unset;
+    }
+
+    .namaz__time-additional__card {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .namaz__time-additional__card-title {
+        padding-bottom: 10px;
+        margin-bottom: 10px;
+    }
+
+    .namaz__widgets-time__info-title {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .namaz--mecca .namaz__widgets-weather:nth-child(1)::after,
+    .namaz--mecca .namaz__widgets-weather:nth-child(2)::after {
+        content: unset;
+    }
+
+    .namaz__widgets-time {
+        margin-bottom: 10px;
+    }
+
+    .namaz__widgets-time__info-title {
+        font-size: 16px;
+    }
+}

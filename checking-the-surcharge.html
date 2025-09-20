@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        Проверка Доплаты
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/checking-the-surcharge.css">
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header__inner">
+            <div class="header__left">
+                <button class="header__left-burger">
+                    <img src="assets/icons/blocks/header/burger.svg" alt="Burger Button">
+                </button>
+                <a href="/" class="header__left-logo">
+                    <img src="assets/logo.svg" alt="Manasik Travel">
+                </a>
+                <div class="header__left-divider"></div>
+                <div class="header__left-city">
+                    <img src="assets/icons/location-tag.svg" alt="Location Tag">
+                    <span>Москва</span>
+                </div>
+            </div>
+            <div class="header__middle">
+                <div class="header__middle-date">
+                    <div class="header__middle-date__gregorian">
+                        1 августа
+                    </div>
+                    <div class="header__middle-date__divider">
+                        /
+                    </div>
+                    <div class="header__middle-date__hijri">
+                        10 зуль-хиджа
+                    </div>
+                </div>
+                <div class="header__middle-form">
+                    <input type="text" class="header__middle-form__input" placeholder="Введите слово...">
+                    <button class="header__middle-form__button">
+                        <img src="assets/icons/loupe.svg" alt="Loupe">
+                    </button>
+                </div>
+            </div>
+            <div class="header__right">
+                <div class="header__right-contact">
+                    <div class="header__right-contact__text">
+                        Представитель в Москве
+                    </div>
+                    <a href="tel:" class="header__right-contact__phone">
+                        <span>
+                            8-800-899-00-66
+                        </span>
+                        <img src="assets/icons/whatsapp.svg" alt="WhatsApp">
+                    </a>
+                </div>
+                <div class="header__right-currencies">
+                    <div class="header__right-currency">
+                        1
+                        &nbsp;
+                        <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign">
+                        &nbsp;
+                        <span>=</span>
+                        &nbsp;
+                        65,26 руб.
+                    </div>
+                    <hr class="header__right-currencies__divider">
+                    <div class="header__right-currency">
+                        1
+                        &nbsp;
+                        <span>риял =</span>
+                        &nbsp;
+                        17,40 руб.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="check">
+        <div class="check__top">
+            <div class="container">
+                <div class="check__top-inner">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="#">
+                                Главная страница
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Хадж 2019
+                            </a>
+                        </li>
+                        <li class="current-page">
+                            <a href="#">
+                                Проверка доплаты
+                            </a>
+                        </li>
+                    </ol>
+                    <h1 class="check__top-title">
+                        проверка доплаты
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="check__main">
+            <div class="container">
+                <div class="check__main-inner">
+                    <div class="check__info">
+                        <div class="check__info-title">
+                            Тема: «Почему непрерывно королевство?»
+                        </div>
+                        <p class="check__info-text">
+                            Административно-территориальное деление берёт субэкваториальный климат, кроме этого, здесь
+                            есть ценнейшие коллекции мексиканских масок, бронзовые и каменные статуи из Индии и Цейлона,
+                            бронзовые барельефы и изваяния, созданные мастерами Экваториальной Африки пять-шесть веков
+                            назад. Ветеринарное свидетельство традиционно. Сырдарья текстологически декларирует языковой
+                            кристаллический фундамент. Верховье, при том, что королевские полномочия находятся в руках
+                            исполнительной власти - кабинета министров, отражает языковой льежский оружейник.
+                        </p>
+                    </div>
+                    <div class="check__content">
+                        <img src="assets/images/pages/checking-the-surcharge/content.png" alt="" class="check__content-image">
+                        <div class="check__content-form">
+                            <div class="check__content-form__inner">
+                                <div class="check__content-form__rows">
+                                    <div class="check__content-form__row">
+                                        <div class="check__content-form__row-number">
+                                            1
+                                        </div>
+                                        <div class="check__content-form__select custom-dropdown">
+                                            <div class="custom-dropdown__options">
+                                                <span class="custom-dropdown__options-selected">Выбор гражданства</span>
+                                                <ul class="custom-dropdown__options-list">
+                                                    <li>Россия</li>
+                                                    <li>Казахстан</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="check__content-form__row">
+                                        <div class="check__content-form__row-number">
+                                            2
+                                        </div>
+                                        <div class="check__content-form__input">
+                                            <label for="passport_number_input"
+                                                   class="check__content-form__input-label">номер загранпаспорт</label>
+                                            <input id="passport_number_input" type="text"
+                                                   placeholder="Введите номер паспорта"
+                                                   class="check__content-form__input-area">
+                                        </div>
+                                    </div>
+                                    <div class="check__content-form__row">
+                                        <div class="check__content-form__row-number">
+                                            3
+                                        </div>
+                                        <div class="check__content-form__input">
+                                            <label for="captcha_input"
+                                                   class="check__content-form__input-label">капча</label>
+                                            <input id="captcha_input" type="text" placeholder="Введите код с картинки"
+                                                   class="check__content-form__input-area">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="check__content-form__captcha">
+                                    <img src="assets/images/pages/checking-the-surcharge/captcha.png" alt="">
+                                </div>
+                                <button class="check__content-form__submit">
+                                    проверить доплату
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="recent-news">
+        <div class="container">
+            <div class="recent-news__inner">
+                <div class="recent-news__top">
+                    <h2 class="recent-news__top-title">
+                        последние новости
+                    </h2>
+                    <button class="recent-news__top-next">
+                        <span>далее</span>
+                        <img src="assets/icons/arrow-right.svg" alt="Arrow Right">
+                    </button>
+                </div>
+                <div class="recent-news__cards swiper">
+                    <div class="swiper-wrapper">
+                        <div class="recent-news__card swiper-slide">
+                            <div class="recent-news__card-date">
+                                25 августа, 2019
+                            </div>
+                            <div class="recent-news__card-image">
+                                <img src="assets/images/blocks/recent-news/1.png" alt="">
+                            </div>
+                            <div class="recent-news__card-info">
+                                <h3 class="recent-news__card-title">
+                                    Здесь располагается ваш очень длинный и содержательный заголовок, который должны
+                                    видеть все потенциальные паломники
+                                </h3>
+                                <p class="recent-news__card-description">
+                                    Яркие представители нашей Республики приобрели путевки в Хадж в этом 2019. А здесь
+                                    отображаются первые предложения вашего поста...
+                                </p>
+                                <div class="recent-news__card-bottom">
+                                    <div class="recent-news__card-bottom__stats">
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/comment.svg" alt="Comments">
+                                            <span>21</span>
+                                        </div>
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/repost.svg" alt="Reposts">
+                                            <span>8</span>
+                                        </div>
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/view.svg" alt="Views">
+                                            <span>246</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="recent-news__card-bottom__link">
+                                        подробнее
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="recent-news__card swiper-slide">
+                            <div class="recent-news__card-date">
+                                25 августа, 2019
+                            </div>
+                            <div class="recent-news__card-image">
+                                <img src="assets/images/blocks/recent-news/2.png" alt="">
+                            </div>
+                            <div class="recent-news__card-info">
+                                <h3 class="recent-news__card-title">
+                                    Здесь располагается ваш очень длинный и содержательный заголовок, который должны
+                                    видеть все потенциальные паломники
+                                </h3>
+                                <p class="recent-news__card-description">
+                                    Яркие представители нашей Республики приобрели путевки в Хадж в этом 2019. А здесь
+                                    отображаются первые предложения вашего поста...
+                                </p>
+                                <div class="recent-news__card-bottom">
+                                    <div class="recent-news__card-bottom__stats">
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/comment.svg" alt="Comments">
+                                            <span>21</span>
+                                        </div>
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/repost.svg" alt="Reposts">
+                                            <span>8</span>
+                                        </div>
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/view.svg" alt="Views">
+                                            <span>246</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="recent-news__card-bottom__link">
+                                        подробнее
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="recent-news__card swiper-slide">
+                            <div class="recent-news__card-date">
+                                25 августа, 2019
+                            </div>
+                            <div class="recent-news__card-image">
+                                <img src="assets/images/blocks/recent-news/3.png" alt="">
+                            </div>
+                            <div class="recent-news__card-info">
+                                <h3 class="recent-news__card-title">
+                                    Здесь располагается ваш очень длинный и содержательный заголовок, который должны
+                                    видеть все потенциальные паломники
+                                </h3>
+                                <p class="recent-news__card-description">
+                                    Яркие представители нашей Республики приобрели путевки в Хадж в этом 2019. А здесь
+                                    отображаются первые предложения вашего поста...
+                                </p>
+                                <div class="recent-news__card-bottom">
+                                    <div class="recent-news__card-bottom__stats">
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/comment.svg" alt="Comments">
+                                            <span>21</span>
+                                        </div>
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/repost.svg" alt="Reposts">
+                                            <span>8</span>
+                                        </div>
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/view.svg" alt="Views">
+                                            <span>246</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="recent-news__card-bottom__link">
+                                        подробнее
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="recent-news__card swiper-slide">
+                            <div class="recent-news__card-date">
+                                25 августа, 2019
+                            </div>
+                            <div class="recent-news__card-image">
+                                <img src="assets/images/blocks/recent-news/2.png" alt="">
+                            </div>
+                            <div class="recent-news__card-info">
+                                <h3 class="recent-news__card-title">
+                                    Здесь располагается ваш очень длинный и содержательный заголовок, который должны
+                                    видеть все потенциальные паломники
+                                </h3>
+                                <p class="recent-news__card-description">
+                                    Яркие представители нашей Республики приобрели путевки в Хадж в этом 2019. А здесь
+                                    отображаются первые предложения вашего поста...
+                                </p>
+                                <div class="recent-news__card-bottom">
+                                    <div class="recent-news__card-bottom__stats">
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/comment.svg" alt="Comments">
+                                            <span>21</span>
+                                        </div>
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/repost.svg" alt="Reposts">
+                                            <span>8</span>
+                                        </div>
+                                        <div class="recent-news__card-bottom__stat">
+                                            <img src="assets/icons/view.svg" alt="Views">
+                                            <span>246</span>
+                                        </div>
+                                    </div>
+                                    <a href="#" class="recent-news__card-bottom__link">
+                                        подробнее
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="tours">
+        <div class="container">
+            <div class="tours__inner">
+                <div class="tours-top">
+                    <h2 class="tours-top__title">
+                        популярные туры
+                    </h2>
+                    <button class="tours-top__next">
+                        <span>далее</span>
+                        <img src="assets/icons/arrow-right.svg" alt="Right Arrow">
+                    </button>
+                </div>
+                <div class="tours__cards swiper">
+                    <div class="swiper-wrapper">
+                        <div class="tours__card swiper-slide">
+                            <div class="tours__card-name">
+                                Хадж программа
+                                “супер эконом из москвы”
+                            </div>
+                            <div class="tours__card-buy">
+                                <div class="tours__card-buy__price">
+                                    154 000 <span>руб.</span>
+                                </div>
+                                <button class="tours__card-buy__button">
+                                    купить путевку
+                                </button>
+                            </div>
+                        </div>
+                        <div class="tours__card swiper-slide">
+                            <div class="tours__card-name">
+                                Хадж программа
+                                “супер эконом из москвы”
+                            </div>
+                            <div class="tours__card-buy">
+                                <div class="tours__card-buy__price">
+                                    154 000 <span>руб.</span>
+                                </div>
+                                <button class="tours__card-buy__button">
+                                    купить путевку
+                                </button>
+                            </div>
+                        </div>
+                        <div class="tours__card swiper-slide">
+                            <div class="tours__card-name">
+                                Хадж программа
+                                “супер эконом из москвы”
+                            </div>
+                            <div class="tours__card-buy">
+                                <div class="tours__card-buy__price">
+                                    154 000 <span>руб.</span>
+                                </div>
+                                <button class="tours__card-buy__button">
+                                    купить путевку
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <article class="social-media">
+        <div class="container">
+            <div class="social-media__inner">
+                <div class="social-media__text">
+                    Подпишитесь на нас и будьте в курсе новостей хаджа и акций компании!
+                </div>
+                <div class="social-media__list">
+                    <a href="#" class="social-media__list-elem">
+                        вконтакте
+                    </a>
+                    <a href="#" class="social-media__list-elem">
+                        Instagram
+                    </a>
+                    <a href="#" class="social-media__list-elem">
+                        telegram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+</main>
+<footer class="footer">
+    <div class="container">
+        <div class="footer__inner">
+            <div class="footer__top">
+                <div class="footer__top-left">
+                    <a href="/" class="footer__top-left__logo">
+                        <img src="assets/logo.svg" alt="Manasik Travel">
+                    </a>
+                    <div class="footer__top-left__divider"></div>
+                    <div class="footer__top-left__city">
+                        <img src="assets/icons/location-tag.svg" alt="Location Tag">
+                        <span>Москва</span>
+                    </div>
+                </div>
+                <div class="footer__top-middle">
+                    <div class="footer__middle-form">
+                        <input type="text" class="footer__middle-form__input" placeholder="Введите слово...">
+                        <button class="footer__middle-form__button">
+                            <img src="assets/icons/loupe.svg" alt="Loupe">
+                        </button>
+                    </div>
+                </div>
+                <div class="footer__top-right">
+                    <div class="footer__top-social_media">
+                        <div class="footer__top-social_media-label">
+                            Социальные сети
+                        </div>
+                        <div class="footer__top-social_media-list">
+                            <a href="#">
+                                <img src="assets/icons/blocks/footer/instagram.svg" alt="Instagram">
+                            </a>
+                            <a href="#">
+                                <img src="assets/icons/blocks/footer/vk.svg" alt="VKontakte">
+                            </a>
+                            <a href="#">
+                                <img src="assets/icons/blocks/footer/telegram.svg" alt="Telegram">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer__top-phone">
+                        <div class="footer__top-phone__label">
+                            Представитель в Москве
+                        </div>
+                        <a href="#" class="footer__top-phone__number">
+                            8-800-899-00-66
+                            <img src="assets/icons/whatsapp.svg" alt="WhatsApp">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__divider"></div>
+            <div class="footer__navigation">
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        Хадж 2019
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Туры в Хадж
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Необходимые документы на Хадж
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Информация о дате начала хаджа
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Проверить доплату за повторный Хадж
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        новости
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        умра 2019
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Туры на Умру
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Необходимые документы на Умру
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Проверить доплату за повторную Умру
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        Погода в Мекке и Медине
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        подготовка и уроки
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Советы паломникам
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Уроки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Часто задаваемые вопросы
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Адреса вакцинаций
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        Карта Мекки / Медины
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        медиа
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Фото хаджа и умры
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Видео хаджа и умры
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Онлайн трансляция Мекки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Онлайн трансляция Медины
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        время намаза мекка и медина
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        о компании
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                О нас
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Филиалы и контакты
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Сотрудничество
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Обратная связь
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Банковские реквизиты
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Вакансии
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Пресса о нас
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        клиентам
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Проверить договор
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Узнать дату вылета
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Проверка готовности визы
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        отзывы
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <div class="footer__bottom-copyright">
+                    ООО “Манасик Тревел” 2019
+                </div>
+                <div class="footer__bottom-made_by">
+                    <a href="#" class="footer__bottom-made_by-elem">
+                        Дизайн сайта:
+                        <strong>Лия Сечка</strong>
+                    </a>
+                    <a href="#" class="footer__bottom-made_by-elem">
+                        Верстка сайта:
+                        <strong>Николай Берсенев</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/index.js"></script>
+<script src="js/dropdowns.js"></script>
+<script src="js/recentNewsSlider.js"></script>
+</body>
+</html>

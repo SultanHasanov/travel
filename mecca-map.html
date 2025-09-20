@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        Карта Мекки
+    </title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/mecca-map.css">
+</head>
+<body>
+<header class="header header--unfixed">
+    <div class="container">
+        <div class="header__inner">
+            <div class="header__left">
+                <button class="header__left-burger">
+                    <img src="assets/icons/blocks/header/burger.svg" alt="Burger Button">
+                </button>
+                <a href="/" class="header__left-logo">
+                    <img src="assets/logo.svg" alt="Manasik Travel">
+                </a>
+                <div class="header__left-divider"></div>
+                <div class="header__left-city">
+                    <img src="assets/icons/location-tag.svg" alt="Location Tag">
+                    <span>Москва</span>
+                </div>
+            </div>
+            <div class="header__middle">
+                <div class="header__middle-date">
+                    <div class="header__middle-date__gregorian">
+                        1 августа
+                    </div>
+                    <div class="header__middle-date__divider">
+                        /
+                    </div>
+                    <div class="header__middle-date__hijri">
+                        10 зуль-хиджа
+                    </div>
+                </div>
+                <div class="header__middle-form">
+                    <input type="text" class="header__middle-form__input" placeholder="Введите слово...">
+                    <button class="header__middle-form__button">
+                        <img src="assets/icons/loupe.svg" alt="Loupe">
+                    </button>
+                </div>
+            </div>
+            <div class="header__right">
+                <div class="header__right-contact">
+                    <div class="header__right-contact__text">
+                        Представитель в Москве
+                    </div>
+                    <a href="tel:" class="header__right-contact__phone">
+                        <span>
+                            8-800-899-00-66
+                        </span>
+                        <img src="assets/icons/whatsapp.svg" alt="WhatsApp">
+                    </a>
+                </div>
+                <div class="header__right-currencies">
+                    <div class="header__right-currency">
+                        1
+                        &nbsp;
+                        <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign">
+                        &nbsp;
+                        <span>=</span>
+                        &nbsp;
+                        65,26 руб.
+                    </div>
+                    <hr class="header__right-currencies__divider">
+                    <div class="header__right-currency">
+                        1
+                        &nbsp;
+                        <span>риял =</span>
+                        &nbsp;
+                        17,40 руб.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="map">
+        <div class="map__top">
+            <div class="container">
+                <div class="map__top-inner">
+                    <ol class="breadcrumbs">
+                        <li>
+                            <a href="#">
+                                Главная страница
+                            </a>
+                        </li>
+                        <li class="current-page">
+                            <a href="#">
+                                О компании
+                            </a>
+                        </li>
+                    </ol>
+                    <h1 class="map__top-title">
+                        карта мекки
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="map__content">
+            <div class="container">
+                <div class="map__content-inner">
+                    <div class="map__content-filters">
+                        <div class="map__content-filter custom-dropdown">
+                            <div class="custom-dropdown__options">
+                                <div class="custom-dropdown__options-selected">места</div>
+                                <ul class="custom-dropdown__options-list">
+                                    <li>
+                                        показать все
+                                    </li>
+                                    <li>
+                                        <img src="assets/icons/pages/mecca-map/filters/mosque.svg" alt="Mosque">
+                                        <span>Мечети и молельные</span>
+                                    </li>
+                                    <li>
+                                        <img src="assets/icons/pages/mecca-map/filters/monument.svg" alt="Attractions">
+                                        <span>Достопримечательности</span>
+                                    </li>
+                                    <li>
+                                        <img src="assets/icons/pages/mecca-map/filters/trees.svg" alt="Trees">
+                                        <span>Парки и аллеи</span>
+                                    </li>
+                                    <li>
+                                        <img src="assets/icons/pages/mecca-map/filters/cart.svg" alt="Cart">
+                                        <span>Магазины и прилавки</span>
+                                    </li>
+                                    <li>
+                                        <img src="assets/icons/pages/mecca-map/filters/airplane.svg" alt="Airplane">
+                                        <span>Аэропорты</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="map__content-reset">
+                            <div class="map__content-reset__text">
+                                сбросить фильтры
+                            </div>
+                            <button class="map__content-reset__button">
+                                <img src="assets/icons/pages/mecca-map/cross.svg" alt="Cross">
+                            </button>
+                        </div>
+                    </div>
+                    <div class="map__content-search">
+                        <input type="text" id="contacts_form_name_input" class="map__content-search__input"
+                               placeholder="Введите место...">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="map__cards">
+            <div class="container">
+                <div class="map__cards-inner">
+                    <div class="map__card">
+                        <div class="map__card-image">
+                            <img src="assets/images/pages/mecca-map/card-preview.png" alt="">
+                        </div>
+                        <div class="map__card-top">
+                            <div class="map__card-name">
+                                Мечеть аль-Харам
+                            </div>
+                            <img src="assets/images/pages/mecca-map/stars.png" alt="" class="map__card-rating">
+                        </div>
+                        <div class="map__card-info">
+                            <ul class="map__card-list">
+                                <li class="map__card-list__item map__card-list__item--address">
+                                    <img src="assets/icons/location-tag.svg" alt="">
+                                    <div class="map__card-list__item-text">
+                                        Здесь адрес места на русском языке Аравия
+                                    </div>
+                                </li>
+                                <li class="map__card-list__item">
+                                    <img src="assets/icons/pages/mecca-map/clock.svg" alt="">
+                                    <div class="map__card-list__item-text">
+                                        24 часа в сутки
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="map__card-info__description">
+                                <p class="map__card-info__description-text">
+                                    Здесь находится описательный текст, который описывает описательные качества этого
+                                    объекта. Всего парочка предложений...
+                                </p>
+                                <a href="#" class="map__card-info__description-link">
+                                    подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="map__card">
+                        <div class="map__card-image">
+                            <img src="assets/images/pages/mecca-map/card-preview.png" alt="">
+                        </div>
+                        <div class="map__card-top">
+                            <div class="map__card-name">
+                                Мечеть аль-Харам
+                            </div>
+                            <img src="assets/images/pages/mecca-map/stars.png" alt="" class="map__card-rating">
+                        </div>
+                        <div class="map__card-info">
+                            <ul class="map__card-list">
+                                <li class="map__card-list__item">
+                                    <img src="assets/icons/pages/mecca-map/mosque.svg" alt="">
+                                    <div class="map__card-list__item-text">
+                                        1,5 - 2км до Мечети Аль Харам
+                                    </div>
+                                </li>
+                                <li class="map__card-list__item">
+                                    <img src="assets/icons/location-tag.svg" alt="">
+                                    <div class="map__card-list__item-text">
+                                        Здесь адрес места на русском языке Аравия
+                                    </div>
+                                </li>
+                                <li class="map__card-list__item">
+                                    <img src="assets/icons/pages/mecca-map/clock.svg" alt="">
+                                    <div class="map__card-list__item-text">
+                                        24 часа в сутки
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="map__card-info__description">
+                                <p class="map__card-info__description-text">
+                                    Здесь находится описательный текст, который описывает описательные качества этого
+                                    объекта. Всего парочка предложений...
+                                </p>
+                                <a href="#" class="map__card-info__description-link">
+                                    подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="map__card">
+                        <div class="map__card-image">
+                            <img src="assets/images/pages/mecca-map/card-preview.png" alt="">
+                        </div>
+                        <div class="map__card-top">
+                            <div class="map__card-name">
+                                Мечеть аль-Харам
+                            </div>
+                            <img src="assets/images/pages/mecca-map/stars.png" alt="" class="map__card-rating">
+                        </div>
+                        <div class="map__card-info">
+                            <ul class="map__card-list">
+                                <li class="map__card-list__item map__card-list__item--address">
+                                    <img src="assets/icons/location-tag.svg" alt="">
+                                    <div class="map__card-list__item-text">
+                                        Здесь адрес места на русском языке Аравия
+                                    </div>
+                                </li>
+                                <li class="map__card-list__item">
+                                    <img src="assets/icons/pages/mecca-map/clock.svg" alt="">
+                                    <div class="map__card-list__item-text">
+                                        24 часа в сутки
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="map__card-info__description">
+                                <p class="map__card-info__description-text">
+                                    Здесь находится описательный текст, который описывает описательные качества этого
+                                    объекта. Всего парочка предложений...
+                                </p>
+                                <a href="#" class="map__card-info__description-link">
+                                    подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="map__card">
+                        <div class="map__card-image">
+                            <img src="assets/images/pages/mecca-map/card-preview.png" alt="">
+                        </div>
+                        <div class="map__card-top">
+                            <div class="map__card-name">
+                                Мечеть аль-Харам
+                            </div>
+                            <img src="assets/images/pages/mecca-map/stars.png" alt="" class="map__card-rating">
+                        </div>
+                        <div class="map__card-info">
+                            <ul class="map__card-list">
+                                <li class="map__card-list__item">
+                                    <img src="assets/icons/pages/mecca-map/mosque.svg" alt="">
+                                    <div class="map__card-list__item-text">
+                                        1,5 - 2км до Мечети Аль Харам
+                                    </div>
+                                </li>
+                                <li class="map__card-list__item">
+                                    <img src="assets/icons/location-tag.svg" alt="">
+                                    <div class="map__card-list__item-text">
+                                        Здесь адрес места на русском языке Аравия
+                                    </div>
+                                </li>
+                                <li class="map__card-list__item">
+                                    <img src="assets/icons/pages/mecca-map/clock.svg" alt="">
+                                    <div class="map__card-list__item-text">
+                                        24 часа в сутки
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="map__card-info__description">
+                                <p class="map__card-info__description-text">
+                                    Здесь находится описательный текст, который описывает описательные качества этого
+                                    объекта. Всего парочка предложений...
+                                </p>
+                                <a href="#" class="map__card-info__description-link">
+                                    подробнее
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <button class="map__load">
+                загрузить еще
+            </button>
+        </div>
+    </section>
+    <section class="tours">
+        <div class="container">
+            <div class="tours__inner">
+                <div class="tours-top">
+                    <h2 class="tours-top__title">
+                        популярные туры
+                    </h2>
+                    <button class="tours-top__next">
+                        <span>далее</span>
+                        <img src="assets/icons/arrow-right.svg" alt="Right Arrow">
+                    </button>
+                </div>
+                <div class="tours__cards swiper">
+                    <div class="swiper-wrapper">
+                        <div class="tours__card swiper-slide">
+                            <div class="tours__card-name">
+                                Хадж программа
+                                “супер эконом из москвы”
+                            </div>
+                            <div class="tours__card-buy">
+                                <div class="tours__card-buy__price">
+                                    154 000 <span>руб.</span>
+                                </div>
+                                <button class="tours__card-buy__button">
+                                    купить путевку
+                                </button>
+                            </div>
+                        </div>
+                        <div class="tours__card swiper-slide">
+                            <div class="tours__card-name">
+                                Хадж программа
+                                “супер эконом из москвы”
+                            </div>
+                            <div class="tours__card-buy">
+                                <div class="tours__card-buy__price">
+                                    154 000 <span>руб.</span>
+                                </div>
+                                <button class="tours__card-buy__button">
+                                    купить путевку
+                                </button>
+                            </div>
+                        </div>
+                        <div class="tours__card swiper-slide">
+                            <div class="tours__card-name">
+                                Хадж программа
+                                “супер эконом из москвы”
+                            </div>
+                            <div class="tours__card-buy">
+                                <div class="tours__card-buy__price">
+                                    154 000 <span>руб.</span>
+                                </div>
+                                <button class="tours__card-buy__button">
+                                    купить путевку
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <article class="social-media">
+        <div class="container">
+            <div class="social-media__inner">
+                <div class="social-media__text">
+                    Подпишитесь на нас и будьте в курсе новостей хаджа и акций компании!
+                </div>
+                <div class="social-media__list">
+                    <a href="#" class="social-media__list-elem">
+                        вконтакте
+                    </a>
+                    <a href="#" class="social-media__list-elem">
+                        Instagram
+                    </a>
+                    <a href="#" class="social-media__list-elem">
+                        telegram
+                    </a>
+                </div>
+            </div>
+        </div>
+    </article>
+</main>
+<footer class="footer">
+    <div class="container">
+        <div class="footer__inner">
+            <div class="footer__top">
+                <div class="footer__top-left">
+                    <a href="/" class="footer__top-left__logo">
+                        <img src="assets/logo.svg" alt="Manasik Travel">
+                    </a>
+                    <div class="footer__top-left__divider"></div>
+                    <div class="footer__top-left__city">
+                        <img src="assets/icons/location-tag.svg" alt="Location Tag">
+                        <span>Москва</span>
+                    </div>
+                </div>
+                <div class="footer__top-middle">
+                    <div class="footer__middle-form">
+                        <input type="text" class="footer__middle-form__input" placeholder="Введите слово...">
+                        <button class="footer__middle-form__button">
+                            <img src="assets/icons/loupe.svg" alt="Loupe">
+                        </button>
+                    </div>
+                </div>
+                <div class="footer__top-right">
+                    <div class="footer__top-social_media">
+                        <div class="footer__top-social_media-label">
+                            Социальные сети
+                        </div>
+                        <div class="footer__top-social_media-list">
+                            <a href="#">
+                                <img src="assets/icons/blocks/footer/instagram.svg" alt="Instagram">
+                            </a>
+                            <a href="#">
+                                <img src="assets/icons/blocks/footer/vk.svg" alt="VKontakte">
+                            </a>
+                            <a href="#">
+                                <img src="assets/icons/blocks/footer/telegram.svg" alt="Telegram">
+                            </a>
+                        </div>
+                    </div>
+                    <div class="footer__top-phone">
+                        <div class="footer__top-phone__label">
+                            Представитель в Москве
+                        </div>
+                        <a href="#" class="footer__top-phone__number">
+                            8-800-899-00-66
+                            <img src="assets/icons/whatsapp.svg" alt="WhatsApp">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer__divider"></div>
+            <div class="footer__navigation">
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        Хадж 2019
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Туры в Хадж
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Необходимые документы на Хадж
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Информация о дате начала хаджа
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Проверить доплату за повторный Хадж
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        новости
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        умра 2019
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Туры на Умру
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Необходимые документы на Умру
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Проверить доплату за повторную Умру
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        Погода в Мекке и Медине
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        подготовка и уроки
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Советы паломникам
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Уроки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Часто задаваемые вопросы
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Адреса вакцинаций
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        Карта Мекки / Медины
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        медиа
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Фото хаджа и умры
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Видео хаджа и умры
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Онлайн трансляция Мекки
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Онлайн трансляция Медины
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        время намаза мекка и медина
+                    </div>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        о компании
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                О нас
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Филиалы и контакты
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Сотрудничество
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Обратная связь
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Банковские реквизиты
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Вакансии
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Пресса о нас
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer__navigation-column">
+                    <div class="footer__navigation-column__name">
+                        клиентам
+                    </div>
+                    <ul class="footer__navigation-column__links">
+                        <li>
+                            <a href="#">
+                                Проверить договор
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Узнать дату вылета
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                Проверка готовности визы
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="footer__navigation-column__divider"></div>
+                    <div class="footer__navigation-column__name">
+                        отзывы
+                    </div>
+                </div>
+            </div>
+            <div class="footer__bottom">
+                <div class="footer__bottom-copyright">
+                    ООО “Манасик Тревел” 2019
+                </div>
+                <div class="footer__bottom-made_by">
+                    <a href="#" class="footer__bottom-made_by-elem">
+                        Дизайн сайта:
+                        <strong>Лия Сечка</strong>
+                    </a>
+                    <a href="#" class="footer__bottom-made_by-elem">
+                        Верстка сайта:
+                        <strong>Николай Берсенев</strong>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="js/index.js"></script>
+<script src="js/dropdowns.js"></script>
+</body>
+</html>

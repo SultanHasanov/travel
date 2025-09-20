@@ -1,0 +1,250 @@
+.top-bg {
+    background: url("../assets/images/pages/study/top-bg.png") no-repeat center;
+    background-size: cover;
+    height: 530px;
+}
+
+main {
+    background: #171717;
+}
+
+/* COURSES */
+.courses {
+    margin-top: -413px;
+}
+
+.courses__inner {
+    width: 100%;
+}
+
+.courses__title {
+    color: #FFF;
+    font-size: 48px;
+    font-weight: 300;
+    margin-bottom: 36px;
+    text-transform: uppercase;
+}
+
+.courses__navigation {
+    gap: 30px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.courses__navigation-link {
+    border-radius: 20px;
+    background: rgba(23, 23, 23, 0.50);
+    color: #FFF;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    max-width: 166px;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.courses__navigation-link--current {
+    color: #FFB800;
+    background: #171717;
+}
+
+.courses__cards {
+    gap: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 85px;
+}
+
+.courses__card {
+    border-radius: 20px;
+    background: #1B1B1B;
+    padding: 27px 47px 37px;
+    max-width: 558px;
+    color: #fff;
+    position: relative;
+}
+
+.courses__card-lectures {
+    gap: 11px;
+    display: flex;
+    margin-bottom: 30px;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    padding-left: 23px;
+    position: relative;
+}
+
+.courses__card-lectures::before {
+    content: url("../assets/icons/orange-movie-clapper.svg");
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+.courses__card-name {
+    margin-bottom: 7px;
+    color: #FFB800;
+    font-size: 22px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.courses__card-author {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 77px;
+}
+
+.courses__card-author strong {
+    color: #FFB800;
+}
+
+.courses__card-divider {
+    width: 50px;
+    height: 1px;
+    background: #FFB800;
+    margin-bottom: 20px;
+}
+
+.courses__card-description {
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 26px;
+}
+
+.courses__card-additional {
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.courses__card-additional__elem {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.courses__card-additional__elem strong {
+    color: #FFB800;
+}
+
+.courses__card-link {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    color: #FFF;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    width: 100%;
+    max-width: 196px;
+    border-radius: 0 20px;
+    background: linear-gradient(273deg, #FF8A00 10.97%, #FFC700 80.05%);
+    box-shadow: 0 7px 37px 0 rgba(255, 138, 0, 0.30);
+    padding: 20px 0;
+}
+
+.courses__card:nth-child(even) .courses__card-lectures::before {
+    content: url("../assets/icons/green-movie-clapper.svg");
+}
+
+.courses__card:nth-child(even) .courses__card-name {
+    color: #15CD80;
+}
+
+.courses__card:nth-child(even) .courses__card-author strong {
+    color: #15CD80;
+}
+
+.courses__card:nth-child(even) .courses__card-divider {
+    background: #15CD80;
+}
+
+.courses__card:nth-child(even) .courses__card-additional__elem strong {
+    color: #15CD80;
+}
+
+.courses__card:nth-child(even) .courses__card-link {
+    box-shadow: 0 7px 37px 0 rgba(21, 187, 97, 0.30);
+    background: linear-gradient(273deg, #15BB61 10.97%, #18E48E 80.05%);
+}
+
+.tours--courses-page .tours-top__title {
+    color: #FFF;
+}
+
+@media (max-width: 1200px) {
+    .courses__card {
+        max-width: unset;
+    }
+
+    .courses__card-author {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .courses__title {
+        font-size: 34px;
+    }
+
+    .courses__navigation {
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .courses__navigation-link {
+        width: 24%;
+    }
+}
+
+@media (max-width: 550px) {
+    .courses__cards {
+        gap: 15px;
+    }
+
+    .courses__card {
+        padding: 27px 27px 80px;
+    }
+}
+
+@media (max-width: 480px) {
+    .courses__title {
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .courses__card-lectures {
+        margin-bottom: 10px;
+    }
+
+    .courses__navigation {
+        gap: 5px;
+        margin-bottom: 20px;
+    }
+
+    .courses__navigation-link {
+        font-size: 10px;
+    }
+
+    .courses__cards {
+        margin-bottom: 50px;
+    }
+
+    .courses__card {
+        padding: 20px;
+    }
+
+    .courses__card-link {
+        position: static;
+        display: block;
+        max-width: unset;
+    }
+
+    .courses__card-additional {
+        margin-bottom: 15px;
+    }
+}

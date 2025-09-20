@@ -1,0 +1,391 @@
+.top-bg {
+    background: url("../assets/images/pages/study/top-bg.png") no-repeat center;
+    background-size: cover;
+    height: 530px;
+}
+
+/* BOOK */
+.book {
+    margin-top: -413px;
+}
+
+.book__inner {
+    width: 100%;
+}
+
+.book__title {
+    color: #FFF;
+    font-size: 48px;
+    font-weight: 300;
+    margin-bottom: 36px;
+    text-transform: uppercase;
+}
+
+.book__navigation {
+    gap: 30px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.book__navigation-link {
+    border-radius: 20px;
+    background: rgba(23, 23, 23, 0.50);
+    color: #FFF;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    max-width: 166px;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.book__prev-link {
+    gap: 15px;
+    display: flex;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.book__prev-link span {
+    color: #FFB800;
+    font-size: 10px;
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+}
+
+.book__header {
+    border-radius: 20px;
+    background: #fff;
+    padding: 36px 64px;
+    position: relative;
+    margin-bottom: 70px;
+}
+
+.book__header-lectures {
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 21px;
+    padding-left: 23px;
+    position: relative;
+}
+
+.book__header-lectures::before {
+    position: absolute;
+    content: url("../assets/icons/blue-notes.svg");
+    left: 0;
+    top: 1px;
+}
+
+.book__header-name {
+    color: #46C8FF;
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 9px;
+    text-transform: uppercase;
+}
+
+.book__header-author {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 41px;
+}
+
+.book__header-author strong {
+    color: #46C8FF;
+}
+
+.book__header-divider {
+    width: 50px;
+    height: 1px;
+    background: #46C8FF;
+    margin-bottom: 20px;
+}
+
+.book__header-description {
+    font-size: 12px;
+    font-weight: 300;
+    margin-bottom: 19px;
+}
+
+.book__header-additional {
+    gap: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.book__header-additional__elem {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.book__header-additional__elem strong {
+    color: #46C8FF;
+}
+
+.book__header-link {
+    gap: 22px;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    color: #FF005C;
+    font-weight: 600;
+    right: 35px;
+    top: 50%;
+    text-align: right;
+    transform: translate(0, -50%);
+}
+
+.book__header-link__name {
+    font-size: 14px;
+}
+
+.book__header-link__author {
+    font-size: 10px;
+}
+
+.book__lessons {
+    gap: 64px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 54px;
+}
+
+.book__lesson-top {
+    gap: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 26px;
+}
+
+.book__lesson-top__topic {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.book__lesson-top__date {
+    color: #A8A8A8;
+    font-size: 14px;
+    font-weight: 400;
+}
+
+.book__lesson-description {
+    padding: 0 16px;
+    margin-bottom: 34px;
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.book__lesson-audio {
+    margin-bottom: 38px;
+}
+
+.book__lesson-stats {
+    gap: 12px;
+    display: flex;
+    align-items: center;
+    color: #A8A8A8;
+    font-size: 10px;
+    font-weight: 300;
+}
+
+.book__lesson-stat {
+    gap: 6px;
+    display: flex;
+    align-items: center;
+}
+
+/*AUDIO PLAYER*/
+.hidden {
+    display: none;
+}
+
+.player {
+    margin-bottom: 38px;
+    background: white;
+    padding: 22px 20px 22px 30px;
+    border-radius: 20px;
+    position: relative;
+}
+
+.player::before {
+    content: '';
+    position: absolute;
+    top: 10px;
+    width: 97%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    background: #46C8FF;
+    height: 100%;
+    z-index: -1;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+}
+
+.player-play-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.icon-container {
+    fill: transparent;
+    stroke: none;
+}
+
+.player-play-btn:hover {
+    fill: #444444;
+}
+
+.player-play-btn svg {
+    color: #0e0e0e;
+    position: relative;
+    display: block;
+}
+
+.player-play-btn:hover svg {
+    color: #ffffff;
+}
+
+.player-timeline {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    color: #A8A8A8;
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.player-progress {
+    display: flex;
+    position: relative;
+    height: 1px;
+    background: #DFDFDF;
+    border-radius: 25px;
+    margin: 0 5px;
+    flex: 10;
+    flex-basis: 100%;
+    overflow: hidden;
+}
+
+.player-progress-filled {
+    height: 2px;
+    background: #46C8FF;
+    flex: 0;
+    flex-basis: 0%;
+    border-radius: 25px;
+}
+
+.player-time {
+    padding-left: 23px;
+}
+
+@media (max-width: 1200px) {
+    .course__lectures {
+        gap: 40px;
+    }
+
+    .course__lecture {
+        max-width: unset;
+    }
+
+    .course__lecture-video {
+        margin: 0 0 20px 0;
+        width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .book__header {
+        padding: 20px 30px;
+    }
+
+    .book__header-additional {
+        gap: 10px;
+        flex-wrap: wrap;
+        margin-bottom: 40px;
+    }
+
+    .book__header-link {
+        position: static;
+        justify-content: flex-end;
+    }
+
+    .book__title {
+        font-size: 34px;
+    }
+
+    .book__navigation {
+        gap: 10px;
+        justify-content: space-between;
+    }
+
+    .book__navigation-link {
+        width: 24%;
+    }
+}
+
+@media (max-width: 480px) {
+    .book {
+        margin-top: -450px;
+    }
+
+    .book__header {
+        padding: 15px 10px;
+        margin-bottom: 30px;
+    }
+
+    .book__header-name {
+        font-size: 26px;
+    }
+
+    .book__header-author {
+        font-size: 12px;
+    }
+
+    .book__header-author {
+        margin-bottom: 20px;
+    }
+
+    .book__header-link__author {
+        font-size: 9px;
+    }
+
+    .book__title {
+        font-size: 22px;
+        margin-bottom: 20px;
+    }
+
+    .book__navigation {
+        gap: 5px;
+        margin-bottom: 20px;
+    }
+
+    .book__navigation-link {
+        font-size: 10px;
+    }
+
+    .book__lesson-top {
+        margin-bottom: 10px;
+    }
+
+    .book__lesson-description {
+        padding: 0;
+    }
+
+    .player {
+        padding: 15px;
+    }
+}

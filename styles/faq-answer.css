@@ -1,0 +1,404 @@
+/* TOP */
+.faq-answer__top {
+    background: linear-gradient(273deg, #FF8A00 10.97%, #FFC700 80.05%);
+    padding: 57px 0 190px;
+    margin-bottom: 40px;
+    color: #fff;
+}
+
+.faq-answer__top .breadcrumbs {
+    margin-bottom: 34px;
+}
+
+.faq-answer__top-inner {
+    width: 100%;
+}
+
+.faq-answer__top-title {
+    font-size: 24px;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 33px;
+}
+
+.faq-answer__top-question {
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* MAIN */
+.faq-answer__main {
+    margin-bottom: 72px;
+}
+
+.faq-answer__main-inner {
+    gap: 30px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.faq-answer__main-content {
+    max-width: 754px;
+    margin-top: -179px;
+}
+
+.faq-answer__main-answer {
+    background: #FFF;
+    border-radius: 20px;
+    margin-bottom: 62px;
+    padding: 58px 68px;
+}
+
+.faq-answer__main-answer__title {
+    margin-bottom: 30px;
+    font-size: 24px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.faq-answer__main-answer__inner p {
+    font-size: 14px;
+    font-weight: 300;
+}
+
+.faq-answer__main-answer__inner p + p {
+    margin-top: 25px;
+}
+
+.faq-answer__main-navigation {
+    margin-bottom: 62px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.faq-answer__main-navigation__link {
+    gap: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.faq-answer__main-navigation__link span {
+    color: #FFB800;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    text-decoration-line: underline;
+}
+
+.faq-answer__main-navigation__next {
+    text-align: right;
+}
+
+.faq__list-title {
+    font-size: 24px;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 55px;
+}
+
+.faq__list-questions {
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 66px;
+    position: relative;
+    z-index: 10;
+}
+
+.faq__list-question {
+    color: #171717;
+    border-radius: 20px;
+    background: #FFF;
+    padding: 23px 53px;
+    font-size: 14px;
+    font-weight: 600;
+    position: relative;
+}
+
+.faq__list-question::after {
+    top: 50%;
+    transform: translateY(-50%);
+    right: 26px;
+    position: absolute;
+    content: url("pages/faq/arrow-right.svg");
+}
+
+/* ASIDE */
+.faq__aside {
+    max-width: 265px;
+}
+
+.faq__aside-booking {
+    background: url("../assets/images/blocks/aside/booking-bg.png") no-repeat center;
+    background-size: cover;
+    margin-bottom: 32px;
+    border-radius: 20px;
+    padding: 26px 27px;
+    position: relative;
+}
+
+.faq__aside-booking__title {
+    color: #fff;
+    max-width: 188px;
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0 auto 134px;
+    text-transform: uppercase;
+}
+
+.faq__aside-booking__time {
+    gap: 3px;
+    padding: 8px;
+    display: flex;
+    max-width: 289px;
+    align-items: center;
+    border-radius: 20px;
+    margin-bottom: 25px;
+    background: linear-gradient(273deg, #FF8A00 10.97%, #FFC700 80.05%);
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    left: -13px;
+}
+
+.faq__aside-booking__time-measurement {
+    color: #FFB800;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    padding: 2px;
+    border-radius: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.40);
+}
+
+.faq__aside-measurement-inner {
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.40);
+    background: #171717;
+    box-shadow: 0 10px 15px 0 rgba(0, 0, 0, 0.30);
+    text-transform: uppercase;
+    width: 60px;
+    height: 64px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+}
+
+.faq__aside-measurement__int {
+    color: #FFB800;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.faq__aside-measurement__name {
+    color: #FFF;
+    font-size: 10px;
+}
+
+.faq__aside-booking__button {
+    border-radius: 0 30px;
+    box-shadow: 0 7px 37px 0 rgba(255, 138, 0, 0.30);
+    background: linear-gradient(273deg, #FF8A00 10.97%, #FFC700 80.05%);
+    padding: 20px 46px;
+    color: #fff;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    display: block;
+    width: fit-content;
+    margin: 0 auto;
+}
+
+.faq__aside-tours {
+    gap: 52px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 117px;
+}
+
+.faq__aside-tour {
+    border-radius: 20px;
+    background: #FFB800;
+    position: relative;
+}
+
+.faq__aside-tour__name {
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 21px 32px 18px 21px;
+    text-transform: uppercase;
+}
+
+.faq__aside-tour__image {
+    width: 265px;
+    height: 350px;
+    border-radius: 20px;
+    object-fit: cover;
+    display: block;
+}
+
+.faq__aside-tour__buy {
+    background: #FFF;
+    width: fit-content;
+    border-radius: 20px 31px 0 30px;
+    margin: 0 auto;
+    position: absolute;
+    left: 28px;
+    bottom: -20px;
+}
+
+.faq__aside-tour__price {
+    color: #FFB800;
+    font-size: 24px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 13px 0 13px 26px;
+    border-radius: 20px;
+}
+
+.faq__aside-tour__price span {
+    font-size: 14px;
+}
+
+.faq__aside-tour__button {
+    padding: 22px 47px;
+    border: unset;
+    border-radius: 0 30px;
+    box-shadow: 0 7px 37px 0 rgba(255, 138, 0, 0.30);
+    background: linear-gradient(273deg, #FF8A00 10.97%, #FFC700 80.05%);
+    color: #FFF;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.faq__aside-weather {
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.faq__aside-weather__widget {
+    width: 100%;
+    padding: 20px;
+    border-radius: 20px;
+    color: #FFF;
+    background: #FFB800;
+    position: relative;
+}
+
+.faq__aside-weather__widget-place {
+    font-size: 12px;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.faq__aside-weather__widget-degrees {
+    font-size: 24px;
+    font-weight: 300;
+    text-transform: uppercase;
+    margin-bottom: 17px;
+}
+
+.faq__aside-weather__widget-summary {
+    font-size: 12px;
+    font-weight: 400;
+    max-width: 88px;
+}
+
+.faq__aside-weather__widget-image {
+    right: 0;
+    position: absolute;
+}
+
+.faq__aside-weather__widget:first-child .faq__aside-weather__widget-image {
+    bottom: 0;
+}
+
+.faq__aside-weather__widget:last-child .faq__aside-weather__widget-image {
+    bottom: -11px;
+}
+
+@media (max-width: 768px) {
+    .faq__aside {
+        display: none;
+    }
+
+    .faq-answer__main-answer {
+        padding: 26px;
+    }
+
+    .faq__list-questions {
+        margin-bottom: unset;
+    }
+
+    .faq__list-question {
+        padding: 23px 50px 23px 26px;
+    }
+}
+
+@media (max-width: 480px) {
+    .faq__top {
+        padding: 75px 0 175px;
+    }
+
+    .faq-answer__top {
+        padding: 20px 0 160px;
+    }
+
+    .faq-answer__top-title {
+        margin-bottom: 15px;
+    }
+
+    .faq-answer__top-question {
+        font-size: 18px;
+    }
+
+    .faq-answer__main {
+        margin-bottom: 40px;
+    }
+
+    .faq-answer__main-answer {
+        margin-bottom: 20px;
+        padding: 15px;
+    }
+
+    .faq-answer__main-answer__title {
+        margin-bottom: 15px;
+    }
+
+    .faq__list {
+        margin-bottom: unset;
+    }
+
+    .faq__list-title {
+        margin-bottom: 15px;
+    }
+
+    .faq__list-questions {
+        gap: 15px;
+    }
+
+    .faq__list-question {
+        padding: 15px 40px 15px 15px;
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 360px) {
+    .faq-answer__main-navigation__link img {
+        display: none;
+    }
+}

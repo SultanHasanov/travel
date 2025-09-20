@@ -1,0 +1,369 @@
+main {
+    background: #171717;
+}
+
+/* WEATHER */
+.weather {
+    margin-bottom: 38px;
+    padding: 40px 0 75px;
+    background: linear-gradient(273deg, #FFC700 10.97%, #FF8A00 80.05%);
+}
+
+.weather--mecca .weather__inner::after {
+    position: absolute;
+    content: url("../assets/images/pages/weather/qibla.png");
+    right: -77px;
+    bottom: -79px;
+}
+
+.weather--medina .weather__inner::after {
+    position: absolute;
+    content: url("../assets/images/pages/weather/mosque.png");
+    right: -77px;
+    bottom: -79px;
+}
+
+.weather.weather--cloudy {
+    background: linear-gradient(273deg, #8FB0BE 10.97%, #B0CDDA 80.05%);
+}
+
+.weather.weather--overcast {
+    background: linear-gradient(273deg, #20ECF9 10.97%, #46C8FF 80.05%);
+}
+
+.weather.weather--rainy {
+    background: linear-gradient(273deg, #2A398A 10.97%, #1E1046 80.05%);
+}
+
+.weather__inner {
+    width: 100%;
+    position: relative;
+}
+
+.weather__inner::before {
+    position: absolute;
+    content: url("../assets/images/pages/weather/suns-decorations.png");
+    right: -120px;
+    top: 0;
+}
+
+.weather.weather--cloudy .weather__inner::before {
+    content: url("../assets/images/pages/weather/clouds-decorations.png");
+}
+
+.weather.weather--overcast .weather__inner::before {
+    content: url("../assets/images/pages/weather/sunny-clouds-decorations.png");
+}
+
+.weather.weather--rainy .weather__inner::before {
+    content: url("../assets/images/pages/weather/rainy-clouds-decorations.png");
+}
+
+.weather__inner .breadcrumbs {
+    margin-bottom: 34px;
+}
+
+.weather__title {
+    gap: 26px;
+    display: flex;
+    align-items: center;
+    color: #FFF;
+    font-size: 48px;
+    font-weight: 300;
+    margin-bottom: 40px;
+    text-transform: uppercase;
+}
+
+.weather__title span {
+    border-radius: 10px;
+    background: #FFF;
+    padding: 7px 21px;
+    color: #FFB800;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.weather.weather--cloudy .weather__title span {
+    color: #C4C4C4;
+}
+
+.weather.weather--overcast .weather__title span {
+    color: #46C8FF;
+}
+
+.weather.weather--rainy .weather__title span {
+    color: #00528D;
+}
+
+.weather__divider {
+    margin-bottom: 33px;
+    max-width: 655px;
+    width: 100%;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.40);
+}
+
+.weather__info-title {
+    color: #FFF;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 37px;
+    padding-left: 43px;
+    position: relative;
+}
+
+.weather__info-title::before {
+    position: absolute;
+    content: url("../assets/icons/pages/weather/sun.svg");
+    left: 0;
+}
+
+.weather.weather--cloudy .weather__info-title::before {
+    content: url("../assets/icons/pages/weather/cloud.svg");
+}
+
+.weather.weather--overcast .weather__info-title::before {
+    content: url("../assets/icons/pages/weather/sunny-cloud.svg");
+}
+
+.weather.weather--rainy .weather__info-title::before {
+    content: url("../assets/icons/pages/weather/rainy-cloud.svg");
+}
+
+.weather__info-characteristics {
+    gap: 18px;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 529px;
+    justify-content: space-between;
+}
+
+.weather__info-characteristic__name {
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    opacity: 0.6;
+}
+
+.weather__info-characteristic__content {
+    color: #FFF;
+    font-size: 48px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.weather__info-characteristic__content span {
+    font-size: 24px;
+}
+
+/* WIDGETS */
+.widgets {
+    margin-bottom: 85px;
+}
+
+.widgets__inner {
+    gap: 10px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.widgets__weather {
+    border-radius: 20px;
+    background: #FFB800;
+    max-width: 489px;
+    width: 100%;
+    position: relative;
+    padding: 29px 39px 23px 39px;
+}
+
+.widgets--mecca .widgets__weather::before {
+    position: absolute;
+    content: url("../assets/images/pages/weather/widgets/suns-decorations.png");
+    right: 94px;
+    bottom: 6px;
+}
+
+.widgets--mecca .widgets__weather::after {
+    position: absolute;
+    content: url("../assets/images/pages/weather/widgets/mosque.png");
+    right: 0;
+    bottom: -5px;
+}
+
+.widgets__weather-title {
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 600;
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.widgets__weather-description {
+    gap: 17px;
+    display: flex;
+    align-items: center;
+}
+
+.widgets__weather-description__degrees {
+    color: #FFF;
+    font-size: 36px;
+    font-weight: 600;
+    display: block;
+    text-transform: uppercase;
+}
+
+.widgets__weather-description__text {
+    color: #FFF;
+    font-size: 12px;
+    font-weight: 400;
+    max-width: 88px;
+    display: block;
+}
+
+.widgets__namaz {
+    gap: 22px;
+    display: flex;
+    align-items: center;
+}
+
+.widgets__namaz-elem {
+    width: 306px;
+    display: block;
+    border-radius: 20px;
+    padding: 24px 37px;
+    max-height: 123px;
+}
+
+.widgets__namaz-elem span {
+    color: #FFF;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+    max-width: 160px;
+    display: block;
+    margin-bottom: 17px;
+}
+
+.widgets__namaz-elem:nth-child(1) {
+    background: url("../assets/images/pages/weather/widgets/mecca-bg.png") no-repeat center;
+    background-size: cover;
+}
+
+.widgets__namaz-elem:nth-child(2) {
+    background: url("../assets/images/pages/weather/widgets/medina-bg.png") no-repeat center;
+    background-size: cover;
+}
+
+.tours--weather .tours-top__title {
+    color: #fff;
+}
+
+@media (max-width: 1100px) {
+    .weather__inner::before,
+    .widgets--mecca .widgets__weather::before {
+        content: unset;
+    }
+}
+
+@media (max-width: 1000px) {
+    .widgets--mecca .widgets__weather::after {
+        content: unset;
+    }
+
+    .widgets__namaz {
+        gap: 10px;
+    }
+
+    .widgets__namaz-elem {
+        width: unset;
+    }
+}
+
+@media (max-width: 900px) {
+    .weather--mecca .weather__inner::after {
+        content: unset;
+    }
+
+    .widgets__inner {
+        flex-wrap: wrap;
+    }
+
+    .widgets__weather {
+        width: 100%;
+        max-width: unset;
+    }
+
+    .widgets__namaz {
+        width: 100%;
+    }
+
+    .widgets__namaz-elem {
+        width: 50%;
+    }
+
+    .widgets--mecca .widgets__weather::before {
+        content: url("../assets/images/pages/weather/widgets/suns-decorations.png");
+    }
+
+    .widgets--mecca .widgets__weather::after {
+        content: url("../assets/images/pages/weather/widgets/mosque.png");
+    }
+}
+
+@media (max-width: 768px) {
+    .weather__title {
+        font-size: 30px;
+    }
+
+    .weather__info-characteristic__name {
+        font-size: 17px;
+    }
+
+    .widgets__namaz-elem {
+        width: 100%;
+    }
+
+    .widgets__namaz {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .widgets {
+        margin-bottom: 40px;
+    }
+
+    .weather__info-characteristics {
+        max-width: 300px;
+    }
+
+    .weather__title {
+        flex-wrap: wrap;
+    }
+
+    .weather__info-characteristic__content {
+        font-size: 32px;
+    }
+
+    .weather__info-characteristic__content span {
+        font-size: 16px;
+    }
+
+    .weather__info-characteristic__name {
+        font-size: 11px;
+    }
+
+    .widgets--mecca .widgets__weather::before {
+        content: unset;
+    }
+}
+
+@media (max-width: 375px) {
+    .widgets--mecca .widgets__weather::after {
+        content: unset;
+    }
+}
