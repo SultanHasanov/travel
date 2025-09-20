@@ -3380,3 +3380,139 @@
         gap: 20px;
     }
 }
+
+
+
+ /* Sidebar styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -350px;
+            width: 350px;
+            height: 100vh;
+            background: linear-gradient(180deg, #1a1a1a 0%, #0d0d0d 100%);
+            transition: left 0.3s ease;
+            z-index: 1500;
+            box-shadow: 2px 0 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar__overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 1400;
+        }
+
+        .sidebar__overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .sidebar__header {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .sidebar__logo img {
+            height: 35px;
+        }
+
+        .sidebar__close {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 24px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .sidebar__auth {
+            padding: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .sidebar__auth-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #FFB800;
+        }
+
+        .sidebar__auth-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .sidebar__auth-btn {
+            padding: 12px 20px;
+            border: 2px solid #FFB800;
+            background: transparent;
+            color: #FFB800;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar__auth-btn:hover {
+            background: #FFB800;
+            color: #000;
+        }
+
+        .sidebar__auth-btn.primary {
+            background: #FFB800;
+            color: #000;
+        }
+
+        .sidebar__auth-btn.primary:hover {
+            background: transparent;
+            color: #FFB800;
+        }
+
+        .sidebar__menu {
+            padding: 20px 0;
+        }
+
+        .sidebar__menu-item {
+            padding: 15px 20px;
+            color: #ccc;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar__menu-item:hover {
+            background: rgba(255, 184, 0, 0.1);
+            color: #FFB800;
+        }
+
+       
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header__right {
+                display: none;
+            }
+            
+            .auth-form {
+                padding: 30px 20px;
+            }
+            
+            .sidebar {
+                width: 280px;
+                left: -280px;
+            }
+        }

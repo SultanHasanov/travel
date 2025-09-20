@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Главная Страница</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/auth.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__inner">
+          <div class="header__left">
+            <button class="header__left-burger" id="burgerBtn">
+              <img
+                src="assets/icons/blocks/header/burger.svg"
+                alt="Burger Button"
+              />
+            </button>
+            <a href="/" class="header__left-logo">
+              <img src="assets/logo.svg" alt="Manasik Travel" />
+            </a>
+            <div class="header__left-divider"></div>
+            <div class="header__left-city">
+              <img src="assets/icons/location-tag.svg" alt="Location Tag" />
+              <span>Москва</span>
+            </div>
+          </div>
+          <div class="header__middle">
+            <div class="header__middle-date">
+              <div class="header__middle-date__gregorian">1 августа</div>
+              <div class="header__middle-date__divider">/</div>
+              <div class="header__middle-date__hijri">10 зуль-хиджа</div>
+            </div>
+            <div class="header__middle-form">
+              <input
+                type="text"
+                class="header__middle-form__input"
+                placeholder="Введите слово..."
+              />
+              <button class="header__middle-form__button">
+                <img src="assets/icons/loupe.svg" alt="Loupe" />
+              </button>
+            </div>
+          </div>
+          <div class="header__right">
+            <div class="header__right-contact">
+              <div class="header__right-contact__text">
+                Представитель в Москве
+              </div>
+              <a href="tel:" class="header__right-contact__phone">
+                <span> 8-800-899-00-66 </span>
+                <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
+              </a>
+            </div>
+            <div class="header__right-currencies">
+              <div class="header__right-currency" data-currency="USD">
+                1 &nbsp;
+                <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign" />
+                &nbsp;
+                <span>=</span>
+                &nbsp; <span class="rate">65,26</span>&nbsp;руб.
+              </div>
+              <hr class="header__right-currencies__divider" />
+              <div class="header__right-currency" data-currency="SAR">
+                1 &nbsp;
+                <span>риял =</span>
+                &nbsp; <span class="rate">17,40</span>&nbsp;руб.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="auth-container">
+        <div class="auth-tabs">
+          <button class="auth-tab active" onclick="switchTab('login')">
+            Вход
+          </button>
+          <button class="auth-tab" onclick="switchTab('register')">
+            Регистрация
+          </button>
+        </div>
+
+        <div class="auth-form" data-tab="login">
+          <h1 class="auth-form__title">Добро пожаловать</h1>
+          <p class="auth-form__subtitle">Войдите в свой личный кабинет</p>
+
+          <div class="form-group">
+            <label class="form-label">Электронная почта</label>
+            <input
+              type="email"
+              class="form-input"
+              placeholder="Введите ваш email"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Пароль</label>
+            <div class="password-input-wrapper">
+              <input
+                type="password"
+                class="form-input password-input"
+                placeholder="Введите пароль"
+                required
+              />
+              <span class="password-toggle">👁</span>
+            </div>
+          </div>
+
+          <div class="form-group register-only">
+            <label class="form-label">Имя</label>
+            <input
+              type="text"
+              class="form-input"
+              placeholder="Введите ваше имя"
+              required
+            />
+          </div>
+
+          <div class="form-checkbox-group">
+            <input
+              type="checkbox"
+              class="form-checkbox"
+              id="remember"
+              checked
+            />
+            <label for="remember" class="form-checkbox-label">
+              Запомнить меня на этом устройстве
+            </label>
+          </div>
+
+          <div class="form-checkbox-group register-only">
+            <input
+              type="checkbox"
+              class="form-checkbox"
+              id="agreement"
+              checked
+            />
+            <label for="agreement" class="form-checkbox-label">
+              Я принимаю условия пользовательского соглашения и политику
+              обработки персональных данных
+            </label>
+          </div>
+
+          <button class="form-submit" onclick="handleSubmit()">войти</button>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__inner">
+          <div class="footer__top">
+            <div class="footer__top-left">
+              <a href="/" class="footer__top-left__logo">
+                <img src="assets/logo.svg" alt="Manasik Travel" />
+              </a>
+              <div class="footer__top-left__divider"></div>
+              <div class="footer__top-left__city">
+                <img src="assets/icons/location-tag.svg" alt="Location Tag" />
+                <span>Москва</span>
+              </div>
+            </div>
+            <div class="footer__top-middle">
+              <div class="footer__middle-form">
+                <input
+                  type="text"
+                  class="footer__middle-form__input"
+                  placeholder="Введите слово..."
+                />
+                <button class="footer__middle-form__button">
+                  <img src="assets/icons/loupe.svg" alt="Loupe" />
+                </button>
+              </div>
+            </div>
+            <div class="footer__top-right">
+              <div class="footer__top-social_media">
+                <div class="footer__top-social_media-label">
+                  Социальные сети
+                </div>
+                <div class="footer__top-social_media-list">
+                  <a href="#">
+                    <img
+                      src="assets/icons/blocks/footer/instagram.svg"
+                      alt="Instagram"
+                    />
+                  </a>
+                  <a href="#">
+                    <img
+                      src="assets/icons/blocks/footer/vk.svg"
+                      alt="VKontakte"
+                    />
+                  </a>
+                  <a href="#">
+                    <img
+                      src="assets/icons/blocks/footer/telegram.svg"
+                      alt="Telegram"
+                    />
+                  </a>
+                </div>
+              </div>
+              <div class="footer__top-phone">
+                <div class="footer__top-phone__label">
+                  Представитель в Москве
+                </div>
+                <a href="#" class="footer__top-phone__number">
+                  8-800-899-00-66
+                  <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="footer__divider"></div>
+          <div class="footer__navigation">
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">Хадж 2019</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Туры в Хадж </a>
+                </li>
+                <li>
+                  <a href="#"> Необходимые документы на Хадж </a>
+                </li>
+                <li>
+                  <a href="#"> Информация о дате начала хаджа </a>
+                </li>
+                <li>
+                  <a href="#"> Проверить доплату за повторный Хадж </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">новости</div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">умра 2019</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Туры на Умру </a>
+                </li>
+                <li>
+                  <a href="#"> Необходимые документы на Умру </a>
+                </li>
+                <li>
+                  <a href="#"> Проверить доплату за повторную Умру </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">
+                Погода в Мекке и Медине
+              </div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">
+                подготовка и уроки
+              </div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Советы паломникам </a>
+                </li>
+                <li>
+                  <a href="#"> Уроки </a>
+                </li>
+                <li>
+                  <a href="#"> Часто задаваемые вопросы </a>
+                </li>
+                <li>
+                  <a href="#"> Адреса вакцинаций </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">
+                Карта Мекки / Медины
+              </div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">медиа</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Фото хаджа и умры </a>
+                </li>
+                <li>
+                  <a href="#"> Видео хаджа и умры </a>
+                </li>
+                <li>
+                  <a href="#"> Онлайн трансляция Мекки </a>
+                </li>
+                <li>
+                  <a href="#"> Онлайн трансляция Медины </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">
+                время намаза мекка и медина
+              </div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">о компании</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> О нас </a>
+                </li>
+                <li>
+                  <a href="#"> Филиалы и контакты </a>
+                </li>
+                <li>
+                  <a href="#"> Сотрудничество </a>
+                </li>
+                <li>
+                  <a href="#"> Обратная связь </a>
+                </li>
+                <li>
+                  <a href="#"> Банковские реквизиты </a>
+                </li>
+                <li>
+                  <a href="#"> Вакансии </a>
+                </li>
+                <li>
+                  <a href="#"> Пресса о нас </a>
+                </li>
+              </ul>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">клиентам</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Проверить договор </a>
+                </li>
+                <li>
+                  <a href="#"> Узнать дату вылета </a>
+                </li>
+                <li>
+                  <a href="#"> Проверка готовности визы </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">отзывы</div>
+            </div>
+          </div>
+          <div class="footer__bottom">
+            <div class="footer__bottom-copyright">
+              ООО “Манасик Тревел” 2019
+            </div>
+            <div class="footer__bottom-made_by">
+              <a href="#" class="footer__bottom-made_by-elem">
+                Дизайн сайта:
+                <strong>Лия Сечка</strong>
+              </a>
+              <a href="#" class="footer__bottom-made_by-elem">
+                Верстка сайта:
+                <strong>Николай Берсенев</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./js/auth.js"></script>
+    <script src="./api/currency.js"></script>
+  </body>
+</html>

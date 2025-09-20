@@ -686,6 +686,11 @@ header.header--unfixed {
     background: linear-gradient(273deg, #FF8A00 10.97%, #FFC700 80.05%);
 }
 
+.header__right-currency .rate {
+  color: inherit; /* наследует цвет родителя */
+}
+
+
 @media (max-width: 900px) {
     .header__middle {
         display: none;

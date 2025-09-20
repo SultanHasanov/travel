@@ -1,0 +1,174 @@
+/* Main content styles */
+.main {
+  background: url("../assets/images/pages/media/mecca-streaming-bg.png")
+    no-repeat center;
+  background-size: cover;
+  padding: 116px 0 148px;
+}
+
+.auth-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 2;
+}
+
+.auth-tabs {
+  display: flex;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  backdrop-filter: blur(10px);
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 20px;
+  background: none;
+  border: none;
+  color: #ccc;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.auth-tab.active {
+  background: #ffb800;
+  color: #000;
+}
+
+.auth-form {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 40px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(255, 184, 0, 0.2);
+}
+
+.auth-form__title {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: #ffb800;
+}
+
+.auth-form__subtitle {
+  color: #ccc;
+  margin-bottom: 30px;
+  font-size: 16px;
+}
+
+.form-group {
+  margin-bottom: 25px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ffb800;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.form-input {
+  width: 100%;
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 184, 0, 0.3);
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.form-input::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: #ffb800;
+  box-shadow: 0 0 20px rgba(255, 184, 0, 0.2);
+}
+
+.form-checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.form-checkbox {
+  margin-top: 3px;
+}
+
+.form-checkbox-label {
+  color: #ccc;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.form-submit {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #ffb800 0%, #ffa500 100%);
+  border: none;
+  border-radius: 10px;
+  color: #000;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255, 184, 0, 0.3);
+}
+
+.form-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 40px rgba(255, 184, 0, 0.4);
+}
+
+.form-submit:active {
+  transform: translateY(0);
+}
+
+.auth-form[data-tab="register"] .register-only {
+  display: block;
+}
+
+.auth-form[data-tab="login"] .register-only {
+  display: none;
+}
+
+.password-input-wrapper {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  user-select: none;
+  color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .header__right {
+    display: none;
+  }
+
+  .auth-form {
+    padding: 30px 20px;
+  }
+
+  .sidebar {
+    width: 280px;
+    left: -280px;
+  }
+}
