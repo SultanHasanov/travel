@@ -18,7 +18,7 @@ async function loadUsers() {
       // Токен недействителен или отсутствует
       alert("Требуется авторизация. Пожалуйста, войдите в систему.");
       // Перенаправление на страницу входа
-      window.location.href = "/login.html";
+      window.location.href = "/auth.html";
       return;
     }
 
