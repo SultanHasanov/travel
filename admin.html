@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Админ-панель - Manasik Travel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="styles/global.css" />
+
+    <link rel="stylesheet" href="./styles/admin.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__inner">
+          <div class="header__left">
+            <button class="header__left-burger" id="burgerBtn">
+              <img
+                src="assets/icons/blocks/header/burger.svg"
+                alt="Burger Button"
+              />
+            </button>
+            <a href="/" class="header__left-logo">
+              <img src="assets/logo.svg" alt="Manasik Travel" />
+            </a>
+            <div class="header__left-divider"></div>
+            <div class="header__left-city">
+              <img src="assets/icons/location-tag.svg" alt="Location Tag" />
+              <span>Москва</span>
+            </div>
+          </div>
+          <div class="header__middle">
+            <div class="header__middle-date">
+              <div class="header__middle-date__gregorian">1 августа</div>
+              <div class="header__middle-date__divider">/</div>
+              <div class="header__middle-date__hijri">10 зуль-хиджа</div>
+            </div>
+            <div class="header__middle-form">
+              <input
+                type="text"
+                class="header__middle-form__input"
+                placeholder="Введите слово..."
+              />
+              <button class="header__middle-form__button">
+                <img src="assets/icons/loupe.svg" alt="Loupe" />
+              </button>
+            </div>
+          </div>
+          <div class="header__right">
+            <div class="header__right-contact">
+              <div class="header__right-contact__text">
+                Представитель в Москве
+              </div>
+              <a href="tel:" class="header__right-contact__phone">
+                <span> 8-800-899-00-66 </span>
+                <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
+              </a>
+            </div>
+            <div class="header__right-currencies">
+              <div class="header__right-currency" data-currency="USD">
+                1 &nbsp;
+                <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign" />
+                &nbsp;
+                <span>=</span>
+                &nbsp; <span class="rate">65,26</span>&nbsp;руб.
+              </div>
+              <hr class="header__right-currencies__divider" />
+              <div class="header__right-currency" data-currency="SAR">
+                1 &nbsp;
+                <span>риял =</span>
+                &nbsp; <span class="rate">17,40</span>&nbsp;руб.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="auth-container">
+        <div class="auth-tabs">
+          <button class="auth-tab" data-section="dashboard">Главная</button>
+          <button class="auth-tab" data-section="users">Пользователи</button>
+          <button class="auth-tab" data-section="tours">Туры</button>
+          <button class="auth-tab" data-section="news">Новости</button>
+          <button class="auth-tab" data-section="settings">Настройки</button>
+        </div>
+
+        <div class="auth-form">
+          <!-- Dashboard Section -->
+          <section id="dashboard" class="section active">
+            <h1 class="section__title">Панель управления</h1>
+
+            <div class="stats-grid">
+              <div class="stats-card">
+                <div class="stats-card__number">1,247</div>
+                <div class="stats-card__label">Всего пользователей</div>
+              </div>
+              <div class="stats-card">
+                <div class="stats-card__number">89</div>
+                <div class="stats-card__label">Активных туров</div>
+              </div>
+              <div class="stats-card">
+                <div class="stats-card__number">342</div>
+                <div class="stats-card__label">Заявок сегодня</div>
+              </div>
+              <div class="stats-card">
+                <div class="stats-card__number">15</div>
+                <div class="stats-card__label">Новых новостей</div>
+              </div>
+            </div>
+
+            <h2
+              style="
+                font-size: 18px;
+                margin-bottom: 20px;
+                text-transform: uppercase;
+                color: #ffb800;
+              "
+            >
+              Последние действия
+            </h2>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Время</th>
+                  <th>Действие</th>
+                  <th>Пользователь</th>
+                  <th>Статус</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>10:30</td>
+                  <td>Создан новый тур</td>
+                  <td>admin@manasik.ru</td>
+                  <td style="color: #00ff88">Успешно</td>
+                </tr>
+                <tr>
+                  <td>09:15</td>
+                  <td>Регистрация пользователя</td>
+                  <td>ivan.petrov@email.com</td>
+                  <td style="color: #00ff88">Успешно</td>
+                </tr>
+                <tr>
+                  <td>08:45</td>
+                  <td>Бронирование тура</td>
+                  <td>maria.ivanova@email.com</td>
+                  <td style="color: #ffb800">В обработке</td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Users Section -->
+          <section id="users" class="section">
+            <h1 class="section__title">Управление пользователями</h1>
+
+            <div style="margin-bottom: 30px">
+              <button class="btn" onclick="openModal('userModal')">
+                Добавить пользователя
+              </button>
+            </div>
+
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Имя</th>
+                  <th>Email</th>
+                  <th>Статус</th>
+                  <th>Дата регистрации</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="usersTableBody">
+                <tr>
+                  <td>1</td>
+                  <td>Иван Петров</td>
+                  <td>ivan.petrov@email.com</td>
+                  <td>+7 (999) 123-45-67</td>
+                  <td><span style="color: #00ff88">Активен</span></td>
+                  <td>01.09.2024</td>
+                  <td class="admin-table__actions">
+                    <button
+                      class="admin-table__btn admin-table__btn--edit"
+                      onclick="editUser(1)"
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      class="admin-table__btn admin-table__btn--delete"
+                      onclick="deleteUser(1)"
+                    >
+                      Удалить
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Мария Иванова</td>
+                  <td>maria.ivanova@email.com</td>
+                  <td>+7 (999) 234-56-78</td>
+                  <td><span style="color: #00ff88">Активен</span></td>
+                  <td>28.08.2024</td>
+                  <td class="admin-table__actions">
+                    <button
+                      class="admin-table__btn admin-table__btn--edit"
+                      onclick="editUser(2)"
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      class="admin-table__btn admin-table__btn--delete"
+                      onclick="deleteUser(2)"
+                    >
+                      Удалить
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Tours Section -->
+          <section id="tours" class="section">
+            <h1 class="section__title">Управление турами</h1>
+
+            <div style="margin-bottom: 30px">
+              <button class="btn" onclick="openModal('tourModal')">
+                Создать тур
+              </button>
+            </div>
+
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Название</th>
+                  <th>Тип</th>
+                  <th>Цена</th>
+                  <th>Начало</th>
+                  <th>Окончание</th>
+                  <th>Статус</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="toursTableBody"></tbody>
+            </table>
+          </section>
+
+          <!-- News Section -->
+          <section id="news" class="section">
+            <h1 class="section__title">Управление новостями</h1>
+
+            <div style="margin-bottom: 30px">
+              <button class="btn" onclick="openModal('newsModal')">
+                Создать новость
+              </button>
+            </div>
+
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Заголовок</th>
+                  <th>Категория</th>
+                  <th>Дата публикации</th>
+                  <th>Статус</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="newsTableBody">
+                <tr>
+                  <td>1</td>
+                  <td>Открыта регистрация на Хадж 2025</td>
+                  <td>Новости Хаджа</td>
+                  <td>21.09.2024</td>
+                  <td><span style="color: #00ff88">Опубликовано</span></td>
+                  <td class="admin-table__actions">
+                    <button
+                      class="admin-table__btn admin-table__btn--edit"
+                      onclick="editNews(1)"
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      class="admin-table__btn admin-table__btn--delete"
+                      onclick="deleteNews(1)"
+                    >
+                      Удалить
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>Изменения в требованиях к документам</td>
+                  <td>Новости компании</td>
+                  <td>18.09.2024</td>
+                  <td><span style="color: #ffb800">Черновик</span></td>
+                  <td class="admin-table__actions">
+                    <button
+                      class="admin-table__btn admin-table__btn--edit"
+                      onclick="editNews(2)"
+                    >
+                      Редактировать
+                    </button>
+                    <button
+                      class="admin-table__btn admin-table__btn--delete"
+                      onclick="deleteNews(2)"
+                    >
+                      Удалить
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </section>
+
+          <!-- Settings Section -->
+          <section id="settings" class="section">
+            <h1 class="section__title">Настройки системы</h1>
+
+            <form class="admin-form">
+              <div class="form-group">
+                <label class="form-label">Название сайта</label>
+                <input type="text" class="form-input" value="Manasik Travel" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Email для уведомлений</label>
+                <input
+                  type="email"
+                  class="form-input"
+                  value="admin@manasik.ru"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Телефон поддержки</label>
+                <input type="tel" class="form-input" value="8-800-899-00-66" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Курс доллара (руб.)</label>
+                <input
+                  type="number"
+                  class="form-input"
+                  value="65.26"
+                  step="0.01"
+                />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Курс риала (руб.)</label>
+                <input
+                  type="number"
+                  class="form-input"
+                  value="17.40"
+                  step="0.01"
+                />
+              </div>
+
+              <button type="submit" class="btn">Сохранить настройки</button>
+            </form>
+          </section>
+        </div>
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__inner">
+          <div class="footer__top">
+            <div class="footer__top-left">
+              <a href="/" class="footer__top-left__logo">
+                <img src="assets/logo.svg" alt="Manasik Travel" />
+              </a>
+              <div class="footer__top-left__divider"></div>
+              <div class="footer__top-left__city">
+                <img src="assets/icons/location-tag.svg" alt="Location Tag" />
+                <span>Москва</span>
+              </div>
+            </div>
+            <div class="footer__top-middle">
+              <div class="footer__middle-form">
+                <input
+                  type="text"
+                  class="footer__middle-form__input"
+                  placeholder="Введите слово..."
+                />
+                <button class="footer__middle-form__button">
+                  <img src="assets/icons/loupe.svg" alt="Loupe" />
+                </button>
+              </div>
+            </div>
+            <div class="footer__top-right">
+              <div class="footer__top-social_media">
+                <div class="footer__top-social_media-label">
+                  Социальные сети
+                </div>
+                <div class="footer__top-social_media-list">
+                  <a href="#">
+                    <img
+                      src="assets/icons/blocks/footer/instagram.svg"
+                      alt="Instagram"
+                    />
+                  </a>
+                  <a href="#">
+                    <img
+                      src="assets/icons/blocks/footer/vk.svg"
+                      alt="VKontakte"
+                    />
+                  </a>
+                  <a href="#">
+                    <img
+                      src="assets/icons/blocks/footer/telegram.svg"
+                      alt="Telegram"
+                    />
+                  </a>
+                </div>
+              </div>
+              <div class="footer__top-phone">
+                <div class="footer__top-phone__label">
+                  Представитель в Москве
+                </div>
+                <a href="#" class="footer__top-phone__number">
+                  8-800-899-00-66
+                  <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="footer__divider"></div>
+          <div class="footer__navigation">
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">Хадж 2019</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Туры в Хадж </a>
+                </li>
+                <li>
+                  <a href="#"> Необходимые документы на Хадж </a>
+                </li>
+                <li>
+                  <a href="#"> Информация о дате начала хаджа </a>
+                </li>
+                <li>
+                  <a href="#"> Проверить доплату за повторный Хадж </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">новости</div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">умра 2019</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Туры на Умру </a>
+                </li>
+                <li>
+                  <a href="#"> Необходимые документы на Умру </a>
+                </li>
+                <li>
+                  <a href="#"> Проверить доплату за повторную Умру </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">
+                Погода в Мекке и Медине
+              </div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">
+                подготовка и уроки
+              </div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Советы паломникам </a>
+                </li>
+                <li>
+                  <a href="#"> Уроки </a>
+                </li>
+                <li>
+                  <a href="#"> Часто задаваемые вопросы </a>
+                </li>
+                <li>
+                  <a href="#"> Адреса вакцинаций </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">
+                Карта Мекки / Медины
+              </div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">медиа</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Фото хаджа и умры </a>
+                </li>
+                <li>
+                  <a href="#"> Видео хаджа и умры </a>
+                </li>
+                <li>
+                  <a href="#"> Онлайн трансляция Мекки </a>
+                </li>
+                <li>
+                  <a href="#"> Онлайн трансляция Медины </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">
+                время намаза мекка и медина
+              </div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">о компании</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> О нас </a>
+                </li>
+                <li>
+                  <a href="#"> Филиалы и контакты </a>
+                </li>
+                <li>
+                  <a href="#"> Сотрудничество </a>
+                </li>
+                <li>
+                  <a href="#"> Обратная связь </a>
+                </li>
+                <li>
+                  <a href="#"> Банковские реквизиты </a>
+                </li>
+                <li>
+                  <a href="#"> Вакансии </a>
+                </li>
+                <li>
+                  <a href="#"> Пресса о нас </a>
+                </li>
+              </ul>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">клиентам</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Проверить договор </a>
+                </li>
+                <li>
+                  <a href="#"> Узнать дату вылета </a>
+                </li>
+                <li>
+                  <a href="#"> Проверка готовности визы </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">отзывы</div>
+            </div>
+          </div>
+          <div class="footer__bottom">
+            <div class="footer__bottom-copyright">
+              ООО “Манасик Тревел” 2019
+            </div>
+            <div class="footer__bottom-made_by">
+              <a href="#" class="footer__bottom-made_by-elem">
+                Дизайн сайта:
+                <strong>Лия Сечка</strong>
+              </a>
+              <a href="#" class="footer__bottom-made_by-elem">
+                Верстка сайта:
+                <strong>Николай Берсенев</strong>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Edit User Modal -->
+    <div id="editUserModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Редактировать пользователя</h2>
+          <button class="modal-close" onclick="closeModal('editUserModal')">
+            &times;
+          </button>
+        </div>
+        <form class="admin-form" onsubmit="submitEditUserForm(event)">
+          <input type="hidden" name="user_id" value="" />
+          <div class="form-group">
+            <label class="form-label">Полное имя</label>
+            <input type="text" class="form-input" name="full_name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Роль</label>
+            <select class="form-select" name="role_id" required>
+              <option value="1">Пользователь</option>
+              <option value="2">Администратор</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Сохранить изменения</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="closeModal('editUserModal')"
+          >
+            Отмена
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- User Modal -->
+    <div id="userModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Добавить пользователя</h2>
+          <button class="modal-close" onclick="closeModal('userModal')">
+            &times;
+          </button>
+        </div>
+        <form class="admin-form" onsubmit="submitUserForm(event)">
+          <div class="form-group">
+            <label class="form-label">Полное имя</label>
+            <input type="text" class="form-input" name="full_name" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" name="email" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Пароль</label>
+            <input
+              type="password"
+              class="form-input"
+              name="password"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Роль</label>
+            <select class="form-select" name="role_id" required>
+              <option value="1">Пользователь</option>
+              <option value="2">Администратор</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Сохранить</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="closeModal('userModal')"
+          >
+            Отмена
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tour Modal -->
+    <div id="tourModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Создать тур</h2>
+          <button class="modal-close" onclick="closeModal('tourModal')">
+            &times;
+          </button>
+        </div>
+        <form class="admin-form" onsubmit="submitTourForm(event)">
+          <div class="form-group">
+            <label class="form-label">Название тура</label>
+            <input type="text" class="form-input" name="title" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Тип тура</label>
+            <select class="form-select" name="trip_type" required>
+              <option value="">Выберите тип</option>
+              <option value="hajj">Хадж</option>
+              <option value="umrah">Умра</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Описание</label>
+            <textarea
+              class="form-textarea"
+              name="description"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Цена</label>
+            <input
+              type="number"
+              class="form-input"
+              name="price"
+              step="0.01"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Валюта</label>
+            <select class="form-select" name="currency" required>
+              <option value="RUB">RUB (Рубли)</option>
+              <option value="USD">USD (Доллары)</option>
+              <option value="EUR">EUR (Евро)</option>
+              <option value="SAR">SAR (Саудовские риалы)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Город вылета</label>
+            <input
+              type="text"
+              class="form-input"
+              name="departure_city"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Дата начала тура</label>
+            <input type="date" class="form-input" name="start_date" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Дата окончания тура</label>
+            <input type="date" class="form-input" name="end_date" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Дедлайн бронирования</label>
+            <input
+              type="date"
+              class="form-input"
+              name="booking_deadline"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Сезон</label>
+            <input
+              type="text"
+              class="form-input"
+              name="season"
+              placeholder="Например: Лето 2024"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">URL фото (опционально)</label>
+            <input
+              type="url"
+              class="form-input"
+              name="photo_url"
+              placeholder="https://example.com/photo.jpg"
+            />
+          </div>
+
+          <button type="submit" class="btn">Создать тур</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="closeModal('tourModal')"
+          >
+            Отмена
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Добавьте после tourModal -->
+    <!-- Edit Tour Modal -->
+    <div id="editTourModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Редактировать тур</h2>
+          <button class="modal-close" onclick="closeModal('editTourModal')">
+            &times;
+          </button>
+        </div>
+        <form class="admin-form" onsubmit="submitEditTourForm(event)">
+          <input type="hidden" name="tour_id" value="" />
+
+          <div class="form-group">
+            <label class="form-label">Название тура</label>
+            <input type="text" class="form-input" name="title" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Тип тура</label>
+            <select class="form-select" name="trip_type" required>
+              <option value="">Выберите тип</option>
+              <option value="hajj">Хадж</option>
+              <option value="umrah">Умра</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Описание</label>
+            <textarea
+              class="form-textarea"
+              name="description"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Цена</label>
+            <input type="number" class="form-input" name="price" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Валюта</label>
+            <select class="form-select" name="currency" required>
+              <option value="RUB">RUB</option>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Город вылета</label>
+            <input
+              type="text"
+              class="form-input"
+              name="departure_city"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Дата начала</label>
+            <input type="date" class="form-input" name="start_date" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Дата окончания</label>
+            <input type="date" class="form-input" name="end_date" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Дедлайн бронирования</label>
+            <input
+              type="date"
+              class="form-input"
+              name="booking_deadline"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Сезон</label>
+            <input type="text" class="form-input" name="season" required />
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">URL фото (опционально)</label>
+            <input
+              type="url"
+              class="form-input"
+              name="photo_url"
+              placeholder="https://example.com/photo.jpg"
+            />
+          </div>
+
+          <button type="submit" class="btn">Сохранить изменения</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="closeModal('editTourModal')"
+          >
+            Отмена
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- News Modal -->
+    <div id="newsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Создать новость</h2>
+          <button class="modal-close" onclick="closeModal('newsModal')">
+            &times;
+          </button>
+        </div>
+        <form class="admin-form" onsubmit="submitNewsForm(event)">
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" name="title" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Категория</label>
+            <select class="form-select" name="category" required>
+              <option value="">Выберите категорию</option>
+              <option value="hajj_news">Новости Хаджа</option>
+              <option value="company_news">Новости компании</option>
+              <option value="umrah_news">Новости Умры</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Краткое описание</label>
+            <textarea class="form-textarea" name="excerpt" required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Полный текст</label>
+            <textarea
+              class="form-textarea"
+              name="content"
+              style="min-height: 200px"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Статус</label>
+            <select class="form-select" name="status">
+              <option value="draft">Черновик</option>
+              <option value="published">Опубликовано</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Создать новость</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="closeModal('newsModal')"
+          >
+            Отмена
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./api/currency.js"></script>
+    <script src="./js/sidebar.js"></script>
+    <script src="./js/admin.js"></script>
+    <script src="./js/tours.js"></script>
+  </body>
+</html>

@@ -22,40 +22,6 @@
     <link rel="stylesheet" href="styles/index.css" />
   </head>
   <body>
-    <!-- Sidebar overlay -->
-    <div class="sidebar__overlay" id="sidebarOverlay"></div>
-
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-      <div class="sidebar__header">
-        <a href="#" class="sidebar__logo">
-          <img
-            src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Ctext x='10' y='35' font-family='Arial' font-size='20' font-weight='bold' fill='%23FFB800'%3EMANASIK%3C/text%3E%3Ctext x='10' y='50' font-family='Arial' font-size='10' fill='%23ccc'%3ETRAVEL%3C/text%3E%3C/svg%3E"
-            alt="Manasik Travel"
-          />
-        </a>
-        <button class="sidebar__close" id="sidebarClose">&times;</button>
-      </div>
-
-      <div class="sidebar__auth">
-        <div class="sidebar__auth-title">Вход в личный кабинет</div>
-        <div class="sidebar__auth-buttons">
-          <a href="auth.html" class="sidebar__auth-btn primary">Войти</a>
-          <a href="auth.html" class="sidebar__auth-btn">Регистрация</a>
-        </div>
-      </div>
-
-      <div class="sidebar__menu">
-        <a href="#" class="sidebar__menu-item">туры в хадж</a>
-        <a href="#" class="sidebar__menu-item">туры в умру</a>
-        <a href="#" class="sidebar__menu-item">новости</a>
-        <a href="#" class="sidebar__menu-item">подготовка и уроки</a>
-        <a href="#" class="sidebar__menu-item">медиа</a>
-        <a href="#" class="sidebar__menu-item">отзывы</a>
-        <a href="#" class="sidebar__menu-item">контакты</a>
-        <a href="#" class="sidebar__menu-item">часто задаваемые вопросы</a>
-      </div>
-    </div>
     <header class="header">
       <div class="container">
         <div class="header__inner">
@@ -172,50 +138,56 @@
         <div class="container">
           <div class="search-tour__inner">
             <h2 class="search-tour__title">Поиск тура</h2>
-            <form class="search-tour__form">
+            <form class="search-tour__form" id="searchForm">
+              <!-- Фильтр по типу тура -->
               <div class="custom-dropdown">
-                <div class="custom-dropdown__label">выбор тура</div>
+                <div class="custom-dropdown__label">Тип тура</div>
                 <div class="custom-dropdown__options">
                   <span class="custom-dropdown__options-selected"
-                    >Выберите тур</span
+                    >Все типы</span
                   >
-                  <ul class="custom-dropdown__options-list">
-                    <li>Умра 2019</li>
-                    <li>2020</li>
-                    <li>2021</li>
-                    <li>2022</li>
+                  <ul class="custom-dropdown__options-list" id="tripTypeFilter">
+                    <li data-value="">Все типы</li>
+                    <!-- Данные будут подгружаться динамически -->
                   </ul>
                 </div>
               </div>
               <div class="search-tour__form-divider"></div>
+
+              <!-- Фильтр по городу вылета -->
               <div class="custom-dropdown">
                 <div class="custom-dropdown__label">Город вылета</div>
                 <div class="custom-dropdown__options">
                   <span class="custom-dropdown__options-selected"
-                    >Выберите город вылета</span
+                    >Все города</span
                   >
-                  <ul class="custom-dropdown__options-list">
-                    <li>Москва</li>
-                    <li>Санкт-Петербург</li>
+                  <ul
+                    class="custom-dropdown__options-list"
+                    id="departureCityFilter"
+                  >
+                    <li data-value="">Все города</li>
+                    <!-- Данные будут подгружаться динамически -->
                   </ul>
                 </div>
               </div>
               <div class="search-tour__form-divider"></div>
+
+              <!-- Фильтр по сезону -->
               <div class="custom-dropdown">
-                <div class="custom-dropdown__label">дата поездки</div>
+                <div class="custom-dropdown__label">Сезон</div>
                 <div class="custom-dropdown__options">
                   <span class="custom-dropdown__options-selected"
-                    >Выберите месяц</span
+                    >Все сезоны</span
                   >
-                  <ul class="custom-dropdown__options-list">
-                    <li>Июнь</li>
-                    <li>Июль</li>
-                    <li>Август</li>
-                    <li>Сентябрь</li>
+                  <ul class="custom-dropdown__options-list" id="seasonFilter">
+                    <li data-value="">Все сезоны</li>
+                    <!-- Данные будут подгружаться динамически -->
                   </ul>
                 </div>
               </div>
-              <button class="search-tour__form-submit">искать туры</button>
+              <button type="submit" class="search-tour__form-submit">
+                искать туры
+              </button>
             </form>
           </div>
         </div>
@@ -231,47 +203,15 @@
               </button>
             </div>
             <div class="tours__cards swiper">
-              <div class="swiper-wrapper">
-                <div class="tours__card swiper-slide">
-                  <div class="tours__card-name">
-                    Хадж программа “супер эконом из москвы”
-                  </div>
-                  <div class="tours__card-buy">
-                    <div class="tours__card-buy__price">
-                      154 000 <span>руб.</span>
-                    </div>
-                    <button class="tours__card-buy__button">
-                      купить путевку
-                    </button>
-                  </div>
-                </div>
-                <div class="tours__card swiper-slide">
-                  <div class="tours__card-name">
-                    Хадж программа “супер эконом из москвы”
-                  </div>
-                  <div class="tours__card-buy">
-                    <div class="tours__card-buy__price">
-                      154 000 <span>руб.</span>
-                    </div>
-                    <button class="tours__card-buy__button">
-                      купить путевку
-                    </button>
-                  </div>
-                </div>
-                <div class="tours__card swiper-slide">
-                  <div class="tours__card-name">
-                    Хадж программа “супер эконом из москвы”
-                  </div>
-                  <div class="tours__card-buy">
-                    <div class="tours__card-buy__price">
-                      154 000 <span>руб.</span>
-                    </div>
-                    <button class="tours__card-buy__button">
-                      купить путевку
-                    </button>
-                  </div>
-                </div>
+              <div class="swiper-wrapper" id="toursSwiperWrapper">
+                <!-- Сюда подгружаются туры -->
               </div>
+            </div>
+            <div
+              id="noToursMessage"
+              style="display: none; text-align: center; padding: 20px"
+            >
+              Пока туров нет
             </div>
           </div>
         </div>
@@ -2363,6 +2303,7 @@
         </div>
       </div>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="js/index.js"></script>
     <script src="js/dropdowns.js"></script>
@@ -2370,5 +2311,7 @@
     <script src="js/index-page/sliders.js"></script>
     <script src="js/faq.js"></script>
     <script src="./api/currency.js"></script>
+    <script src="./js/sidebar.js"></script>
+    <script src="./js/tours.js"></script>
   </body>
 </html>

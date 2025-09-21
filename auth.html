@@ -7,7 +7,7 @@
       content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Главная Страница</title>
+    <title>Страница авторизации</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -98,6 +98,8 @@
             Регистрация
           </button>
         </div>
+        <div id="errorMessage" class="form-message error"></div>
+        <div id="successMessage" class="form-message success"></div>
 
         <div class="auth-form" data-tab="login">
           <h1 class="auth-form__title">Добро пожаловать</h1>
@@ -107,6 +109,7 @@
             <label class="form-label">Электронная почта</label>
             <input
               type="email"
+              id="loginEmail"
               class="form-input"
               placeholder="Введите ваш email"
               required
@@ -118,6 +121,7 @@
             <div class="password-input-wrapper">
               <input
                 type="password"
+                id="loginPassword"
                 class="form-input password-input"
                 placeholder="Введите пароль"
                 required
@@ -130,6 +134,7 @@
             <label class="form-label">Имя</label>
             <input
               type="text"
+              id="registerName"
               class="form-input"
               placeholder="Введите ваше имя"
               required

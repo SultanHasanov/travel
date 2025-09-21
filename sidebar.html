@@ -1,0 +1,42 @@
+<link rel="stylesheet" href="./styles/sidebar.css" />
+
+<!-- Sidebar overlay -->
+<div class="sidebar__overlay" id="sidebarOverlay"></div>
+
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar__header">
+    <a href="#" class="sidebar__logo">
+      <img
+        src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Ctext x='10' y='35' font-family='Arial' font-size='20' font-weight='bold' fill='%23FFB800'%3EMANASIK%3C/text%3E%3Ctext x='10' y='50' font-family='Arial' font-size='10' fill='%23ccc'%3ETRAVEL%3C/text%3E%3C/svg%3E"
+        alt="Manasik Travel"
+      />
+    </a>
+    <button class="sidebar__close" id="sidebarClose">&times;</button>
+  </div>
+
+  <div class="sidebar__auth">
+    <div class="sidebar__auth-title">Вход в личный кабинет</div>
+    <div class="sidebar__auth-buttons">
+      <a href="auth.html" class="sidebar__auth-btn primary">Войти</a>
+      <a href="auth.html" class="sidebar__auth-btn">Регистрация</a>
+    </div>
+  </div>
+
+  <div class="sidebar__menu">
+    <a href="./admin.html" class="sidebar__menu-item">Админ</a>
+    <a href="#" class="sidebar__menu-item">туры в умру</a>
+    <a href="#" class="sidebar__menu-item">новости</a>
+    <a href="#" class="sidebar__menu-item">подготовка и уроки</a>
+    <a href="#" class="sidebar__menu-item">медиа</a>
+    <a href="#" class="sidebar__menu-item">отзывы</a>
+    <a href="#" class="sidebar__menu-item">контакты</a>
+    <a href="#" class="sidebar__menu-item">часто задаваемые вопросы</a>
+  </div>
+   <!-- 🔽 Кнопка выхода -->
+  <!-- 🔽 Кнопка выхода (скрыта по умолчанию) -->
+<div class="sidebar__logout" id="sidebarLogout" style="display:none;">
+  <button id="logoutBtn" class="sidebar__auth-btn">Выйти</button>
+</div>
+
+</div>
