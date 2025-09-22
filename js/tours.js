@@ -16,7 +16,7 @@ async function loadTours() {
 
     if (response.status === 401) {
       alert("Требуется авторизация. Пожалуйста, войдите в систему.");
-      window.location.href = "/login.html";
+      window.location.href = "/auth.html";
       return;
     }
 
@@ -24,11 +24,37 @@ async function loadTours() {
       throw new Error(`Ошибка HTTP: ${response.status}`);
     }
 
-    const tours = await response.json();
+    const responseData = await response.json();
+    const tours = responseData.data;
     renderToursTable(tours);
   } catch (error) {
     console.error("Ошибка загрузки туров:", error);
     alert("Не удалось загрузить туры");
+  }
+}
+
+// Функция для переключения основного тура
+async function toggleMainTour(tourId, isMain) {
+  try {
+    const token = localStorage.getItem("authToken");
+    const response = await fetch(`${TOURS_API_BASE}/${tourId}`, {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ main: isMain }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Ошибка при обновлении тура");
+    }
+
+    // Перезагружаем список туров
+    loadTours();
+  } catch (error) {
+    console.error("Ошибка:", error);
+    alert("Не удалось обновить тур");
   }
 }
 
@@ -43,21 +69,20 @@ function renderToursTable(tours) {
             <td>${tour.id}</td>
             <td>${tour.title}</td>
             <td>${tour.trip_type === "hajj" ? "Хадж" : "Умра"}</td>
-            <td>${Number(tour.price).toLocaleString("ru-RU")} ${
-      tour.currency
-    }</td>
+            <td>${Number(tour.price).toLocaleString("ru-RU")} ${tour.currency}</td>
             <td>${new Date(tour.start_date).toLocaleDateString("ru-RU")}</td>
             <td>${new Date(tour.end_date).toLocaleDateString("ru-RU")}</td>
-            <td><span style="color: #00ff88;">Активен</span></td>
+            <td>
+              <label class="checkbox-container">
+                <input type="checkbox" ${tour.main ? 'checked' : ''} onchange="toggleMainTour(${tour.id}, this.checked)">
+                <span class="checkmark"></span>
+              </label>
+            </td>
             <td class="admin-table__actions">
-                <button class="admin-table__btn admin-table__btn--edit" onclick="editTour(${
-                  tour.id
-                })">
+                <button class="admin-table__btn admin-table__btn--edit" onclick="editTour(${tour.id})">
                     Редактировать
                 </button>
-                <button class="admin-table__btn admin-table__btn--delete" onclick="deleteTour(${
-                  tour.id
-                })">
+                <button class="admin-table__btn admin-table__btn--delete" onclick="deleteTour(${tour.id})">
                     Удалить
                 </button>
             </td>
@@ -83,7 +108,8 @@ async function editTour(tourId) {
       throw new Error("Ошибка при получении данных тура");
     }
 
-    const tourData = await response.json();
+    const responseData = await response.json();
+    const tourData = responseData.data;
 
     // Заполняем форму редактирования
     document.querySelector('#editTourModal input[name="title"]').value =
@@ -258,13 +284,17 @@ function renderToursForHome(tours) {
   <div class="tours__card-name">${tour.title}</div>
   <div class="tours__card-buy">
     <div class="tours__card-buy__price">
-      ${Number(tour.price).toLocaleString("ru-RU")} <span>${tour.currency}</span>
+      ${Number(tour.price).toLocaleString("ru-RU")} <span>${
+      tour.currency
+    }</span>
     </div>
     <button class="tours__card-buy__button">купить путевку</button>
   </div>
 `;
 
-slide.style.backgroundImage = tour.photo_url ? `url(${tour.photo_url})` : 'none';
+    slide.style.backgroundImage = tour.photo_url
+      ? `url(${tour.photo_url})`
+      : "none";
 
     wrapper.appendChild(slide);
   });
@@ -286,16 +316,13 @@ slide.style.backgroundImage = tour.photo_url ? `url(${tour.photo_url})` : 'none'
 async function loadToursForHome() {
   try {
     const token = localStorage.getItem("authToken");
-    const response = await fetch(TOURS_API_BASE, {
+    const response = await fetch("http://212.193.51.76:8080/api/v1/trips", {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
     });
 
     if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-    const tours = await response.json();
+     const responseData = await response.json();
+    const tours = responseData.data;
     renderToursForHome(tours);
   } catch (error) {
     console.error("Ошибка загрузки туров:", error);
@@ -303,31 +330,26 @@ async function loadToursForHome() {
   }
 }
 
-
 // Константы и глобальные переменные
 
 let allTours = [];
 let currentFilters = {
-  trip_type: '',
-  departure_city: '',
-  season: ''
+  trip_type: "",
+  departure_city: "",
+  season: "",
 };
 
 // Функция для загрузки всех туров
 async function loadAllTours() {
   try {
-    const token = localStorage.getItem("authToken");
-    const response = await fetch(TOURS_API_BASE, {
+    const response = await fetch("http://212.193.51.76:8080/api/v1/trips", {
       method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
     });
 
     if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-    
-    allTours = await response.json();
+
+    const dataResp = await response.json();
+    allTours = dataResp.data; // сохраняем в глобальную переменную!
     return allTours;
   } catch (error) {
     console.error("Ошибка загрузки туров:", error);
@@ -335,15 +357,16 @@ async function loadAllTours() {
   }
 }
 
+
 // Функция для извлечения уникальных значений для фильтров
 function extractFilterValues(tours) {
   const filters = {
     trip_types: new Set(),
     departure_cities: new Set(),
-    seasons: new Set()
+    seasons: new Set(),
   };
 
-  tours.forEach(tour => {
+  tours.forEach((tour) => {
     if (tour.trip_type) filters.trip_types.add(tour.trip_type);
     if (tour.departure_city) filters.departure_cities.add(tour.departure_city);
     if (tour.season) filters.seasons.add(tour.season);
@@ -352,34 +375,34 @@ function extractFilterValues(tours) {
   return {
     trip_types: Array.from(filters.trip_types),
     departure_cities: Array.from(filters.departure_cities),
-    seasons: Array.from(filters.seasons)
+    seasons: Array.from(filters.seasons),
   };
 }
 
 // Функция для заполнения фильтров данными
 function populateFilters(filterValues) {
   // Заполняем фильтр типов туров
-  const tripTypeFilter = document.getElementById('tripTypeFilter');
-  filterValues.trip_types.forEach(type => {
-    const li = document.createElement('li');
-    li.textContent = type === 'hajj' ? 'Хадж' : 'Умра';
+  const tripTypeFilter = document.getElementById("tripTypeFilter");
+  filterValues.trip_types.forEach((type) => {
+    const li = document.createElement("li");
+    li.textContent = type === "hajj" ? "Хадж" : "Умра";
     li.dataset.value = type;
     tripTypeFilter.appendChild(li);
   });
 
   // Заполняем фильтр городов вылета
-  const cityFilter = document.getElementById('departureCityFilter');
-  filterValues.departure_cities.forEach(city => {
-    const li = document.createElement('li');
+  const cityFilter = document.getElementById("departureCityFilter");
+  filterValues.departure_cities.forEach((city) => {
+    const li = document.createElement("li");
     li.textContent = city;
     li.dataset.value = city;
     cityFilter.appendChild(li);
   });
 
   // Заполняем фильтр сезонов
-  const seasonFilter = document.getElementById('seasonFilter');
-  filterValues.seasons.forEach(season => {
-    const li = document.createElement('li');
+  const seasonFilter = document.getElementById("seasonFilter");
+  filterValues.seasons.forEach((season) => {
+    const li = document.createElement("li");
     li.textContent = season;
     li.dataset.value = season;
     seasonFilter.appendChild(li);
@@ -392,40 +415,50 @@ function populateFilters(filterValues) {
 // Настройка обработчиков событий для фильтров
 function setupFilterEventListeners() {
   // Обработчики для dropdown
-  document.querySelectorAll('.custom-dropdown__options-list li').forEach(item => {
-    item.addEventListener('click', function() {
-      const dropdown = this.closest('.custom-dropdown');
-      const selectedSpan = dropdown.querySelector('.custom-dropdown__options-selected');
-      selectedSpan.textContent = this.textContent;
-      
-      // Обновляем текущие фильтры
-      const filterType = dropdown.querySelector('.custom-dropdown__label').textContent.toLowerCase();
-      let filterKey;
-      
-      if (filterType.includes('тур')) filterKey = 'trip_type';
-      else if (filterType.includes('город')) filterKey = 'departure_city';
-      else if (filterType.includes('сезон')) filterKey = 'season';
-      
-      if (filterKey) {
-        currentFilters[filterKey] = this.dataset.value || '';
-        filterTours();
-      }
+  document
+    .querySelectorAll(".custom-dropdown__options-list li")
+    .forEach((item) => {
+      item.addEventListener("click", function () {
+        const dropdown = this.closest(".custom-dropdown");
+        const selectedSpan = dropdown.querySelector(
+          ".custom-dropdown__options-selected"
+        );
+        selectedSpan.textContent = this.textContent;
+
+        // Обновляем текущие фильтры
+        const filterType = dropdown
+          .querySelector(".custom-dropdown__label")
+          .textContent.toLowerCase();
+        let filterKey;
+
+        if (filterType.includes("тур")) filterKey = "trip_type";
+        else if (filterType.includes("город")) filterKey = "departure_city";
+        else if (filterType.includes("сезон")) filterKey = "season";
+
+        if (filterKey) {
+          currentFilters[filterKey] = this.dataset.value || "";
+          filterTours();
+        }
+      });
     });
-  });
 
   // Обработчик формы поиска
-  document.getElementById('searchForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    filterTours();
-  });
+  document
+    .getElementById("searchForm")
+    .addEventListener("submit", function (e) {
+      e.preventDefault();
+      filterTours();
+    });
 }
 
 // Функция фильтрации туров
 function filterTours() {
-  const filteredTours = allTours.filter(tour => {
+  const filteredTours = allTours.filter((tour) => {
     return (
-      (!currentFilters.trip_type || tour.trip_type === currentFilters.trip_type) &&
-      (!currentFilters.departure_city || tour.departure_city === currentFilters.departure_city) &&
+      (!currentFilters.trip_type ||
+        tour.trip_type === currentFilters.trip_type) &&
+      (!currentFilters.departure_city ||
+        tour.departure_city === currentFilters.departure_city) &&
       (!currentFilters.season || tour.season === currentFilters.season)
     );
   });
@@ -444,7 +477,7 @@ function renderToursForHome(tours) {
     noToursMessage.textContent = "Туры по выбранным фильтрам не найдены";
     return;
   }
-  
+
   noToursMessage.style.display = "none";
 
   tours.forEach((tour) => {
@@ -454,13 +487,17 @@ function renderToursForHome(tours) {
       <div class="tours__card-name">${tour.title}</div>
       <div class="tours__card-buy">
         <div class="tours__card-buy__price">
-          ${Number(tour.price).toLocaleString("ru-RU")} <span>${tour.currency}</span>
+          ${Number(tour.price).toLocaleString("ru-RU")} <span>${
+      tour.currency
+    }</span>
         </div>
         <button class="tours__card-buy__button">купить путевку</button>
       </div>
     `;
 
-    slide.style.backgroundImage = tour.photo_url ? `url(${tour.photo_url})` : 'none';
+    slide.style.backgroundImage = tour.photo_url
+      ? `url(${tour.photo_url})`
+      : "none";
     wrapper.appendChild(slide);
   });
 
@@ -468,7 +505,7 @@ function renderToursForHome(tours) {
   if (window.toursSwiper) {
     window.toursSwiper.destroy();
   }
-  
+
   window.toursSwiper = new Swiper(".tours__cards", {
     slidesPerView: 3,
     spaceBetween: 20,
@@ -481,6 +518,90 @@ function renderToursForHome(tours) {
     },
   });
 }
+
+
+// Функция для обновления обратного отсчета
+async function initCountdown() {
+  try {
+    const response = await fetch('http://212.193.51.76:8080/api/v1/trips/main');
+    const respData = await response.json();
+    const data = respData.data.countdown
+    
+    if (data) {
+      const { days, hours, minutes, seconds } = data;
+      
+      // Конвертируем в общее количество секунд
+      let totalSeconds = 
+        parseInt(days) * 24 * 60 * 60 + 
+        parseInt(hours) * 60 * 60 + 
+        parseInt(minutes) * 60 + 
+        parseInt(seconds);
+      
+      // Запускаем обратный отсчет на фронте
+      startCountdown(totalSeconds);
+    }  else {
+        // Нет активных туров - показываем сообщение
+        showNoActiveToursMessage(countdownContainer, titleElement, bookingButton);
+      }
+  } catch (error) {
+    console.error('Ошибка загрузки времени:', error);
+     // При ошибке тоже показываем сообщение
+    const countdownContainer = document.querySelector('.introduction__booking-time');
+    const titleElement = document.querySelector('.introduction__booking-title');
+    const bookingButton = document.querySelector('.introduction__booking-button');
+    showNoActiveToursMessage(countdownContainer, titleElement, bookingButton);
+  }
+}
+
+// Функция для показа сообщения об отсутствии активных туров
+function showNoActiveToursMessage(countdownContainer, titleElement, bookingButton) {
+  // Скрываем отсчет и кнопку
+  countdownContainer.style.display = 'none';
+  bookingButton.style.display = 'none';
+  
+  // Показываем сообщение
+  titleElement.textContent = 'Пока нет активных туров';
+  titleElement.style.textAlign = 'center';
+  titleElement.style.width = '100%';
+  
+  // Добавляем стиль для сообщения
+  titleElement.style.fontSize = '24px';
+  titleElement.style.color = '#ffb800';
+  titleElement.style.marginTop = '20px';
+}
+
+
+// Функция для фронтенд-отсчета
+function startCountdown(totalSeconds) {
+  function updateDisplay() {
+    if (totalSeconds <= 0) {
+      clearInterval(countdownInterval);
+      // Можно добавить действие по окончании отсчета
+      document.querySelector('.introduction__booking-title').textContent = 'Запись на хадж завершена';
+      return;
+    }
+    
+    const days = Math.floor(totalSeconds / (24 * 60 * 60));
+    const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
+    const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
+    const seconds = totalSeconds % 60;
+    
+    // Обновляем значения на странице
+    document.querySelector('.introduction__booking-time__measurement:nth-child(1) .booking-time__measurement-int').textContent = days.toString().padStart(2, '0');
+    document.querySelector('.introduction__booking-time__measurement:nth-child(2) .booking-time__measurement-int').textContent = hours.toString().padStart(2, '0');
+    document.querySelector('.introduction__booking-time__measurement:nth-child(3) .booking-time__measurement-int').textContent = minutes.toString().padStart(2, '0');
+    document.querySelector('.introduction__booking-time__measurement:nth-child(4) .booking-time__measurement-int').textContent = seconds.toString().padStart(2, '0');
+    
+    totalSeconds--;
+  }
+  
+  // Обновляем сразу и затем каждую секунду
+  updateDisplay();
+  const countdownInterval = setInterval(updateDisplay, 1000);
+}
+
+// Запускаем один раз при загрузке страницы
+initCountdown();
 
 // Основная функция инициализации
 async function initSearchFilters() {
@@ -495,7 +616,7 @@ async function initSearchFilters() {
 }
 
 // Добавьте CSS для стилизации активных фильтров
-const style = document.createElement('style');
+const style = document.createElement("style");
 style.textContent = `
   .custom-dropdown__options-list li.active {
     background-color: #f0f0f0;
@@ -531,4 +652,3 @@ document.addEventListener("DOMContentLoaded", function () {
     loadTours();
   }
 });
-

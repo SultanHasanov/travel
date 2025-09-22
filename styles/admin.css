@@ -300,3 +300,98 @@
   cursor: pointer;
   color: #fff;
 }
+
+
+/* Checkbox Styles */
+.checkbox-container {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  padding-left: 35px;
+  min-height: 25px;
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 25px;
+  width: 25px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 184, 0, 0.3);
+  border-radius: 6px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.checkbox-container:hover .checkmark {
+  border-color: rgba(255, 184, 0, 0.6);
+  box-shadow: 0 0 15px rgba(255, 184, 0, 0.2);
+}
+
+.checkbox-container input:checked ~ .checkmark {
+  background: linear-gradient(135deg, #ffb800 0%, #ffa500 100%);
+  border-color: #ffb800;
+  box-shadow: 0 5px 20px rgba(255, 184, 0, 0.4);
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+  left: 8px;
+  top: 4px;
+  width: 6px;
+  height: 12px;
+  border: solid #000;
+  border-width: 0 3px 3px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-container input:checked ~ .checkmark:after {
+  display: block;
+}
+
+/* Анимация при клике */
+.checkbox-container input:active ~ .checkmark {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Стили для таблицы с чекбоксами */
+.admin-table td .checkbox-container {
+  justify-content: center;
+  padding-left: 0;
+  height: 100%;
+  min-height: 60px; /* Высота строки таблицы */
+}
+
+.admin-table td .checkmark {
+  position: relative;
+  top: 0;
+  transform: none;
+  margin: 0 auto;
+}
+
+/* Состояние disabled */
+.checkbox-container input:disabled ~ .checkmark {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  cursor: not-allowed;
+}
+
+.checkbox-container input:disabled:checked ~ .checkmark {
+  background: rgba(255, 184, 0, 0.3);
+  border-color: rgba(255, 184, 0, 0.2);
+}

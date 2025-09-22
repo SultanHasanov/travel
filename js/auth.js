@@ -162,7 +162,8 @@ async function handleRegister() {
       }),
     });
 
-    const data = await response.json();
+    const responseData = await response.json();
+    const data = responseData.data
 
     if (response.ok) {
       showSuccess("Регистрация прошла успешно! Теперь вы можете войти.");
@@ -192,11 +193,12 @@ async function handleLogin() {
       }),
     });
 
-    const data = await response.json();
+   const responseData = await response.json();
+    const data = responseData.data
 
     if (response.ok) {
       // Сохраняем токен в localStorage
-      localStorage.setItem("authToken", data.token);
+      localStorage.setItem("authToken", data.data.token);
       localStorage.setItem("userEmail", email);
 
       showSuccess("Вход выполнен успешно!");

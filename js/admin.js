@@ -26,7 +26,8 @@ async function loadUsers() {
       throw new Error(`Ошибка HTTP: ${response.status}`);
     }
 
-    const users = await response.json();
+    const responseData = await response.json();
+    const users = responseData.data; // Если данные в свойстве "data"
 
     const tbody = document.getElementById("usersTableBody");
     tbody.innerHTML = ""; // Очищаем таблицу
@@ -62,84 +63,43 @@ async function loadUsers() {
   }
 }
 
-// В конец скрипта добавьте:
-document.addEventListener("DOMContentLoaded", function () {
-  // Загружаем пользователей при загрузке страницы
-  loadUsers();
-
-  // Обновляем обработчик клика по вкладкам
-  const authTabs = document.querySelectorAll(".auth-tab");
-
-  authTabs.forEach((tab) => {
-    tab.addEventListener("click", function () {
-      // Снимаем активность
-      authTabs.forEach((t) => t.classList.remove("active"));
-      sections.forEach((section) => section.classList.remove("active"));
-
-      // Делаем активной текущую
-      this.classList.add("active");
-      const targetSection = this.getAttribute("data-section");
-      document.getElementById(targetSection).classList.add("active");
-
-      // Сохраняем в localStorage
-      localStorage.setItem("activeSection", targetSection);
-
-      // 👇 Вставляем сюда проверку
-      if (targetSection === "tours") {
-        loadTours();
+async function loadStats() {
+  try {
+    const token = localStorage.getItem("authToken");
+    const response = await fetch(
+      "http://212.193.51.76:8080/api/v1/admin/stats",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       }
-      if (targetSection === "users") {
-        loadUsers();
-      }
-    });
-  });
-});
-
-// Navigation between tabs
-document.addEventListener("DOMContentLoaded", function () {
-  const authTabs = document.querySelectorAll(".auth-tab");
-  const sections = document.querySelectorAll(".section");
-
-  // Восстановление активной вкладки из localStorage
-  const savedSection = localStorage.getItem("activeSection");
-  if (savedSection) {
-    authTabs.forEach((t) => t.classList.remove("active"));
-    sections.forEach((s) => s.classList.remove("active"));
-
-    const savedTab = document.querySelector(
-      `.auth-tab[data-section="${savedSection}"]`
     );
-    const savedContent = document.getElementById(savedSection);
 
-    if (savedTab && savedContent) {
-      savedTab.classList.add("active");
-      savedContent.classList.add("active");
-    }
-  } else {
-    // Если в localStorage пусто — активируем первую вкладку
-    if (authTabs.length > 0 && sections.length > 0) {
-      authTabs[0].classList.add("active");
-      sections[0].classList.add("active");
-    }
+    if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+
+    const statsData = await response.json();
+    return statsData.data; // Предполагая, что данные в свойстве "data"
+  } catch (error) {
+    console.error("Ошибка загрузки статистики:", error);
+    return null;
   }
+}
 
-  // Навигация по вкладкам с сохранением состояния
-  authTabs.forEach((tab) => {
-    tab.addEventListener("click", function () {
-      // Снимаем активность
-      authTabs.forEach((t) => t.classList.remove("active"));
-      sections.forEach((section) => section.classList.remove("active"));
+async function updateStats() {
+  const stats = await loadStats();
+  if (stats) {
+    document.getElementById("totalUsers").textContent = stats.total_users || 0;
+    document.getElementById("activeTours").textContent =
+      stats.total_trips || 0;
+ 
+    document.getElementById("newNews").textContent = stats.total_news || 0;
+  }
+}
 
-      // Делаем активной текущую
-      this.classList.add("active");
-      const targetSection = this.getAttribute("data-section");
-      document.getElementById(targetSection).classList.add("active");
 
-      // Сохраняем в localStorage
-      localStorage.setItem("activeSection", targetSection);
-    });
-  });
-});
+
 
 // Modal functions
 function openModal(modalId) {
@@ -177,7 +137,8 @@ async function editUser(userId) {
       throw new Error("Ошибка при получении данных пользователя");
     }
 
-    const userData = await response.json();
+    const responseData = await response.json();
+    const userData = responseData.data;
 
     // Заполняем форму редактирования
     document.querySelector('#editUserModal input[name="full_name"]').value =
@@ -349,13 +310,67 @@ function submitNewsForm(event) {
   alert("Новость создана успешно!");
 }
 
-// Auto-update stats
-setInterval(function () {
-  const statsCards = document.querySelectorAll(".stats-card__number");
-  statsCards.forEach((card) => {
-    const currentValue = parseInt(card.textContent.replace(",", ""));
-    const randomChange = Math.floor(Math.random() * 3) - 1;
-    const newValue = Math.max(0, currentValue + randomChange);
-    card.textContent = newValue.toLocaleString("ru-RU");
+
+// В конец скрипта добавьте:
+document.addEventListener("DOMContentLoaded", function () {
+  const authTabs = document.querySelectorAll(".auth-tab");
+  const sections = document.querySelectorAll(".section");
+
+  // Загружаем пользователей при загрузке страницы
+  loadUsers();
+  updateStats();
+
+  // Восстановление активной вкладки из localStorage
+  const savedSection = localStorage.getItem("activeSection");
+  if (savedSection) {
+    authTabs.forEach((t) => t.classList.remove("active"));
+    sections.forEach((s) => s.classList.remove("active"));
+
+    const savedTab = document.querySelector(`.auth-tab[data-section="${savedSection}"]`);
+    const savedContent = document.getElementById(savedSection);
+
+    if (savedTab && savedContent) {
+      savedTab.classList.add("active");
+      savedContent.classList.add("active");
+      
+      // 👇 ДОБАВЬ ЭТУ ПРОВЕРКУ ДЛЯ ВОССТАНОВЛЕНИЯ ВКЛАДКИ
+      if (savedSection === "dashboard") {
+        updateStats();
+      }
+    }
+  } else {
+    // Если в localStorage пусто — активируем первую вкладку
+    if (authTabs.length > 0 && sections.length > 0) {
+      authTabs[0].classList.add("active");
+      sections[0].classList.add("active");
+    }
+  }
+
+  // Обновляем обработчик клика по вкладкам
+  authTabs.forEach((tab) => {
+    tab.addEventListener("click", function () {
+      // Снимаем активность
+      authTabs.forEach((t) => t.classList.remove("active"));
+      sections.forEach((section) => section.classList.remove("active"));
+
+      // Делаем активной текущую
+      this.classList.add("active");
+      const targetSection = this.getAttribute("data-section");
+      document.getElementById(targetSection).classList.add("active");
+
+      // Сохраняем в localStorage
+      localStorage.setItem("activeSection", targetSection);
+
+      // 👇 Вставляем сюда проверку
+      if (targetSection === "tours") {
+        loadTours();
+      }
+      if (targetSection === "users") {
+        loadUsers();
+      }
+      if (targetSection === "dashboard") {
+        updateStats();
+      }
+    });
   });
-}, 30000);
+});

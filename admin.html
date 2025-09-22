@@ -106,19 +106,16 @@
 
             <div class="stats-grid">
               <div class="stats-card">
-                <div class="stats-card__number">1,247</div>
+                <div class="stats-card__number" id="totalUsers">0</div>
                 <div class="stats-card__label">Всего пользователей</div>
               </div>
               <div class="stats-card">
-                <div class="stats-card__number">89</div>
-                <div class="stats-card__label">Активных туров</div>
+                <div class="stats-card__number" id="activeTours">0</div>
+                <div class="stats-card__label">Туров</div>
               </div>
+             
               <div class="stats-card">
-                <div class="stats-card__number">342</div>
-                <div class="stats-card__label">Заявок сегодня</div>
-              </div>
-              <div class="stats-card">
-                <div class="stats-card__number">15</div>
+                <div class="stats-card__number" id="newNews">0</div>
                 <div class="stats-card__label">Новых новостей</div>
               </div>
             </div>
@@ -254,7 +251,7 @@
                   <th>Цена</th>
                   <th>Начало</th>
                   <th>Окончание</th>
-                  <th>Статус</th>
+                  <th>Таймер</th>
                   <th>Действия</th>
                 </tr>
               </thead>
@@ -892,6 +889,78 @@
       </div>
     </div>
 
+    <!-- Edit News Modal -->
+    <div id="editNewsModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">Редактировать новость</h2>
+          <button class="modal-close" onclick="closeModal('editNewsModal')">
+            &times;
+          </button>
+        </div>
+        <form class="admin-form">
+          <input type="hidden" name="news_id" value="" />
+          <div class="form-group">
+            <label class="form-label">Заголовок</label>
+            <input type="text" class="form-input" name="title" required />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Категория</label>
+            <select class="form-select" name="category" required>
+              <option value="">Выберите категорию</option>
+              <option value="1">Все новости</option>
+              <option value="2">Новости Хаджа</option>
+              <option value="3">Новости компании</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Тип медиа</label>
+            <select class="form-select" name="media_type">
+              <option value="">Выберите тип</option>
+              <option value="photo">Изображение</option>
+              <option value="video">Видео</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL превью</label>
+            <input type="url" class="form-input" name="preview_url" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL видео</label>
+            <input type="url" class="form-input" name="video_url" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Краткое описание</label>
+            <textarea class="form-textarea" name="excerpt" required></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Полный текст</label>
+            <textarea
+              class="form-textarea"
+              name="content"
+              style="min-height: 200px"
+              required
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Статус</label>
+            <select class="form-select" name="status">
+              <option value="draft">Черновик</option>
+              <option value="published">Опубликовано</option>
+            </select>
+          </div>
+          <button type="submit" class="btn">Сохранить изменения</button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="closeModal('editNewsModal')"
+          >
+            Отмена
+          </button>
+        </form>
+      </div>
+    </div>
+
     <!-- News Modal -->
     <div id="newsModal" class="modal">
       <div class="modal-content">
@@ -901,7 +970,7 @@
             &times;
           </button>
         </div>
-        <form class="admin-form" onsubmit="submitNewsForm(event)">
+        <form class="admin-form">
           <div class="form-group">
             <label class="form-label">Заголовок</label>
             <input type="text" class="form-input" name="title" required />
@@ -910,10 +979,26 @@
             <label class="form-label">Категория</label>
             <select class="form-select" name="category" required>
               <option value="">Выберите категорию</option>
-              <option value="hajj_news">Новости Хаджа</option>
-              <option value="company_news">Новости компании</option>
-              <option value="umrah_news">Новости Умры</option>
+             <option value="1">Все новости</option>
+              <option value="2">Новости Хаджа</option>
+              <option value="3">Новости компании</option>
             </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Тип медиа</label>
+            <select class="form-select" name="media_type">
+              <option value="">Выберите тип</option>
+              <option value="photo">Изображение</option>
+              <option value="video">Видео</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL превью</label>
+            <input type="url" class="form-input" name="preview_url" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">URL видео</label>
+            <input type="url" class="form-input" name="video_url" />
           </div>
           <div class="form-group">
             <label class="form-label">Краткое описание</label>
@@ -952,5 +1037,6 @@
     <script src="./js/sidebar.js"></script>
     <script src="./js/admin.js"></script>
     <script src="./js/tours.js"></script>
+    <script src="./js/news.js"></script>
   </body>
 </html>

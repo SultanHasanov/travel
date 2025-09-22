@@ -1,47 +1,71 @@
-
 function updateCurrencyRates() {
   fetch('http://212.193.51.76:8080/api/v1/currency')
-  .then(response => {
+    .then(response => {
       if (!response.ok) {
         throw new Error(`Ошибка HTTP! статус: ${response.status}`);
       }
       return response.json();
     })
     .then(data => {
+      // Проверяем успешность ответа и наличие данных
+      if (!data.success || !data.data) {
+        throw new Error('Неверный формат данных с сервера');
+      }
+      
+      const rates = data.data;
+      
       // Ищем все блоки с курсами
       const currencyElements = document.querySelectorAll('.header__right-currency[data-currency]');
       
       currencyElements.forEach(element => {
         const currencyCode = element.dataset.currency;
+        let rate, content;
         
-        if (currencyCode === 'USD') {
-          // USD → рубли
-          const formatted = data.usd.toFixed(2).replace('.', ',');
-          element.innerHTML = `
-          1 &nbsp;
-          <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign" />
-          &nbsp;<span>=</span>&nbsp;
-          <span class="rate">${formatted}</span> руб.
-          `;
+        switch(currencyCode) {
+          case 'USD':
+            rate = rates.usd;
+            content = `
+              1 &nbsp;
+              <img src="assets/icons/dollar-sign.svg" alt="Доллар" />
+              &nbsp;<span>=</span>&nbsp;
+              <span class="rate">${formatRate(rate)}</span> руб.
+            `;
+            break;
+            
+          case 'SAR':
+            rate = rates.sar;
+            content = `
+              1 &nbsp;
+              <span>риял =</span>&nbsp;
+              <span class="rate">${formatRate(rate)}</span> руб.
+            `;
+            break;
+            
+          default:
+            console.warn(`Неизвестная валюта: ${currencyCode}`);
+            return; // Пропускаем неизвестные валюты
         }
         
-        if (currencyCode === 'SAR') {
-          // SAR → рубли
-          const formatted = data.sar.toFixed(2).replace('.', ',');
-          element.innerHTML = `
-          1 &nbsp;
-          <span>риял =</span>&nbsp;
-          <span class="rate">${formatted}</span> руб.
-          `;
+        if (rate !== undefined) {
+          element.innerHTML = content;
         }
       });
     })
     .catch(error => {
       console.error('Не удалось получить курсы валют:', error);
+      showErrorMessage(); // Можно добавить отображение ошибки для пользователя
     });
-  }
-  
-  // Можно обновлять автоматически раз в час
-  // setInterval(updateCurrencyRates, 60 * 60 * 1000);
-  
-  document.addEventListener('DOMContentLoaded', updateCurrencyRates);
+}
+
+function formatRate(rate) {
+  return rate.toFixed(2).replace('.', ',');
+}
+
+function showErrorMessage() {
+  const currencyElements = document.querySelectorAll('.header__right-currency[data-currency]');
+  currencyElements.forEach(element => {
+    element.innerHTML = '<span style="color: #999">Курс недоступен</span>';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', updateCurrencyRates);
