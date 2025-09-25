@@ -84,7 +84,7 @@ async function loadOrders() {
     }
 
     const responseData = await response.json();
-    const orders = responseData.data; // Если данные в свойстве "data"
+    const orders = responseData.data.orders; // Если данные в свойстве "data"
 
     const tbody = document.getElementById("ordersTableBody");
     const countSpan = document.getElementById("ordersCount");
@@ -101,9 +101,7 @@ async function loadOrders() {
         <td>${new Date(order.created_at || new Date()).toLocaleDateString(
           "ru-RU"
         )}</td>
-        <td><span style="color: #ffb800">Новая</span></td>
         <td class="admin-table__actions">
-          <button class="admin-table__btn admin-table__btn--edit">Обработать</button>
           <button class="admin-table__btn admin-table__btn--delete">Удалить</button>
         </td>
       `;
@@ -335,6 +333,180 @@ async function submitUserForm(event) {
   }
 }
 
+// обратная связь
+
+let currentFeedbackPage = 1;
+const feedbacksPerPage = 20;
+
+async function loadFeedbacks(page = 1) {
+  try {
+    const token = localStorage.getItem("authToken");
+    const offset = (page - 1) * feedbacksPerPage;
+
+    const response = await fetch(
+      `https://api.web95.tech/api/v1/admin/feedbacks?limit=${feedbacksPerPage}&offset=${offset}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.status === 401) {
+      localStorage.removeItem("authToken");
+      window.location.href = "/auth.html";
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(`Ошибка HTTP: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    const feedbacks = responseData.data.feedbacks || [];
+    const total = responseData.data.total || 0;
+
+    const tbody = document.getElementById("feedbacksTableBody");
+    const countSpan = document.getElementById("feedbacksCount");
+    const pagination = document.getElementById("feedbacksPagination");
+
+    tbody.innerHTML = "";
+    countSpan.textContent = `Найдено отзывов: ${total}`;
+
+    feedbacks.forEach((feedback) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${feedback.id}</td>
+        <td>${feedback.user_name}</td>
+        <td>${feedback.user_phone}</td>
+        <td>${new Date(feedback.created_at).toLocaleDateString("ru-RU")}</td>
+       
+        <td class="admin-table__actions">
+          
+          <button class="admin-table__btn admin-table__btn--delete" onclick="deleteFeedback(${
+            feedback.id
+          })">
+            Удалить
+          </button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+
+    // Пагинация
+    updateFeedbackPagination(total, page, feedbacksPerPage);
+    currentFeedbackPage = page;
+  } catch (error) {
+    console.error("Ошибка загрузки отзывов:", error);
+    alert("Ошибка загрузки отзывов");
+  }
+}
+
+function updateFeedbackPagination(total, currentPage, perPage) {
+  const pagination = document.getElementById("feedbacksPagination");
+  const totalPages = Math.ceil(total / perPage);
+
+  if (totalPages <= 1) {
+    pagination.innerHTML = "";
+    return;
+  }
+
+  let paginationHTML = "";
+
+  if (currentPage > 1) {
+    paginationHTML += `<button class="btn" onclick="loadFeedbacks(${
+      currentPage - 1
+    })">← Назад</button>`;
+  }
+
+  paginationHTML += `<span style="margin: 0 15px;">Страница ${currentPage} из ${totalPages}</span>`;
+
+  if (currentPage < totalPages) {
+    paginationHTML += `<button class="btn" onclick="loadFeedbacks(${
+      currentPage + 1
+    })">Вперед →</button>`;
+  }
+
+  pagination.innerHTML = paginationHTML;
+}
+
+async function viewFeedback(feedbackId) {
+  try {
+    const token = localStorage.getItem("authToken");
+    const response = await fetch(
+      `https://api.web95.tech/api/v1/admin/feedbacks/${feedbackId}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response.ok) {
+      const feedback = await response.json();
+      alert(
+        `Отзыв #${feedbackId}\nИмя: ${feedback.user_name}\nТелефон: ${
+          feedback.user_phone
+        }\nДата: ${new Date(feedback.created_at).toLocaleString(
+          "ru-RU"
+        )}\n\nСообщение: ${feedback.message || "Нет текста"}`
+      );
+
+      // Пометить как прочитанное
+      await markFeedbackAsRead(feedbackId);
+    }
+  } catch (error) {
+    console.error("Ошибка просмотра отзыва:", error);
+  }
+}
+
+async function markFeedbackAsRead(feedbackId) {
+  try {
+    const token = localStorage.getItem("authToken");
+    await fetch(
+      `https://api.web95.tech/api/v1/admin/feedbacks/${feedbackId}/read`,
+      {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    // Обновляем список
+    loadFeedbacks(currentFeedbackPage);
+  } catch (error) {
+    console.error("Ошибка отметки отзыва:", error);
+  }
+}
+
+async function deleteFeedback(feedbackId) {
+  if (confirm(`Вы уверены, что хотите удалить отзыв #${feedbackId}?`)) {
+    try {
+      const token = localStorage.getItem("authToken");
+      const response = await fetch(
+        `https://api.web95.tech/api/v1/admin/feedbacks/${feedbackId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.ok) {
+        loadFeedbacks(currentFeedbackPage);
+        alert("Отзыв удален успешно!");
+      }
+    } catch (error) {
+      console.error("Ошибка удаления отзыва:", error);
+      alert("Не удалось удалить отзыв");
+    }
+  }
+}
+
 // News Management Functions
 function editNews(newsId) {
   alert("Редактирование новости #" + newsId);
@@ -417,6 +589,9 @@ document.addEventListener("DOMContentLoaded", function () {
       if (savedSection === "dashboard") {
         updateStats();
       }
+      if (savedSection === "feedbacks") {
+        loadFeedbacks();
+      }
       // В блоке восстановления активной вкладки добавьте:
       if (savedSection === "orders") {
         loadOrders();
@@ -450,6 +625,9 @@ document.addEventListener("DOMContentLoaded", function () {
       // 👇 Вставляем сюда проверку
       if (targetSection === "tours") {
         loadTours();
+      }
+      if (targetSection === "feedbacks") {
+        loadFeedbacks();
       }
       if (targetSection === "users") {
         loadUsers();

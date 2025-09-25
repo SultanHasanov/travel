@@ -97,6 +97,9 @@
           <button class="auth-tab" data-section="tours">Туры</button>
           <button class="auth-tab" data-section="news">Новости</button>
           <button class="auth-tab" data-section="orders">Заявки</button>
+          <button class="auth-tab" data-section="feedbacks">
+            Обратная связь
+          </button>
           <!-- <button class="auth-tab" data-section="settings">Настройки</button> -->
         </div>
 
@@ -114,14 +117,13 @@
                 <div class="stats-card__number" id="activeTours">0</div>
                 <div class="stats-card__label">Туров</div>
               </div>
-             
+
               <div class="stats-card">
                 <div class="stats-card__number" id="newNews">0</div>
                 <div class="stats-card__label">Новых новостей</div>
               </div>
             </div>
 
-           
             <table class="admin-table">
               <thead>
                 <tr>
@@ -155,30 +157,34 @@
           </section>
 
           <!-- Orders Section -->
-<section id="orders" class="section">
-  <h1 class="section__title">Заявки от пользователей</h1>
-  
-  <div style="margin-bottom: 20px;">
-    <button class="btn" onclick="loadOrders()">Обновить заявки</button>
-    <span id="ordersCount" style="margin-left: 15px; color: #666;"></span>
-  </div>
+          <section id="orders" class="section">
+            <h1 class="section__title">Заявки от пользователей</h1>
 
-  <table class="admin-table">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Имя</th>
-        <th>Телефон</th>
-        <th>Дата заявки</th>
-        <th>Статус</th>
-        <th>Действия</th>
-      </tr>
-    </thead>
-    <tbody id="ordersTableBody">
-      <!-- Данные будут загружаться через API -->
-    </tbody>
-  </table>
-</section>
+            <div style="margin-bottom: 20px">
+              <button class="btn" onclick="loadOrders()">
+                Обновить заявки
+              </button>
+              <span
+                id="ordersCount"
+                style="margin-left: 15px; color: #666"
+              ></span>
+            </div>
+
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Имя</th>
+                  <th>Телефон</th>
+                  <th>Дата заявки</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="ordersTableBody">
+                <!-- Данные будут загружаться через API -->
+              </tbody>
+            </table>
+          </section>
 
           <!-- Users Section -->
           <section id="users" class="section">
@@ -345,52 +351,41 @@
             </table>
           </section>
 
-          <!-- Settings Section -->
-          <section id="settings" class="section">
-            <h1 class="section__title">Настройки системы</h1>
+          <!-- Feedbacks Section -->
+          <section id="feedbacks" class="section">
+            <h1 class="section__title">Обратная связь</h1>
 
-            <form class="admin-form">
-              <div class="form-group">
-                <label class="form-label">Название сайта</label>
-                <input type="text" class="form-input" value="Manasik Travel" />
-              </div>
+            <div style="margin-bottom: 20px">
+              <button class="btn" onclick="loadFeedbacks()">
+                Обновить отзывы
+              </button>
+              <span
+                id="feedbacksCount"
+                style="margin-left: 15px; color: #666"
+              ></span>
+            </div>
 
-              <div class="form-group">
-                <label class="form-label">Email для уведомлений</label>
-                <input
-                  type="email"
-                  class="form-input"
-                  value="admin@manasik.ru"
-                />
-              </div>
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Имя</th>
+                  <th>Телефон</th>
+                  <th>Дата</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody id="feedbacksTableBody">
+                <!-- Данные будут загружаться через API -->
+              </tbody>
+            </table>
 
-              <div class="form-group">
-                <label class="form-label">Телефон поддержки</label>
-                <input type="tel" class="form-input" value="8-800-899-00-66" />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Курс доллара (руб.)</label>
-                <input
-                  type="number"
-                  class="form-input"
-                  value="65.26"
-                  step="0.01"
-                />
-              </div>
-
-              <div class="form-group">
-                <label class="form-label">Курс риала (руб.)</label>
-                <input
-                  type="number"
-                  class="form-input"
-                  value="17.40"
-                  step="0.01"
-                />
-              </div>
-
-              <button type="submit" class="btn">Сохранить настройки</button>
-            </form>
+            <!-- Пагинация -->
+            <div
+              class="pagination"
+              id="feedbacksPagination"
+              style="margin-top: 20px"
+            ></div>
           </section>
         </div>
       </div>
@@ -997,7 +992,7 @@
             <label class="form-label">Категория</label>
             <select class="form-select" name="category" required>
               <option value="">Выберите категорию</option>
-             <option value="1">Все новости</option>
+              <option value="1">Все новости</option>
               <option value="2">Новости Хаджа</option>
               <option value="3">Новости компании</option>
             </select>

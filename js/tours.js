@@ -328,7 +328,7 @@ function renderToursForHome(tours) {
       tour.currency
     }</span>
     </div>
-    <button class="tours__card-buy__button">купить путевку</button>
+    <button class="tours__card-buy__button" id="orders_booking">купить путевку</button>
   </div>
 `;
 
@@ -520,18 +520,16 @@ function renderToursForHome(tours) {
 
   noToursMessage.style.display = "none";
 
-  tours.forEach((tour) => {
+  tours.forEach((tour, index) => {
     const slide = document.createElement("div");
     slide.classList.add("tours__card", "swiper-slide");
     slide.innerHTML = `
       <div class="tours__card-name">${tour.title}</div>
       <div class="tours__card-buy">
         <div class="tours__card-buy__price">
-          ${Number(tour.price).toLocaleString("ru-RU")} <span>${
-      tour.currency
-    }</span>
+          ${Number(tour.price).toLocaleString("ru-RU")} <span>${tour.currency}</span>
         </div>
-        <button class="tours__card-buy__button">купить путевку</button>
+        <button class="tours__card-buy__button" id="tour_booking_${tour.id}_${index}">купить путевку</button>
       </div>
     `;
 
@@ -557,8 +555,29 @@ function renderToursForHome(tours) {
       480: { slidesPerView: 1 },
     },
   });
+
+  // Добавляем обработчики для новых кнопок
+  addTourButtonHandlers();
 }
 
+// Функция для добавления обработчиков на кнопки туров
+function addTourButtonHandlers() {
+  const tourButtons = document.querySelectorAll('.tours__card-buy__button[id^="tour_booking_"]');
+  
+  tourButtons.forEach(button => {
+    button.addEventListener('click', function(e) {
+      e.preventDefault();
+      const modal = document.getElementById('bookingModal');
+      if (modal) {
+        modal.style.display = 'block';
+        
+        // Можно также передать ID тура в форму, если нужно
+        const tourId = this.id.split('_')[2]; // извлекаем ID тура
+        console.log('Выбран тур ID:', tourId);
+      }
+    });
+  });
+}
 
 // Функция для обновления обратного отсчета
 async function initCountdown() {
@@ -670,25 +689,15 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
-// Инициализация при загрузке страницы
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
   const currentPage = window.location.pathname.split("/").pop();
-
   if (currentPage === "index.html" || currentPage === "") {
-    initSearchFilters();
+    const tours = await loadAllTours();
+    const filterValues = extractFilterValues(tours);
+    populateFilters(filterValues);
+    renderToursForHome(tours);
   } else {
-    loadTours();
+    loadTours(); // для админки
   }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const currentPage = window.location.pathname.split("/").pop();
-
-  if (currentPage === "index.html" || currentPage === "") {
-    // Главная страница
-    loadToursForHome();
-  } else {
-    // Админка или другие страницы
-    loadTours();
-  }
-});
