@@ -1,5 +1,5 @@
 // tours.js
-const TOURS_API_BASE = "http://212.193.51.76:8080/api/v1/admin/trips";
+const TOURS_API_BASE = "https://api.web95.tech/api/v1/admin/trips";
 
 // Загрузка всех туров
 async function loadTours() {
@@ -316,7 +316,7 @@ function renderToursForHome(tours) {
 async function loadToursForHome() {
   try {
     const token = localStorage.getItem("authToken");
-    const response = await fetch("http://212.193.51.76:8080/api/v1/trips", {
+    const response = await fetch("https://api.web95.tech/api/v1/trips", {
       method: "GET",
     });
 
@@ -342,7 +342,7 @@ let currentFilters = {
 // Функция для загрузки всех туров
 async function loadAllTours() {
   try {
-    const response = await fetch("http://212.193.51.76:8080/api/v1/trips", {
+    const response = await fetch("https://api.web95.tech/api/v1/trips", {
       method: "GET",
     });
 
@@ -523,7 +523,7 @@ function renderToursForHome(tours) {
 // Функция для обновления обратного отсчета
 async function initCountdown() {
   try {
-    const response = await fetch('http://212.193.51.76:8080/api/v1/trips/main');
+    const response = await fetch('https://api.web95.tech/api/v1/trips/main');
     const respData = await response.json();
     const data = respData.data.countdown
     

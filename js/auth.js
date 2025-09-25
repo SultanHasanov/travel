@@ -1,5 +1,5 @@
 // Константы API
-const API_BASE = "http://212.193.51.76:8080/api/v1";
+const API_BASE = "https://api.web95.tech/api/v1";
 const REGISTER_URL = `${API_BASE}/auth/register`;
 const LOGIN_URL = `${API_BASE}/auth/login`;
 
@@ -198,7 +198,7 @@ async function handleLogin() {
 
     if (response.ok) {
       // Сохраняем токен в localStorage
-      localStorage.setItem("authToken", data.data.token);
+      localStorage.setItem("authToken", data.token);
       localStorage.setItem("userEmail", email);
 
       showSuccess("Вход выполнен успешно!");

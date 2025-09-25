@@ -1,9 +1,9 @@
-const NEWS_API_URL = "http://212.193.51.76:8080/api/v1/admin/news";
+const NEWS_API_URL = "https://api.web95.tech/api/v1/admin/news";
 
 // Загрузка всех новостей
 async function loadNews() {
   try {
-    const response = await fetch("http://212.193.51.76:8080/api/v1/news");
+    const response = await fetch("https://api.web95.tech/api/v1/news");
     if (!response.ok) throw new Error("Ошибка загрузки новостей");
 
     const responseData = await response.json();
@@ -167,7 +167,7 @@ async function deleteNews(id) {
 async function getNewsById(id) {
   try {
     const response = await fetch(
-      `${"http://212.193.51.76:8080/api/v1/news"}/${id}`
+      `${"https://api.web95.tech/api/v1/news"}/${id}`
     );
     if (!response.ok) throw new Error("Ошибка загрузки новости");
 
@@ -269,7 +269,7 @@ function initNews() {
 
 async function loadHadjNews() {
   try {
-    const response = await fetch("http://212.193.51.76:8080/api/v1/news");
+    const response = await fetch("https://api.web95.tech/api/v1/news");
     if (!response.ok) throw new Error("Ошибка загрузки новостей");
 
     const responseData = await response.json();

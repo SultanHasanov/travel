@@ -4,7 +4,7 @@ async function loadUsers() {
     const token = localStorage.getItem("authToken"); // или из куков/другого хранилища
 
     const response = await fetch(
-      "http://212.193.51.76:8080/api/v1/admin/users",
+      "https://api.web95.tech/admin/users",
       {
         method: "GET",
         headers: {
@@ -67,7 +67,7 @@ async function loadStats() {
   try {
     const token = localStorage.getItem("authToken");
     const response = await fetch(
-      "http://212.193.51.76:8080/api/v1/admin/stats",
+      "https://api.web95.tech/admin/stats",
       {
         method: "GET",
         headers: {
@@ -123,7 +123,7 @@ async function editUser(userId) {
 
     // Получаем данные пользователя
     const response = await fetch(
-      `http://212.193.51.76:8080/api/v1/admin/users/${userId}`,
+      `https://api.web95.tech/admin/users/${userId}`,
       {
         method: "GET",
         headers: {
@@ -169,7 +169,7 @@ async function submitEditUserForm(event) {
   try {
     const token = localStorage.getItem("authToken");
     const response = await fetch(
-      `http://212.193.51.76:8080/api/v1/admin/users/${userId}`,
+      `https://api.web95.tech/admin/users/${userId}`,
       {
         method: "PUT",
         headers: {
@@ -198,7 +198,7 @@ async function deleteUser(userId) {
     try {
       const token = localStorage.getItem("authToken");
       const response = await fetch(
-        `http://212.193.51.76:8080/api/v1/admin/users/${userId}`,
+        `https://api.web95.tech/admin/users/${userId}`,
         {
           method: "DELETE",
           headers: {
@@ -231,7 +231,7 @@ async function submitUserForm(event) {
   try {
     const token = localStorage.getItem("authToken");
     const response = await fetch(
-      "http://212.193.51.76:8080/api/v1/admin/users",
+      "https://api.web95.tech/admin/users",
       {
         method: "POST",
         headers: {
