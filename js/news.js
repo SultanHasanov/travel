@@ -98,7 +98,14 @@ async function createNews(newsData) {
       body: JSON.stringify(newsData),
     });
 
-    if (!response.ok) throw new Error("Ошибка создания новости");
+    if (response.status === 401) {
+       localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+     
+      return;
+    }
 
     const responseData = await response.json();
     const result = responseData.data;
@@ -125,7 +132,14 @@ async function updateNews(id, newsData) {
       body: JSON.stringify(newsData),
     });
 
-    if (!response.ok) throw new Error("Ошибка обновления новости");
+    if (response.status === 401) {
+       localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+     
+      return;
+    }
 
     const responseData = await response.json();
     const result = responseData.data;
@@ -153,7 +167,14 @@ async function deleteNews(id) {
       },
     });
 
-    if (!response.ok) throw new Error("Ошибка удаления новости");
+    if (response.status === 401) {
+       localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+     
+      return;
+    }
 
     loadNews();
     alert("Новость успешно удалена!");

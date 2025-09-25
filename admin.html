@@ -96,7 +96,8 @@
           <button class="auth-tab" data-section="users">Пользователи</button>
           <button class="auth-tab" data-section="tours">Туры</button>
           <button class="auth-tab" data-section="news">Новости</button>
-          <button class="auth-tab" data-section="settings">Настройки</button>
+          <button class="auth-tab" data-section="orders">Заявки</button>
+          <!-- <button class="auth-tab" data-section="settings">Настройки</button> -->
         </div>
 
         <div class="auth-form">
@@ -161,6 +162,32 @@
               </tbody>
             </table>
           </section>
+
+          <!-- Orders Section -->
+<section id="orders" class="section">
+  <h1 class="section__title">Заявки от пользователей</h1>
+  
+  <div style="margin-bottom: 20px;">
+    <button class="btn" onclick="loadOrders()">Обновить заявки</button>
+    <span id="ordersCount" style="margin-left: 15px; color: #666;"></span>
+  </div>
+
+  <table class="admin-table">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Имя</th>
+        <th>Телефон</th>
+        <th>Дата заявки</th>
+        <th>Статус</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody id="ordersTableBody">
+      <!-- Данные будут загружаться через API -->
+    </tbody>
+  </table>
+</section>
 
           <!-- Users Section -->
           <section id="users" class="section">

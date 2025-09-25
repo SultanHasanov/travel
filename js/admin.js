@@ -3,22 +3,20 @@ async function loadUsers() {
     // Получите токен из localStorage или другого места хранения
     const token = localStorage.getItem("authToken"); // или из куков/другого хранилища
 
-    const response = await fetch(
-      "https://api.web95.tech/admin/users",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch("https://api.web95.tech/api/v1/admin/users", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
 
     if (response.status === 401) {
+      localStorage.removeItem("authToken");
       // Токен недействителен или отсутствует
-      alert("Требуется авторизация. Пожалуйста, войдите в систему.");
       // Перенаправление на страницу входа
       window.location.href = "/auth.html";
+      alert("Требуется авторизация. Пожалуйста, войдите в систему.");
       return;
     }
 
@@ -63,21 +61,79 @@ async function loadUsers() {
   }
 }
 
+async function loadOrders() {
+  try {
+    const token = localStorage.getItem("authToken");
+
+    const response = await fetch("https://api.web95.tech/api/v1/admin/orders", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 401) {
+      localStorage.removeItem("authToken");
+      window.location.href = "/auth.html";
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(`Ошибка HTTP: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    const orders = responseData.data; // Если данные в свойстве "data"
+
+    const tbody = document.getElementById("ordersTableBody");
+    const countSpan = document.getElementById("ordersCount");
+
+    tbody.innerHTML = "";
+    countSpan.textContent = `Найдено заявок: ${orders.length}`;
+
+    orders.forEach((order) => {
+      const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${order.id || "N/A"}</td>
+        <td>${order.user_name}</td>
+        <td>${order.user_phone}</td>
+        <td>${new Date(order.created_at || new Date()).toLocaleDateString(
+          "ru-RU"
+        )}</td>
+        <td><span style="color: #ffb800">Новая</span></td>
+        <td class="admin-table__actions">
+          <button class="admin-table__btn admin-table__btn--edit">Обработать</button>
+          <button class="admin-table__btn admin-table__btn--delete">Удалить</button>
+        </td>
+      `;
+      tbody.appendChild(row);
+    });
+  } catch (error) {
+    console.error("Ошибка загрузки заявок:", error);
+    alert("Ошибка загрузки заявок");
+  }
+}
+
 async function loadStats() {
   try {
     const token = localStorage.getItem("authToken");
-    const response = await fetch(
-      "https://api.web95.tech/admin/stats",
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await fetch("https://api.web95.tech/api/v1/admin/stats", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
 
-    if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+    if (response.status === 401) {
+      localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+
+      return;
+    }
 
     const statsData = await response.json();
     return statsData.data; // Предполагая, что данные в свойстве "data"
@@ -91,15 +147,11 @@ async function updateStats() {
   const stats = await loadStats();
   if (stats) {
     document.getElementById("totalUsers").textContent = stats.total_users || 0;
-    document.getElementById("activeTours").textContent =
-      stats.total_trips || 0;
- 
+    document.getElementById("activeTours").textContent = stats.total_trips || 0;
+
     document.getElementById("newNews").textContent = stats.total_news || 0;
   }
 }
-
-
-
 
 // Modal functions
 function openModal(modalId) {
@@ -123,7 +175,7 @@ async function editUser(userId) {
 
     // Получаем данные пользователя
     const response = await fetch(
-      `https://api.web95.tech/admin/users/${userId}`,
+      `https://api.web95.tech/api/v1/admin/users/${userId}`,
       {
         method: "GET",
         headers: {
@@ -133,10 +185,14 @@ async function editUser(userId) {
       }
     );
 
-    if (!response.ok) {
-      throw new Error("Ошибка при получении данных пользователя");
-    }
+    if (response.status === 401) {
+      localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
 
+      return;
+    }
     const responseData = await response.json();
     const userData = responseData.data;
 
@@ -169,7 +225,7 @@ async function submitEditUserForm(event) {
   try {
     const token = localStorage.getItem("authToken");
     const response = await fetch(
-      `https://api.web95.tech/admin/users/${userId}`,
+      `https://api.web95.tech/api/v1/admin/users/${userId}`,
       {
         method: "PUT",
         headers: {
@@ -180,6 +236,14 @@ async function submitEditUserForm(event) {
       }
     );
 
+    if (response.status === 401) {
+      localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+
+      return;
+    }
     if (response.ok) {
       closeModal("editUserModal");
       loadUsers(); // Перезагружаем список пользователей
@@ -198,7 +262,7 @@ async function deleteUser(userId) {
     try {
       const token = localStorage.getItem("authToken");
       const response = await fetch(
-        `https://api.web95.tech/admin/users/${userId}`,
+        `https://api.web95.tech/api/v1/admin/users/${userId}`,
         {
           method: "DELETE",
           headers: {
@@ -206,6 +270,15 @@ async function deleteUser(userId) {
           },
         }
       );
+
+      if (response.status === 401) {
+        localStorage.removeItem("authToken");
+        // Токен недействителен или отсутствует
+        // Перенаправление на страницу входа
+        window.location.href = "/auth.html";
+
+        return;
+      }
 
       if (response.ok) {
         loadUsers(); // Перезагружаем список
@@ -230,17 +303,23 @@ async function submitUserForm(event) {
 
   try {
     const token = localStorage.getItem("authToken");
-    const response = await fetch(
-      "https://api.web95.tech/admin/users",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(userData),
-      }
-    );
+    const response = await fetch("https://api.web95.tech/api/v1/admin/users", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userData),
+    });
+
+    if (response.status === 401) {
+      localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+
+      return;
+    }
 
     if (response.ok) {
       closeModal("userModal");
@@ -310,7 +389,6 @@ function submitNewsForm(event) {
   alert("Новость создана успешно!");
 }
 
-
 // В конец скрипта добавьте:
 document.addEventListener("DOMContentLoaded", function () {
   const authTabs = document.querySelectorAll(".auth-tab");
@@ -326,16 +404,22 @@ document.addEventListener("DOMContentLoaded", function () {
     authTabs.forEach((t) => t.classList.remove("active"));
     sections.forEach((s) => s.classList.remove("active"));
 
-    const savedTab = document.querySelector(`.auth-tab[data-section="${savedSection}"]`);
+    const savedTab = document.querySelector(
+      `.auth-tab[data-section="${savedSection}"]`
+    );
     const savedContent = document.getElementById(savedSection);
 
     if (savedTab && savedContent) {
       savedTab.classList.add("active");
       savedContent.classList.add("active");
-      
+
       // 👇 ДОБАВЬ ЭТУ ПРОВЕРКУ ДЛЯ ВОССТАНОВЛЕНИЯ ВКЛАДКИ
       if (savedSection === "dashboard") {
         updateStats();
+      }
+      // В блоке восстановления активной вкладки добавьте:
+      if (savedSection === "orders") {
+        loadOrders();
       }
     }
   } else {
@@ -360,7 +444,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Сохраняем в localStorage
       localStorage.setItem("activeSection", targetSection);
-
+      if (targetSection === "orders") {
+        loadOrders();
+      }
       // 👇 Вставляем сюда проверку
       if (targetSection === "tours") {
         loadTours();

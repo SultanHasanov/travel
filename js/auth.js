@@ -199,7 +199,7 @@ async function handleLogin() {
     if (response.ok) {
       // Сохраняем токен в localStorage
       localStorage.setItem("authToken", data.token);
-      localStorage.setItem("userEmail", email);
+      // localStorage.setItem("userEmail", email);
 
       showSuccess("Вход выполнен успешно!");
 

@@ -14,16 +14,16 @@ async function loadTours() {
       },
     });
 
-    if (response.status === 401) {
-      alert("Требуется авторизация. Пожалуйста, войдите в систему.");
+   if (response.status === 401) {
+       localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
       window.location.href = "/auth.html";
+     
       return;
     }
 
-    if (!response.ok) {
-      throw new Error(`Ошибка HTTP: ${response.status}`);
-    }
-
+  
     const responseData = await response.json();
     const tours = responseData.data;
     renderToursTable(tours);
@@ -46,9 +46,16 @@ async function toggleMainTour(tourId, isMain) {
       body: JSON.stringify({ main: isMain }),
     });
 
-    if (!response.ok) {
-      throw new Error("Ошибка при обновлении тура");
+    if (response.status === 401) {
+       localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+     
+      return;
     }
+
+   
 
     // Перезагружаем список туров
     loadTours();
@@ -104,9 +111,16 @@ async function editTour(tourId) {
       },
     });
 
-    if (!response.ok) {
-      throw new Error("Ошибка при получении данных тура");
+    if (response.status === 401) {
+       localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+     
+      return;
     }
+
+   
 
     const responseData = await response.json();
     const tourData = responseData.data;
@@ -182,6 +196,15 @@ async function submitEditTourForm(event) {
       body: JSON.stringify(tourData),
     });
 
+    if (response.status === 401) {
+       localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+     
+      return;
+    }
+
     if (response.ok) {
       closeModal("editTourModal");
       loadTours();
@@ -206,6 +229,14 @@ async function deleteTour(tourId) {
           Authorization: `Bearer ${token}`,
         },
       });
+      if (response.status === 401) {
+       localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+     
+      return;
+    }
 
       if (response.ok) {
         loadTours();
@@ -250,6 +281,15 @@ async function submitTourForm(event) {
       },
       body: JSON.stringify(tourData),
     });
+
+    if (response.status === 401) {
+       localStorage.removeItem("authToken");
+      // Токен недействителен или отсутствует
+      // Перенаправление на страницу входа
+      window.location.href = "/auth.html";
+     
+      return;
+    }
 
     if (response.ok) {
       closeModal("tourModal");

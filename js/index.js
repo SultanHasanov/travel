@@ -1,4 +1,4 @@
-// HEADER SEARCH INPUT
+// index.js
 const headerMiddle = document.querySelector(".header__middle");
 const headerFormSearchInput = document.querySelector(".header__middle-form__input");
 const headerFormSearchButton = document.querySelector(".header__middle-form__button");

@@ -2151,7 +2151,40 @@
       </div>
     </footer>
 
+    <!-- Модальное окно -->
+    <div class="modal" id="bookingModal" style="display: none">
+      <div class="modal__overlay"></div>
+      <div class="modal__content">
+        <div class="modal__body">
+          <form class="modal__form" id="bookingForm">
+            <div class="modal__input-group">
+              <label>Имя</label>
+              <input
+                type="text"
+                name="name"
+                placeholder="Введите свое имя"
+                required
+              />
+            </div>
+
+            <div class="modal__input-group">
+              <label>Номер телефона</label>
+              <input
+                type="tel"
+                name="phone"
+                placeholder="Введите свой номер телефона"
+                required
+              />
+            </div>
+
+            <button type="submit" class="modal__submit">ОСТАВИТЬ ЗАЯВКУ</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/booking-modal.js"></script>
     <script src="js/index.js"></script>
     <script src="js/dropdowns.js"></script>
     <script src="js/index-page/tabs.js"></script>
