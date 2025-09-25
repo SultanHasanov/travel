@@ -99,11 +99,11 @@ async function createNews(newsData) {
     });
 
     if (response.status === 401) {
-       localStorage.removeItem("authToken");
+      localStorage.removeItem("authToken");
       // Токен недействителен или отсутствует
       // Перенаправление на страницу входа
       window.location.href = "/auth.html";
-     
+
       return;
     }
 
@@ -133,11 +133,11 @@ async function updateNews(id, newsData) {
     });
 
     if (response.status === 401) {
-       localStorage.removeItem("authToken");
+      localStorage.removeItem("authToken");
       // Токен недействителен или отсутствует
       // Перенаправление на страницу входа
       window.location.href = "/auth.html";
-     
+
       return;
     }
 
@@ -168,11 +168,11 @@ async function deleteNews(id) {
     });
 
     if (response.status === 401) {
-       localStorage.removeItem("authToken");
+      localStorage.removeItem("authToken");
       // Токен недействителен или отсутствует
       // Перенаправление на страницу входа
       window.location.href = "/auth.html";
-     
+
       return;
     }
 
@@ -297,7 +297,7 @@ async function loadHadjNews() {
     const allNews = responseData.data.items || [];
 
     // фильтруем только по category_id === 2
-    const hadjNews = allNews.filter(item => item.category_id === 2);
+    const hadjNews = allNews.filter((item) => item.category_id === 2);
     renderHadjNews(hadjNews);
   } catch (error) {
     console.error("Error loading hadj news:", error);
@@ -308,7 +308,7 @@ function renderHadjNews(news) {
   const wrapper = document.getElementById("hadjNewsWrapper");
   wrapper.innerHTML = "";
 
-  news.forEach(item => {
+  news.forEach((item) => {
     const slide = document.createElement("div");
     slide.className = "hadj-news__card swiper-slide";
     slide.innerHTML = `
@@ -334,7 +334,9 @@ function renderHadjNews(news) {
               <span>${item.views_count}</span>
             </div>
           </div>
-          <a href="/news/${item.slug}" class="hadj-news__card-link">подробнее</a>
+          <a href="/news/${
+            item.slug
+          }" class="hadj-news__card-link">подробнее</a>
         </div>
       </div>
     `;
@@ -347,9 +349,66 @@ function renderHadjNews(news) {
   }
 }
 
+async function loadCompanyNews() {
+  try {
+    const response = await fetch("https://api.web95.tech/api/v1/news");
+    if (!response.ok) throw new Error("Ошибка загрузки новостей");
 
+    const responseData = await response.json();
+    const allNews = responseData.data.items || [];
 
+    // фильтруем только по category_id === 1 (новости компании)
+    const companyNews = allNews.filter(item => item.category_id === 3);
+    renderCompanyNews(companyNews);
+  } catch (error) {
+    console.error("Error loading company news:", error);
+  }
+}
 
+function renderCompanyNews(news) {
+  const wrapper = document.getElementById("companyNewsWrapper");
+  wrapper.innerHTML = "";
+
+  news.forEach(item => {
+    const slide = document.createElement("div");
+    slide.className = "company-news__card swiper-slide";
+    slide.innerHTML = `
+      <div class="company-news__card-date">${formatDate(item.published_at)}</div>
+      <div class="company-news__card-image">
+        <img src="${item.preview_url || 'assets/images/pages/index-page/news/article-preview.png'}" alt="${item.title}" />
+      </div>
+      <div class="company-news__card-info">
+        <h3 class="company-news__card-title">${item.title}</h3>
+        <p class="company-news__card-description">${item.excerpt}</p>
+        <div class="company-news__card-bottom">
+          <div class="company-news__card-stats">
+            <div class="company-news__card-stat">
+              <img src="assets/icons/comment.svg" alt="Comments" />
+              <span>${item.comments_count || 0}</span>
+            </div>
+            <div class="company-news__card-stat">
+              <img src="assets/icons/repost.svg" alt="Reposts" />
+              <span>${item.reposts_count || 0}</span>
+            </div>
+            <div class="company-news__card-stat">
+              <img src="assets/icons/view.svg" alt="Views" />
+              <span>${item.views_count || 0}</span>
+            </div>
+          </div>
+          <a href="/news/${item.slug}" class="company-news__card-link">подробнее</a>
+        </div>
+      </div>
+    `;
+    wrapper.appendChild(slide);
+  });
+
+  // обновляем Swiper если он уже инициализирован
+  if (typeof companySwiper !== 'undefined') {
+    companySwiper.update();
+  }
+}
+
+// Запуск при загрузке страницы
 // Запуск при загрузке страницы
 document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("newsTableBody")) {
@@ -360,5 +419,10 @@ document.addEventListener("DOMContentLoaded", function () {
   if (document.getElementById("hadjNewsWrapper")) {
     // значит мы на публичной странице
     loadHadjNews();
+  }
+
+  if (document.getElementById("companyNewsWrapper")) {
+    // загружаем новости компании
+    loadCompanyNews();
   }
 });
