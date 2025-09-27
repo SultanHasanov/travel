@@ -14,16 +14,15 @@ async function loadTours() {
       },
     });
 
-   if (response.status === 401) {
-       localStorage.removeItem("authToken");
+    if (response.status === 401) {
+      localStorage.removeItem("authToken");
       // Токен недействителен или отсутствует
       // Перенаправление на страницу входа
       window.location.href = "/auth.html";
-     
+
       return;
     }
 
-  
     const responseData = await response.json();
     const tours = responseData.data;
     renderToursTable(tours);
@@ -47,15 +46,13 @@ async function toggleMainTour(tourId, isMain) {
     });
 
     if (response.status === 401) {
-       localStorage.removeItem("authToken");
+      localStorage.removeItem("authToken");
       // Токен недействителен или отсутствует
       // Перенаправление на страницу входа
       window.location.href = "/auth.html";
-     
+
       return;
     }
-
-   
 
     // Перезагружаем список туров
     loadTours();
@@ -76,20 +73,28 @@ function renderToursTable(tours) {
             <td>${tour.id}</td>
             <td>${tour.title}</td>
             <td>${tour.trip_type === "hajj" ? "Хадж" : "Умра"}</td>
-            <td>${Number(tour.price).toLocaleString("ru-RU")} ${tour.currency}</td>
+            <td>${Number(tour.price).toLocaleString("ru-RU")} ${
+      tour.currency
+    }</td>
             <td>${new Date(tour.start_date).toLocaleDateString("ru-RU")}</td>
             <td>${new Date(tour.end_date).toLocaleDateString("ru-RU")}</td>
             <td>
               <label class="checkbox-container">
-                <input type="checkbox" ${tour.main ? 'checked' : ''} onchange="toggleMainTour(${tour.id}, this.checked)">
+                <input type="checkbox" ${
+                  tour.main ? "checked" : ""
+                } onchange="toggleMainTour(${tour.id}, this.checked)">
                 <span class="checkmark"></span>
               </label>
             </td>
             <td class="admin-table__actions">
-                <button class="admin-table__btn admin-table__btn--edit" onclick="editTour(${tour.id})">
+                <button class="admin-table__btn admin-table__btn--edit" onclick="editTour(${
+                  tour.id
+                })">
                     Редактировать
                 </button>
-                <button class="admin-table__btn admin-table__btn--delete" onclick="deleteTour(${tour.id})">
+                <button class="admin-table__btn admin-table__btn--delete" onclick="deleteTour(${
+                  tour.id
+                })">
                     Удалить
                 </button>
             </td>
@@ -112,15 +117,13 @@ async function editTour(tourId) {
     });
 
     if (response.status === 401) {
-       localStorage.removeItem("authToken");
+      localStorage.removeItem("authToken");
       // Токен недействителен или отсутствует
       // Перенаправление на страницу входа
       window.location.href = "/auth.html";
-     
+
       return;
     }
-
-   
 
     const responseData = await response.json();
     const tourData = responseData.data;
@@ -197,11 +200,11 @@ async function submitEditTourForm(event) {
     });
 
     if (response.status === 401) {
-       localStorage.removeItem("authToken");
+      localStorage.removeItem("authToken");
       // Токен недействителен или отсутствует
       // Перенаправление на страницу входа
       window.location.href = "/auth.html";
-     
+
       return;
     }
 
@@ -230,13 +233,13 @@ async function deleteTour(tourId) {
         },
       });
       if (response.status === 401) {
-       localStorage.removeItem("authToken");
-      // Токен недействителен или отсутствует
-      // Перенаправление на страницу входа
-      window.location.href = "/auth.html";
-     
-      return;
-    }
+        localStorage.removeItem("authToken");
+        // Токен недействителен или отсутствует
+        // Перенаправление на страницу входа
+        window.location.href = "/auth.html";
+
+        return;
+      }
 
       if (response.ok) {
         loadTours();
@@ -283,11 +286,11 @@ async function submitTourForm(event) {
     });
 
     if (response.status === 401) {
-       localStorage.removeItem("authToken");
+      localStorage.removeItem("authToken");
       // Токен недействителен или отсутствует
       // Перенаправление на страницу входа
       window.location.href = "/auth.html";
-     
+
       return;
     }
 
@@ -355,13 +358,12 @@ function renderToursForHome(tours) {
 
 async function loadToursForHome() {
   try {
-    
     const response = await fetch("https://api.web95.tech/api/v1/trips", {
       method: "GET",
     });
 
     if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
-     const responseData = await response.json();
+    const responseData = await response.json();
     const tours = responseData.data;
     renderToursForHome(tours);
   } catch (error) {
@@ -372,7 +374,6 @@ async function loadToursForHome() {
 
 // Константы и глобальные переменные
 
-let allTours = [];
 let currentFilters = {
   trip_type: "",
   departure_city: "",
@@ -389,15 +390,12 @@ async function loadAllTours() {
     if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
 
     const dataResp = await response.json();
-    allTours = dataResp.data; // сохраняем в глобальную переменную!
-    return allTours;
+    return dataResp.data;
   } catch (error) {
     console.error("Ошибка загрузки туров:", error);
     return [];
   }
 }
-
-
 // Функция для извлечения уникальных значений для фильтров
 function extractFilterValues(tours) {
   const filters = {
@@ -477,35 +475,45 @@ function setupFilterEventListeners() {
 
         if (filterKey) {
           currentFilters[filterKey] = this.dataset.value || "";
-          filterTours();
         }
+
+        // 🔴 filterTours() убираем отсюда!
       });
     });
 
-  // Обработчик формы поиска
-  document
-    .getElementById("searchForm")
-    .addEventListener("submit", function (e) {
-      e.preventDefault();
-      filterTours();
-    });
+  // Фильтрация только по кнопке "искать туры"
+  document.getElementById("searchForm").addEventListener("submit", function (e) {
+    e.preventDefault();
+    filterTours();
+  });
 }
 
 // Функция фильтрации туров
-function filterTours() {
-  const filteredTours = allTours.filter((tour) => {
-    return (
-      (!currentFilters.trip_type ||
-        tour.trip_type === currentFilters.trip_type) &&
-      (!currentFilters.departure_city ||
-        tour.departure_city === currentFilters.departure_city) &&
-      (!currentFilters.season || tour.season === currentFilters.season)
-    );
-  });
+// Функция фильтрации туров через запрос к серверу
+async function filterTours() {
+  try {
+    // Собираем параметры для запроса
+    const params = new URLSearchParams();
+    
+    if (currentFilters.trip_type) params.append('trip_type', currentFilters.trip_type);
+    if (currentFilters.departure_city) params.append('departure_city', currentFilters.departure_city);
+    if (currentFilters.season) params.append('season', currentFilters.season);
 
-  renderToursForHome(filteredTours);
+    const response = await fetch(`https://api.web95.tech/api/v1/trips?${params.toString()}`, {
+      method: "GET",
+    });
+
+    if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
+
+    const responseData = await response.json();
+    const filteredTours = responseData.data;
+
+    renderToursForHome(filteredTours);
+  } catch (error) {
+    console.error("Ошибка фильтрации туров:", error);
+    alert("Не удалось загрузить туры по выбранным фильтрам");
+  }
 }
-
 // Модифицированная функция рендеринга туров
 function renderToursForHome(tours) {
   const wrapper = document.getElementById("toursSwiperWrapper");
@@ -527,9 +535,13 @@ function renderToursForHome(tours) {
       <div class="tours__card-name">${tour.title}</div>
       <div class="tours__card-buy">
         <div class="tours__card-buy__price">
-          ${Number(tour.price).toLocaleString("ru-RU")} <span>${tour.currency}</span>
+          ${Number(tour.price).toLocaleString("ru-RU")} <span>${
+      tour.currency
+    }</span>
         </div>
-        <button class="tours__card-buy__button" id="tour_booking_${tour.id}_${index}">купить путевку</button>
+        <button class="tours__card-buy__button" id="tour_booking_${
+          tour.id
+        }_${index}">купить путевку</button>
       </div>
     `;
 
@@ -562,18 +574,20 @@ function renderToursForHome(tours) {
 
 // Функция для добавления обработчиков на кнопки туров
 function addTourButtonHandlers() {
-  const tourButtons = document.querySelectorAll('.tours__card-buy__button[id^="tour_booking_"]');
-  
-  tourButtons.forEach(button => {
-    button.addEventListener('click', function(e) {
+  const tourButtons = document.querySelectorAll(
+    '.tours__card-buy__button[id^="tour_booking_"]'
+  );
+
+  tourButtons.forEach((button) => {
+    button.addEventListener("click", function (e) {
       e.preventDefault();
-      const modal = document.getElementById('bookingModal');
+      const modal = document.getElementById("bookingModal");
       if (modal) {
-        modal.style.display = 'block';
-        
+        modal.style.display = "block";
+
         // Можно также передать ID тура в форму, если нужно
-        const tourId = this.id.split('_')[2]; // извлекаем ID тура
-        console.log('Выбран тур ID:', tourId);
+        const tourId = this.id.split("_")[2]; // извлекаем ID тура
+        console.log("Выбран тур ID:", tourId);
       }
     });
   });
@@ -582,53 +596,60 @@ function addTourButtonHandlers() {
 // Функция для обновления обратного отсчета
 async function initCountdown() {
   try {
-    const response = await fetch('https://api.web95.tech/api/v1/trips/main');
+    const response = await fetch("https://api.web95.tech/api/v1/trips/main");
     const respData = await response.json();
-    const data = respData.data.countdown
-    
+    const data = respData.data.countdown;
+
     if (data) {
       const { days, hours, minutes, seconds } = data;
-      
+
       // Конвертируем в общее количество секунд
-      let totalSeconds = 
-        parseInt(days) * 24 * 60 * 60 + 
-        parseInt(hours) * 60 * 60 + 
-        parseInt(minutes) * 60 + 
+      let totalSeconds =
+        parseInt(days) * 24 * 60 * 60 +
+        parseInt(hours) * 60 * 60 +
+        parseInt(minutes) * 60 +
         parseInt(seconds);
-      
+
       // Запускаем обратный отсчет на фронте
       startCountdown(totalSeconds);
-    }  else {
-        // Нет активных туров - показываем сообщение
-        showNoActiveToursMessage(countdownContainer, titleElement, bookingButton);
-      }
+    } else {
+      // Нет активных туров - показываем сообщение
+      showNoActiveToursMessage(countdownContainer, titleElement, bookingButton);
+    }
   } catch (error) {
-    console.error('Ошибка загрузки времени:', error);
-     // При ошибке тоже показываем сообщение
-    const countdownContainer = document.querySelector('.introduction__booking-time');
-    const titleElement = document.querySelector('.introduction__booking-title');
-    const bookingButton = document.querySelector('.introduction__booking-button');
+    console.error("Ошибка загрузки времени:", error);
+    // При ошибке тоже показываем сообщение
+    const countdownContainer = document.querySelector(
+      ".introduction__booking-time"
+    );
+    const titleElement = document.querySelector(".introduction__booking-title");
+    const bookingButton = document.querySelector(
+      ".introduction__booking-button"
+    );
     showNoActiveToursMessage(countdownContainer, titleElement, bookingButton);
   }
 }
 
 // Функция для показа сообщения об отсутствии активных туров
-function showNoActiveToursMessage(countdownContainer, titleElement, bookingButton) {
+function showNoActiveToursMessage(
+  countdownContainer,
+  titleElement,
+  bookingButton
+) {
   // Скрываем отсчет и кнопку
-  countdownContainer.style.display = 'none';
-  bookingButton.style.display = 'none';
-  
-  // Показываем сообщение
-  titleElement.textContent = 'Пока нет активных туров';
-  titleElement.style.textAlign = 'center';
-  titleElement.style.width = '100%';
-  
-  // Добавляем стиль для сообщения
-  titleElement.style.fontSize = '24px';
-  titleElement.style.color = '#ffb800';
-  titleElement.style.marginTop = '20px';
-}
+  countdownContainer.style.display = "none";
+  bookingButton.style.display = "none";
 
+  // Показываем сообщение
+  titleElement.textContent = "Пока нет активных туров";
+  titleElement.style.textAlign = "center";
+  titleElement.style.width = "100%";
+
+  // Добавляем стиль для сообщения
+  titleElement.style.fontSize = "24px";
+  titleElement.style.color = "#ffb800";
+  titleElement.style.marginTop = "20px";
+}
 
 // Функция для фронтенд-отсчета
 function startCountdown(totalSeconds) {
@@ -636,24 +657,33 @@ function startCountdown(totalSeconds) {
     if (totalSeconds <= 0) {
       clearInterval(countdownInterval);
       // Можно добавить действие по окончании отсчета
-      document.querySelector('.introduction__booking-title').textContent = 'Запись на хадж завершена';
+      document.querySelector(".introduction__booking-title").textContent =
+        "Запись на хадж завершена";
       return;
     }
-    
+
     const days = Math.floor(totalSeconds / (24 * 60 * 60));
     const hours = Math.floor((totalSeconds % (24 * 60 * 60)) / (60 * 60));
     const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
     const seconds = totalSeconds % 60;
-    
+
     // Обновляем значения на странице
-    document.querySelector('.introduction__booking-time__measurement:nth-child(1) .booking-time__measurement-int').textContent = days.toString().padStart(2, '0');
-    document.querySelector('.introduction__booking-time__measurement:nth-child(2) .booking-time__measurement-int').textContent = hours.toString().padStart(2, '0');
-    document.querySelector('.introduction__booking-time__measurement:nth-child(3) .booking-time__measurement-int').textContent = minutes.toString().padStart(2, '0');
-    document.querySelector('.introduction__booking-time__measurement:nth-child(4) .booking-time__measurement-int').textContent = seconds.toString().padStart(2, '0');
-    
+    document.querySelector(
+      ".introduction__booking-time__measurement:nth-child(1) .booking-time__measurement-int"
+    ).textContent = days.toString().padStart(2, "0");
+    document.querySelector(
+      ".introduction__booking-time__measurement:nth-child(2) .booking-time__measurement-int"
+    ).textContent = hours.toString().padStart(2, "0");
+    document.querySelector(
+      ".introduction__booking-time__measurement:nth-child(3) .booking-time__measurement-int"
+    ).textContent = minutes.toString().padStart(2, "0");
+    document.querySelector(
+      ".introduction__booking-time__measurement:nth-child(4) .booking-time__measurement-int"
+    ).textContent = seconds.toString().padStart(2, "0");
+
     totalSeconds--;
   }
-  
+
   // Обновляем сразу и затем каждую секунду
   updateDisplay();
   const countdownInterval = setInterval(updateDisplay, 1000);
@@ -700,4 +730,3 @@ document.addEventListener("DOMContentLoaded", async function () {
     loadTours(); // для админки
   }
 });
-
