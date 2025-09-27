@@ -145,65 +145,28 @@
     </section>
     <section class="tours">
         <div class="container">
-            <div class="tours__inner">
-                <div class="tours-top">
-                    <h2 class="tours-top__title">
-                        популярные туры
-                    </h2>
-                    <button class="tours-top__next">
-                        <span>далее</span>
-                        <img src="assets/icons/arrow-right.svg" alt="Right Arrow">
-                    </button>
-                </div>
-                <div class="tours__cards swiper">
-                    <div class="swiper-wrapper">
-                        <div class="tours__card swiper-slide">
-                            <div class="tours__card-name">
-                                Хадж программа
-                                “супер эконом из москвы”
-                            </div>
-                            <div class="tours__card-buy">
-                                <div class="tours__card-buy__price">
-                                    154 000 <span>руб.</span>
-                                </div>
-                                <button class="tours__card-buy__button">
-                                    купить путевку
-                                </button>
-                            </div>
-                        </div>
-                        <div class="tours__card swiper-slide">
-                            <div class="tours__card-name">
-                                Хадж программа
-                                “супер эконом из москвы”
-                            </div>
-                            <div class="tours__card-buy">
-                                <div class="tours__card-buy__price">
-                                    154 000 <span>руб.</span>
-                                </div>
-                                <button class="tours__card-buy__button">
-                                    купить путевку
-                                </button>
-                            </div>
-                        </div>
-                        <div class="tours__card swiper-slide">
-                            <div class="tours__card-name">
-                                Хадж программа
-                                “супер эконом из москвы”
-                            </div>
-                            <div class="tours__card-buy">
-                                <div class="tours__card-buy__price">
-                                    154 000 <span>руб.</span>
-                                </div>
-                                <button class="tours__card-buy__button">
-                                    купить путевку
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+          <div class="tours__inner">
+            <div class="tours-top">
+              <h2 class="tours-top__title">популярные туры</h2>
+              <button class="tours-top__next">
+                <span>далее</span>
+                <img src="assets/icons/arrow-right.svg" alt="Right Arrow" />
+              </button>
             </div>
+            <div class="tours__cards swiper">
+              <div class="swiper-wrapper" id="toursSwiperWrapper">
+                <!-- Сюда подгружаются туры -->
+              </div>
+            </div>
+            <div
+              id="noToursMessage"
+              style="display: none; text-align: center; padding: 20px"
+            >
+              Пока туров нет
+            </div>
+          </div>
         </div>
-    </section>
+      </section>
     <article class="social-media">
         <div class="container">
             <div class="social-media__inner">
@@ -490,5 +453,6 @@
 <script src="js/index.js"></script>
 <script src="js/news-page/index.js"></script>
 <script src="./api/currency.js"></script>
+<script src="./js/public-tours.js"></script>
 </body>
 </html>

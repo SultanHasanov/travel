@@ -355,7 +355,7 @@ function renderToursForHome(tours) {
 
 async function loadToursForHome() {
   try {
-    const token = localStorage.getItem("authToken");
+    
     const response = await fetch("https://api.web95.tech/api/v1/trips", {
       method: "GET",
     });
@@ -691,7 +691,7 @@ document.head.appendChild(style);
 
 document.addEventListener("DOMContentLoaded", async function () {
   const currentPage = window.location.pathname.split("/").pop();
-  if (currentPage === "index.html" || currentPage === "") {
+  if (currentPage !== "admin.html") {
     const tours = await loadAllTours();
     const filterValues = extractFilterValues(tours);
     populateFilters(filterValues);
