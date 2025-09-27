@@ -1,5 +1,5 @@
 function updateCurrencyRates() {
-  fetch('http://212.193.51.76:8080/api/v1/currency')
+  fetch('https://api.web95.tech/api/v1/currency')
     .then(response => {
       if (!response.ok) {
         throw new Error(`Ошибка HTTP! статус: ${response.status}`);
