@@ -35,18 +35,19 @@ function switchTab(tabName) {
   hideMessages();
 }
 
-function togglePassword(inputId) {
-  const input = document.getElementById(inputId);
-  const toggle = input.nextElementSibling;
+document.querySelectorAll(".password-toggle").forEach(toggle => {
+  toggle.addEventListener("click", () => {
+    const input = toggle.previousElementSibling;
+    if (input.type === "password") {
+      input.type = "text";
+      toggle.textContent = "🔒";
+    } else {
+      input.type = "password";
+      toggle.textContent = "👁";
+    }
+  });
+});
 
-  if (input.type === "password") {
-    input.type = "text";
-    toggle.textContent = "🔒";
-  } else {
-    input.type = "password";
-    toggle.textContent = "👁";
-  }
-}
 
 function showError(message) {
   errorMessage.textContent = message;
