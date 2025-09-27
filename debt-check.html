@@ -65,24 +65,20 @@
                     </a>
                 </div>
                 <div class="header__right-currencies">
-                    <div class="header__right-currency">
-                        1
-                        &nbsp;
-                        <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign">
-                        &nbsp;
-                        <span>=</span>
-                        &nbsp;
-                        65,26 руб.
-                    </div>
-                    <hr class="header__right-currencies__divider">
-                    <div class="header__right-currency">
-                        1
-                        &nbsp;
-                        <span>риял =</span>
-                        &nbsp;
-                        17,40 руб.
-                    </div>
-                </div>
+              <div class="header__right-currency" data-currency="USD">
+                1 &nbsp;
+                <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign" />
+                &nbsp;
+                <span>=</span>
+                &nbsp; <span class="rate">65,26</span>&nbsp;руб.
+              </div>
+              <hr class="header__right-currencies__divider" />
+              <div class="header__right-currency" data-currency="SAR">
+                1 &nbsp;
+                <span>риял =</span>
+                &nbsp; <span class="rate">17,40</span>&nbsp;руб.
+              </div>
+            </div>
             </div>
         </div>
     </div>
@@ -706,5 +702,6 @@
 <script src="js/index.js"></script>
 <script src="js/dropdowns.js"></script>
 <script src="js/recentNewsSlider.js"></script>
+<script src="./api/currency.js"></script>
 </body>
 </html>
