@@ -296,7 +296,7 @@ async function loadHadjNews() {
     const responseData = await response.json();
     const allNews = responseData.data.items || [];
 
-    // фильтруем только по category_id === 2
+  
     const hadjNews = allNews.filter((item) => item.category_id === 2);
     renderHadjNews(hadjNews);
   } catch (error) {
