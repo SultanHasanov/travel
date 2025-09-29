@@ -77,6 +77,7 @@ function initSearch() {
             }
         });
     }
+    
 }
 
 function performSearch(query) {
@@ -267,7 +268,6 @@ function displaySearchResults(results) {
             !e.target.closest('.header__middle-form') && 
             !e.target.closest('.footer__middle-form')) {
             resultsContainer.style.display = 'none';
-            document.removeEventListener('click', closeResults);
         }
     });
     
