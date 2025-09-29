@@ -216,6 +216,7 @@ function renderHadjNews(news) {
   wrapper.innerHTML = "";
 
   news.forEach((item) => {
+    
     const slide = document.createElement("div");
     slide.className = "hadj-news__card swiper-slide";
     slide.innerHTML = `
@@ -316,7 +317,7 @@ function renderCompanyNews(news) {
               <span>${item.views_count || 0}</span>
             </div>
           </div>
-          <a href="article.html/${item.slug}" class="company-news__card-link">подробнее</a>
+          <a href="article.html?slug=${item.slug}" class="company-news__card-link">подробнее</a>
         </div>
       </div>
     `;
