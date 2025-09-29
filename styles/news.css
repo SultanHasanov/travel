@@ -261,6 +261,22 @@
     border-radius: 20px;
 }
 
+.company-news__card-link{
+    color: #FFB800;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+}
+
+.recent-news__card-bottom__link {
+    color: #FFB800;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration-line: underline;
+    text-transform: uppercase;
+}
+
 .news__tour-buy__price span {
     font-size: 14px;
 }

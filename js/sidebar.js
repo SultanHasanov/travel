@@ -1,3 +1,21 @@
+// 🔑 Функция для парсинга JWT токена
+function parseJwt(token) {
+  try {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map((c) => "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2))
+        .join("")
+    );
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    console.error("Ошибка парсинга токена:", e);
+    return null;
+  }
+}
+
 async function loadSidebar() {
   const resp = await fetch("sidebar.html");
   const html = await resp.text();
@@ -39,6 +57,8 @@ async function loadSidebar() {
 
   if (token) {
     const data = parseJwt(token);
+    console.log("Расшифрованный токен:", data);
+
     if (data && data.full_name) {
       const authBlock = document.querySelector(".sidebar__auth");
       authBlock.innerHTML = `
@@ -51,6 +71,8 @@ async function loadSidebar() {
       // 🔒 Скрываем кнопку Админ если role_id === 1
       if (data.role_id === 1) {
         adminButton.style.display = "none";
+      } else {
+        adminButton.style.display = "block";
       }
     }
   }

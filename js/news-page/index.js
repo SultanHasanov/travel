@@ -48,32 +48,46 @@ function formatDate(dateString) {
 }
 
 // Конфигурация
-const API_URL = 'https://api.web95.tech/api/v1/news';
-const ITEMS_PER_PAGE = 4;
+const API_URL = "https://api.web95.tech/api/v1/news";
+const newsCardsContainer = document.getElementById("news-cards");
+const paginationContainer = document.getElementById("paginationPages");
+const prevBtn = document.getElementById("paginationPrev");
+const nextBtn = document.getElementById("paginationNext");
+const filters = document.querySelectorAll(".news__filter");
 
-// Элементы DOM
-const newsCardsContainer = document.querySelector('.news__cards');
-const filters = document.querySelectorAll('.news__filter');
-const paginationContainer = document.querySelector('.pagination__pages');
-
-// Состояние
 let currentPage = 1;
-let currentFilter = 'all';
-let allNews = [];
+let currentFilter = "all";
+let totalPages = 1;
+
+// форматирование даты
+function formatDate(dateString) {
+  return new Date(dateString).toLocaleDateString("ru-RU", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
 // Загрузка новостей
 async function loadNews() {
-    try {
-        const response = await fetch(API_URL);
-        if (!response.ok) throw new Error('Ошибка загрузки новостей');
-        
-        const responseData = await response.json();
-        allNews = responseData.data.items || [];
-        renderNews();
-    } catch (error) {
-        console.error('Error loading news:', error);
-        newsCardsContainer.innerHTML = '<p>Ошибка загрузки новостей</p>';
-    }
+  try {
+    const url = new URL(API_URL);
+    url.searchParams.set("page", currentPage);
+    url.searchParams.set("limit", 6); // <--- фиксированный лимит 4
+
+    if (currentFilter === "hadj") url.searchParams.set("category_id", 2);
+    if (currentFilter === "company") url.searchParams.set("category_id", 3);
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Ошибка загрузки");
+
+    const data = await res.json();
+    renderNews(data.data.items);
+    renderPagination(data.data.meta);
+  } catch (err) {
+    console.error(err);
+    newsCardsContainer.innerHTML = "<p>Ошибка загрузки новостей</p>";
+  }
 }
 
 // Фильтрация новостей
@@ -89,80 +103,87 @@ function getFilteredNews() {
 }
 
 // Рендер новостей
-function renderNews() {
-    const filteredNews = getFilteredNews();
-    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-    const paginatedNews = filteredNews.slice(startIndex, startIndex + ITEMS_PER_PAGE);
-    
-    newsCardsContainer.innerHTML = '';
-    
-    paginatedNews.forEach(newsItem => {
-        const newsCard = createNewsCard(newsItem);
-        newsCardsContainer.appendChild(newsCard);
-    });
-    
-    renderPagination(filteredNews.length);
+function renderNews(items) {
+  newsCardsContainer.innerHTML = "";
+  items.forEach((item) => {
+    newsCardsContainer.appendChild(createNewsCard(item));
+  });
 }
-
 // Создание карточки новости
-function createNewsCard(newsItem) {
-    const article = document.createElement('article');
-    const isHadj = newsItem.category_id === 2;
-    const isVideo = newsItem.type === 'video'; // предполагаем поле type в API
-    
-    article.className = `news__card news__card--${isVideo ? 'video' : 'photo'} news__card--${isHadj ? 'black' : 'orange'}`;
-    article.setAttribute('data-news-type', isHadj ? 'hadj' : 'company');
-    
-    article.innerHTML = `
-        <div class="news__card-date">${formatDate(newsItem.published_at)}</div>
-        <div class="news__card-preview">
-            ${isVideo ? 
-                `<iframe width="520" height="217" src="${newsItem.video_url}" frameborder="0" allowfullscreen></iframe>` :
-                `<img src="${newsItem.preview_url}" alt="${newsItem.title}">`
-            }
+function createNewsCard(item) {
+  const article = document.createElement("article");
+  const isHadj = item.category_id === 2;
+  const isVideo = item.media_type === "video";
+
+  article.className = `news__card news__card--${isVideo ? "video" : "photo"} news__card--${isHadj ? "black" : "orange"}`;
+  article.setAttribute("data-news-type", isHadj ? "hadj" : "company");
+
+  article.innerHTML = `
+    <div class="news__card-date">${formatDate(item.published_at)}</div>
+    <div class="news__card-preview">
+      ${isVideo 
+        ? `<iframe width="520" height="217" src="${item.video_url}" frameborder="0" allowfullscreen></iframe>`
+        : `<img src="${item.preview_url}" alt="${item.title}">`}
+    </div>
+    <div class="news__card-info">
+      <h2 class="news__card-title">${item.title}</h2>
+      <p class="news__card-description">${item.excerpt || ""}</p>
+      <div class="news__card-bottom">
+        <div class="news__card-bottom__stats">
+          <div class="news__card-bottom__stat">
+            <img src="assets/icons/comment.svg" alt="Comments">
+            <span>${item.comments_count}</span>
+          </div>
+          <div class="news__card-bottom__stat">
+            <img src="assets/icons/repost.svg" alt="Reposts">
+            <span>${item.reposts_count}</span>
+          </div>
+          <div class="news__card-bottom__stat">
+            <img src="assets/icons/view.svg" alt="Views">
+            <span>${item.views_count}</span>
+          </div>
         </div>
-        <div class="news__card-info">
-            <h2 class="news__card-title">${newsItem.title}</h2>
-            ${newsItem.description ? `<p class="news__card-description">${newsItem.description}</p>` : ''}
-            <div class="news__card-bottom">
-                <div class="news__card-bottom__stats">
-                    <div class="news__card-bottom__stat">
-                        <img src="assets/icons/comment.svg" alt="Comments">
-                        <span>${newsItem.comments_count || 0}</span>
-                    </div>
-                    <div class="news__card-bottom__stat">
-                        <img src="assets/icons/repost.svg" alt="Reposts">
-                        <span>${newsItem.shares_count || 0}</span>
-                    </div>
-                    <div class="news__card-bottom__stat">
-                        <img src="assets/icons/view.svg" alt="Views">
-                        <span>${newsItem.views_count || 0}</span>
-                    </div>
-                </div>
-                <a href="${newsItem.detail_url}" class="news__card-bottom__link">подробнее</a>
-            </div>
-        </div>
-    `;
-    
-    return article;
+        <a href="article.html?slug=${item.slug}" class="recent-news__card-bottom__link">подробнее</a>
+      </div>
+    </div>
+  `;
+  return article;
+}
+// Пагинация
+function renderPagination(meta) {
+  totalPages = Math.ceil(meta.total / meta.limit);
+  paginationContainer.innerHTML = "";
+
+  for (let i = 1; i <= totalPages; i++) {
+    const btn = document.createElement("button");
+    btn.className = `pagination__page ${i === currentPage ? "pagination__page--current" : ""}`;
+    btn.textContent = i.toString().padStart(2, "0");
+    btn.addEventListener("click", () => {
+      currentPage = i;
+      loadNews();
+    });
+    paginationContainer.appendChild(btn);
+  }
+
+  prevBtn.disabled = currentPage === 1;
+  nextBtn.disabled = currentPage === totalPages;
 }
 
-// Пагинация
-function renderPagination(totalItems) {
-    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
-    paginationContainer.innerHTML = '';
-    
-    for (let i = 1; i <= totalPages; i++) {
-        const button = document.createElement('button');
-        button.className = `pagination__page ${i === currentPage ? 'pagination__page--current' : ''}`;
-        button.textContent = i.toString().padStart(2, '0');
-        button.addEventListener('click', () => {
-            currentPage = i;
-            renderNews();
-        });
-        paginationContainer.appendChild(button);
-    }
-}
+
+// обработка стрелок
+prevBtn.addEventListener("click", () => {
+  if (currentPage > 1) {
+    currentPage--;
+    loadNews();
+  }
+});
+
+nextBtn.addEventListener("click", () => {
+  if (currentPage < totalPages) {
+    currentPage++;
+    loadNews();
+  }
+});
 
 // Форматирование даты
 function formatDate(dateString) {
@@ -174,18 +195,216 @@ function formatDate(dateString) {
     });
 }
 
-// Обработчики фильтров
-filters.forEach(filter => {
-    filter.addEventListener('click', () => {
-        filters.forEach(f => f.classList.remove('news__filter--active'));
-        filter.classList.add('news__filter--active');
-        
-        currentFilter = filter.classList.contains('news__filter--hadj') ? 'hadj' :
-                       filter.classList.contains('news__filter--company') ? 'company' : 'all';
-        currentPage = 1;
-        renderNews();
+async function loadHadjNews() {
+  try {
+    const response = await fetch("https://api.web95.tech/api/v1/news");
+    if (!response.ok) throw new Error("Ошибка загрузки новостей");
+
+    const responseData = await response.json();
+    const allNews = responseData.data.items || [];
+
+  
+    const hadjNews = allNews.filter((item) => item.category_id === 2);
+    renderHadjNews(hadjNews);
+  } catch (error) {
+    console.error("Error loading hadj news:", error);
+  }
+}
+
+function renderHadjNews(news) {
+  const wrapper = document.getElementById("hadjNewsWrapper");
+  wrapper.innerHTML = "";
+
+  news.forEach((item) => {
+    const slide = document.createElement("div");
+    slide.className = "hadj-news__card swiper-slide";
+    slide.innerHTML = `
+      <div class="hadj-news__card-date">${formatDate(item.published_at)}</div>
+      <div class="hadj-news__card-image">
+        <img src="${item.preview_url}" alt="${item.title}" />
+      </div>
+      <div class="hadj-news__card-info">
+        <h3 class="hadj-news__card-title">${item.title}</h3>
+        <p class="hadj-news__card-description">${item.excerpt}</p>
+        <div class="hadj-news__card-bottom">
+          <div class="hadj-news__card-stats">
+            <div class="hadj-news__card-stat">
+              <img src="assets/icons/comment.svg" alt="Comments" />
+              <span>${item.comments_count}</span>
+            </div>
+            <div class="hadj-news__card-stat">
+              <img src="assets/icons/repost.svg" alt="Reposts" />
+              <span>${item.reposts_count}</span>
+            </div>
+            <div class="hadj-news__card-stat">
+              <img src="assets/icons/view.svg" alt="Views" />
+              <span>${item.views_count}</span>
+            </div>
+          </div>
+          <a href="article.html?slug=${item.slug}" class="recent-news__card-bottom__link">подробнее</a>
+
+        </div>
+      </div>
+    `;
+    wrapper.appendChild(slide);
+  });
+
+  // обновляем готовый Swiper
+  if (typeof hadjSwiper !== "undefined") {
+    hadjSwiper.update();
+  }
+}
+
+// Добавьте эту функцию после renderNewsCards()
+async function loadNewsCards() {
+    try {
+        const response = await fetch("https://api.web95.tech/api/v1/news");
+        if (!response.ok) throw new Error("Ошибка загрузки новостей");
+
+        const responseData = await response.json();
+        const allNews = responseData.data.items || [];
+        console.log("All news loaded:", allNews);
+        renderNewsCards(allNews);
+    } catch (error) {
+        console.error("Error loading news cards:", error);
+    }
+}
+
+async function loadCompanyNews() {
+  try {
+    const response = await fetch("https://api.web95.tech/api/v1/news");
+    if (!response.ok) throw new Error("Ошибка загрузки новостей");
+
+    const responseData = await response.json();
+    const allNews = responseData.data.items || [];
+
+    // фильтруем только по category_id === 1 (новости компании)
+    const companyNews = allNews.filter(item => item.category_id === 3);
+    renderCompanyNews(companyNews);
+  } catch (error) {
+    console.error("Error loading company news:", error);
+  }
+}
+
+function renderCompanyNews(news) {
+  const wrapper = document.getElementById("companyNewsWrapper");
+  wrapper.innerHTML = "";
+
+  news.forEach(item => {
+    const slide = document.createElement("div");
+    slide.className = "company-news__card swiper-slide";
+    slide.innerHTML = `
+      <div class="company-news__card-date">${formatDate(item.published_at)}</div>
+      <div class="company-news__card-image">
+        <img src="${item.preview_url || 'assets/images/pages/index-page/news/article-preview.png'}" alt="${item.title}" />
+      </div>
+      <div class="company-news__card-info">
+        <h3 class="company-news__card-title">${item.title}</h3>
+        <p class="company-news__card-description">${item.excerpt}</p>
+        <div class="company-news__card-bottom">
+          <div class="company-news__card-stats">
+            <div class="company-news__card-stat">
+              <img src="assets/icons/comment.svg" alt="Comments" />
+              <span>${item.comments_count || 0}</span>
+            </div>
+            <div class="company-news__card-stat">
+              <img src="assets/icons/repost.svg" alt="Reposts" />
+              <span>${item.reposts_count || 0}</span>
+            </div>
+            <div class="company-news__card-stat">
+              <img src="assets/icons/view.svg" alt="Views" />
+              <span>${item.views_count || 0}</span>
+            </div>
+          </div>
+          <a href="article.html/${item.slug}" class="company-news__card-link">подробнее</a>
+        </div>
+      </div>
+    `;
+    wrapper.appendChild(slide);
+  });
+  // обновляем Swiper если он уже инициализирован
+  if (typeof companySwiper !== 'undefined') {
+    companySwiper.update();
+  }
+}
+
+// Фильтрация новостей
+function setupNewsFilters() {
+    const filters = document.querySelectorAll('.news__filter');
+    
+    filters.forEach(filter => {
+        filter.addEventListener('click', function() {
+            // Убираем активный класс у всех фильтров
+            filters.forEach(f => f.classList.remove('news__filter--active'));
+            // Добавляем активный класс текущему фильтру
+            this.classList.add('news__filter--active');
+            
+            const filterType = this.classList.contains('news__filter--hadj') ? 'hadj' : 
+                             this.classList.contains('news__filter--company') ? 'company' : 'all';
+            
+            loadFilteredNews(filterType);
+        });
     });
+}
+
+// Загрузка отфильтрованных новостей
+async function loadFilteredNews(filterType) {
+    try {
+        const response = await fetch(NEWS_API_URL);
+        if (!response.ok) throw new Error("Ошибка загрузки новостей");
+
+        const responseData = await response.json();
+        let allNews = responseData.data.items || [];
+        
+        // Фильтрация по категориям
+        if (filterType === 'hadj') {
+            allNews = allNews.filter(item => item.category_id === 2);
+        } else if (filterType === 'company') {
+            allNews = allNews.filter(item => item.category_id === 3);
+        }
+        // Для 'all' оставляем все новости
+        
+        renderNewsCards(allNews);
+    } catch (error) {
+        console.error("Error loading filtered news:", error);
+    }
+}
+
+
+// Обработчики фильтров
+filters.forEach((btn) => {
+  btn.addEventListener("click", () => {
+    filters.forEach((b) => b.classList.remove("news__filter--active"));
+    btn.classList.add("news__filter--active");
+
+    if (btn.classList.contains("news__filter--hadj")) currentFilter = "hadj";
+    else if (btn.classList.contains("news__filter--company")) currentFilter = "company";
+    else currentFilter = "all";
+
+    currentPage = 1;
+    loadNews();
+  });
 });
 
 // Инициализация
 document.addEventListener('DOMContentLoaded', loadNews);
+document.addEventListener("DOMContentLoaded", function () {
+  if (document.getElementById('news-cards')) {
+        loadNewsCards();
+        setupNewsFilters();
+    }
+  if (document.getElementById("newsTableBody")) {
+    // значит мы в админке
+    initNews();
+  }
+
+  if (document.getElementById("hadjNewsWrapper")) {
+    // значит мы на публичной странице
+    loadHadjNews();
+  }
+
+  if (document.getElementById("companyNewsWrapper")) {
+    // загружаем новости компании
+    loadCompanyNews();
+  }
+});
