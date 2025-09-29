@@ -69,7 +69,7 @@
               </a>
             </div>
             <div class="header__right-currencies">
-              <div class="header__right-currency">
+              <div class="header__right-currency" data-currency="USD">
                 1 &nbsp;
                 <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign" />
                 &nbsp; <span>=</span> &nbsp; 65,26 руб.
@@ -90,11 +90,9 @@
             <div class="article__top-inner">
               <ol class="breadcrumbs">
                 <li><a href="/"> Главная страница </a></li>
-                <li><a href="#"> Новости </a></li>
-                <li><a href="#"> Новости компании </a></li>
-                <li class="current-page">
-                  <a href="#"> Приобретение билетов в августе </a>
-                </li>
+                <li><a href="news.html"> Новости </a></li>
+                <li class="current-page"><a href="news.html"> Текущая новость </a></li>
+                
               </ol>
               <h1 class="article__top-title">
                 Здесь расположен наш некороткий заголовок интереснейшей новости
@@ -152,7 +150,7 @@
                     <div class="article__aside-news__widget-title">
                       новости хаджа
                     </div>
-                    <a href="#" class="article__aside-news__widget-cta">
+                    <a href="news.html" class="article__aside-news__widget-cta">
                       <span>читать</span>
                       <img
                         src="assets/icons/pages/article/white-arrow-right.svg"
@@ -164,7 +162,7 @@
                     <div class="article__aside-news__widget-title">
                       новости компании
                     </div>
-                    <a href="#" class="article__aside-news__widget-cta">
+                    <a href="news.html" class="article__aside-news__widget-cta">
                       <span>читать</span>
                       <img
                         src="assets/icons/pages/article/white-arrow-right.svg"
@@ -512,9 +510,12 @@
       </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./js/search.js"></script>
     <script src="js/index.js"></script>
     <script src="js/news-detail.js"></script>
     <script src="./js/sidebar.js"></script>
+    <script src="./js/countdown.js"></script>
+    <script src="./api/currency.js"></script>
     <script src="js/article-page/index.js"></script>
   </body>
 </html>
