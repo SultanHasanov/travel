@@ -48,11 +48,11 @@ async function loadSidebar() {
   // 🔑 Проверяем токен
   const token = localStorage.getItem("authToken");
   const logoutBlock = document.getElementById("sidebarLogout");
-  const adminButton = document.getElementById("sidebar__admin"); // Получаем кнопку админа
+  const adminDropdown = document.querySelector('.sidebar__menu-with-dropdown'); // Получаем выпадающее меню админа
 
-  // Скрываем кнопку админа если нет токена
-  if (!token) {
-    adminButton.style.display = "none";
+  // Скрываем меню админа если нет токена
+  if (!token && adminDropdown) {
+    adminDropdown.style.display = "none";
   }
 
   if (token) {
@@ -68,11 +68,13 @@ async function loadSidebar() {
       // Показываем кнопку выхода
       logoutBlock.style.display = "block";
       
-      // 🔒 Скрываем кнопку Админ если role_id === 1
-      if (data.role_id === 1) {
-        adminButton.style.display = "none";
-      } else {
-        adminButton.style.display = "block";
+      // 🔒 Скрываем меню Админ если role_id === 1 (обычный пользователь)
+      if (adminDropdown) {
+        if (data.role_id === 1) {
+          adminDropdown.style.display = "none";
+        } else {
+          adminDropdown.style.display = "block";
+        }
       }
     }
   }
@@ -110,6 +112,42 @@ async function loadSidebar() {
       }, 300); // Задержка равна времени анимации закрытия сайдбара
     });
   }
+
+  // 🔽 Обработчик для выпадающего меню Админ
+  const adminDropdownTrigger = document.querySelector('.sidebar__menu-dropdown');
+  
+  if (adminDropdownTrigger) {
+    adminDropdownTrigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      const parent = this.parentElement;
+      parent.classList.toggle('active');
+    });
+  }
+
+  // Закрытие выпадающего меню при клике вне его
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.sidebar__menu-with-dropdown')) {
+      const dropdowns = document.querySelectorAll('.sidebar__menu-with-dropdown');
+      dropdowns.forEach(dropdown => {
+        dropdown.classList.remove('active');
+      });
+    }
+  });
+
+  // Автоматически активируем текущую страницу в выпадающем меню
+  const currentPage = window.location.pathname.split('/').pop();
+  const dropdownItems = document.querySelectorAll('.sidebar__dropdown-item');
+  
+  dropdownItems.forEach(item => {
+    if (item.getAttribute('href') === './' + currentPage) {
+      item.classList.add('active');
+      // Автоматически раскрываем меню если активен один из подразделов
+      const parentDropdown = item.closest('.sidebar__menu-with-dropdown');
+      if (parentDropdown) {
+        parentDropdown.classList.add('active');
+      }
+    }
+  });
 }
 
 document.addEventListener("DOMContentLoaded", loadSidebar);

@@ -121,6 +121,71 @@
   cursor: pointer;
 }
 
+/* Стили для выпадающего меню */
+.sidebar__menu-with-dropdown {
+  position: relative;
+}
+
+.sidebar__menu-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropdown-arrow {
+  font-size: 10px;
+  transition: transform 0.3s ease;
+  margin-left: 10px;
+}
+
+.sidebar__menu-with-dropdown.active .dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.sidebar__dropdown-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+  margin: 5px 0;
+}
+
+.sidebar__menu-with-dropdown.active .sidebar__dropdown-menu {
+  max-height: 150px;
+}
+
+.sidebar__dropdown-item {
+  display: block;
+  padding: 10px 20px;
+  color: #ccc;
+  text-decoration: none;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  border-left: 3px solid transparent;
+}
+
+.sidebar__dropdown-item:hover {
+  color: #FFB800;
+  background-color: rgba(255, 184, 0, 0.1);
+  border-left-color: #FFB800;
+}
+
+.sidebar__dropdown-item.active {
+  color: #FFB800;
+  background-color: rgba(255, 184, 0, 0.15);
+  border-left-color: #FFB800;
+}
+
+/* Адаптивность для выпадающего меню */
+@media (max-width: 768px) {
+  .sidebar__dropdown-item {
+    padding: 8px 15px;
+    font-size: 13px;
+  }
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .header__right {

@@ -334,9 +334,7 @@ function renderHadjNews(news) {
               <span>${item.views_count}</span>
             </div>
           </div>
-          <a href="/news/${
-            item.slug
-          }" class="hadj-news__card-link">подробнее</a>
+          <a href="article.html?slug=${item.slug}" class="hadj-news__card-link">подробнее</a>
         </div>
       </div>
     `;
@@ -395,7 +393,7 @@ function renderCompanyNews(news) {
               <span>${item.views_count || 0}</span>
             </div>
           </div>
-          <a href="/news/${item.slug}" class="company-news__card-link">подробнее</a>
+          <a href="article.html?slug=${item.slug}" class="company-news__card-link">подробнее</a>
         </div>
       </div>
     `;

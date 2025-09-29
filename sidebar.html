@@ -24,20 +24,31 @@
   </div>
 
   <div class="sidebar__menu">
-    <a href="./admin.html" class="sidebar__menu-item" id="sidebar__admin"
-      >Админ</a
-    >
+    <!-- Выпадающее меню Админ -->
+    <div class="sidebar__menu-with-dropdown" style="display: none;">
+      <a href="javascript:void(0)" class="sidebar__menu-item sidebar__menu-dropdown">
+        Админ
+        <span class="dropdown-arrow">▼</span>
+      </a>
+      <div class="sidebar__dropdown-menu">
+        <a href="./admin.html" class="sidebar__dropdown-item">
+          Admin
+        </a>
+        <a href="./hotels-admin.html" class="sidebar__dropdown-item">
+          Hostel-admin
+        </a>
+      </div>
+    </div>
+    
     <a href="index.html" class="sidebar__menu-item">Главная</a>
-
     <a href="tours-hadj.html" class="sidebar__menu-item">Туры на хадж</a>
-
     <a href="tours-umra.html" class="sidebar__menu-item">Туры на умру</a>
     <a href="news.html" class="sidebar__menu-item">Новости</a>
     <a href="media-photo.html" class="sidebar__menu-item">Медиа</a>
     <a href="#faq_title" class="sidebar__menu-item">Часто задаваемые вопросы</a>
   </div>
+  
   <!-- 🔽 Кнопка выхода -->
-  <!-- 🔽 Кнопка выхода (скрыта по умолчанию) -->
   <div class="sidebar__logout" id="sidebarLogout" style="display: none">
     <button id="logoutBtn" class="sidebar__auth-btn">Выйти</button>
   </div>

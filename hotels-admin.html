@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Управление отелями - Manasik Travel</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="./styles/sidebar.css" />
+    <link rel="stylesheet" href="./styles/admin.css" />
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="header__inner">
+                <div class="header__left">
+                    <button class="header__left-burger" id="burgerBtn">
+                        <img src="assets/icons/blocks/header/burger.svg" alt="Burger Button" />
+                    </button>
+                    <a href="/" class="header__left-logo">
+                        <img src="assets/logo.svg" alt="Manasik Travel" />
+                    </a>
+                    <div class="header__left-divider"></div>
+                    <div class="header__left-city">
+                        <img src="assets/icons/location-tag.svg" alt="Location Tag" />
+                        <span>Москва</span>
+                    </div>
+                </div>
+                <div class="header__middle">
+                    <div class="header__middle-date">
+                        <div class="header__middle-date__gregorian">1 августа</div>
+                        <div class="header__middle-date__divider">/</div>
+                        <div class="header__middle-date__hijri">10 зуль-хиджа</div>
+                    </div>
+                    <div class="header__middle-form">
+                        <input type="text" class="header__middle-form__input" placeholder="Введите слово..." />
+                        <button class="header__middle-form__button">
+                            <img src="assets/icons/loupe.svg" alt="Loupe" />
+                        </button>
+                    </div>
+                </div>
+                <div class="header__right">
+                    <div class="header__right-contact">
+                        <div class="header__right-contact__text">Представитель в Москве</div>
+                        <a href="tel:" class="header__right-contact__phone">
+                            <span> 8-800-899-00-66 </span>
+                            <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
+                        </a>
+                    </div>
+                    <div class="header__right-currencies">
+                        <div class="header__right-currency" data-currency="USD">
+                            1 &nbsp;
+                            <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign" />
+                            &nbsp;
+                            <span>=</span>
+                            &nbsp; <span class="rate">65,26</span>&nbsp;руб.
+                        </div>
+                        <hr class="header__right-currencies__divider" />
+                        <div class="header__right-currency" data-currency="SAR">
+                            1 &nbsp;
+                            <span>риял =</span>
+                            &nbsp; <span class="rate">17,40</span>&nbsp;руб.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar overlay -->
+    <div class="sidebar__overlay" id="sidebarOverlay"></div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar__header">
+            <a href="#" class="sidebar__logo">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Ctext x='10' y='35' font-family='Arial' font-size='20' font-weight='bold' fill='%23FFB800'%3EMANASIK%3C/text%3E%3Ctext x='10' y='50' font-family='Arial' font-size='10' fill='%23ccc'%3ETRAVEL%3C/text%3E%3C/svg%3E" alt="Manasik Travel" />
+            </a>
+            <button class="sidebar__close" id="sidebarClose">&times;</button>
+        </div>
+
+        <div class="sidebar__auth">
+            <div class="sidebar__auth-title">Вход в личный кабинет</div>
+            <div class="sidebar__auth-buttons">
+                <a href="auth.html" class="sidebar__auth-btn primary">Войти</a>
+                <a href="auth.html" class="sidebar__auth-btn">Регистрация</a>
+            </div>
+        </div>
+
+        <div class="sidebar__menu">
+            <a href="./admin.html" class="sidebar__menu-item">Админ</a>
+            <a href="index.html" class="sidebar__menu-item">Главная</a>
+            <a href="tours-hadj.html" class="sidebar__menu-item">Туры на хадж</a>
+            <a href="tours-umra.html" class="sidebar__menu-item">Туры на умру</a>
+            <a href="news.html" class="sidebar__menu-item">Новости</a>
+            <a href="media-photo.html" class="sidebar__menu-item">Медиа</a>
+            <a href="#faq_title" class="sidebar__menu-item">Часто задаваемые вопросы</a>
+            <!-- Новый раздел для управления отелями -->
+            <a href="./hotels-admin.html" class="sidebar__menu-item active">Управление отелями</a>
+        </div>
+        
+        <!-- Кнопка выхода -->
+        <div class="sidebar__logout" id="sidebarLogout" style="display: none">
+            <button id="logoutBtn" class="sidebar__auth-btn">Выйти</button>
+        </div>
+    </div>
+
+    <main class="main">
+        <div class="auth-container">
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-section="hotels">Управление отелями</button>
+            </div>
+
+            <div class="auth-form">
+                <!-- Hotels Section -->
+                <section id="hotels" class="section active">
+                    <h1 class="section__title">Управление отелями</h1>
+
+                    <div style="margin-bottom: 30px">
+                        <button class="btn" onclick="openModal('hotelModal')">
+                            Добавить отель
+                        </button>
+                        <button class="btn" onclick="loadHotels()" style="margin-left: 10px;">
+                            Обновить список
+                        </button>
+                    </div>
+
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Название</th>
+                                <th>Город</th>
+                                <th>Звезды</th>
+                                <th>Расстояние</th>
+                                <th>Питание</th>
+                                <th>Гости</th>
+                                <th>Дата создания</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="hotelsTableBody">
+                            <!-- Данные будут загружаться через API -->
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer__inner">
+                <!-- Футер остается таким же как в основном файле -->
+                <div class="footer__top">
+                    <div class="footer__top-left">
+                        <a href="/" class="footer__top-left__logo">
+                            <img src="assets/logo.svg" alt="Manasik Travel" />
+                        </a>
+                        <div class="footer__top-left__divider"></div>
+                        <div class="footer__top-left__city">
+                            <img src="assets/icons/location-tag.svg" alt="Location Tag" />
+                            <span>Москва</span>
+                        </div>
+                    </div>
+                    <div class="footer__top-middle">
+                        <div class="footer__middle-form">
+                            <input type="text" class="footer__middle-form__input" placeholder="Введите слово..." />
+                            <button class="footer__middle-form__button">
+                                <img src="assets/icons/loupe.svg" alt="Loupe" />
+                            </button>
+                        </div>
+                    </div>
+                    <div class="footer__top-right">
+                        <div class="footer__top-social_media">
+                            <div class="footer__top-social_media-label">Социальные сети</div>
+                            <div class="footer__top-social_media-list">
+                                <a href="#"><img src="assets/icons/blocks/footer/instagram.svg" alt="Instagram" /></a>
+                                <a href="#"><img src="assets/icons/blocks/footer/vk.svg" alt="VKontakte" /></a>
+                                <a href="#"><img src="assets/icons/blocks/footer/telegram.svg" alt="Telegram" /></a>
+                            </div>
+                        </div>
+                        <div class="footer__top-phone">
+                            <div class="footer__top-phone__label">Представитель в Москве</div>
+                            <a href="#" class="footer__top-phone__number">
+                                8-800-899-00-66
+                                <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer__divider"></div>
+                <div class="footer__navigation">
+                    <!-- Навигация как в основном файле -->
+                    <div class="footer__navigation-column">
+                        <div class="footer__navigation-column__name">Хадж 2019</div>
+                        <ul class="footer__navigation-column__links">
+                            <li><a href="#"> Туры в Хадж </a></li>
+                            <li><a href="#"> Необходимые документы на Хадж </a></li>
+                            <li><a href="#"> Информация о дате начала хаджа </a></li>
+                            <li><a href="#"> Проверить доплату за повторный Хадж </a></li>
+                        </ul>
+                        <div class="footer__navigation-column__divider"></div>
+                        <div class="footer__navigation-column__name">новости</div>
+                    </div>
+                    <!-- Остальные колонки навигации -->
+                </div>
+                <div class="footer__bottom">
+                    <div class="footer__bottom-copyright">ООО "Манасик Тревел" 2019</div>
+                    <div class="footer__bottom-made_by">
+                        <a href="#" class="footer__bottom-made_by-elem">Дизайн сайта: <strong>Лия Сечка</strong></a>
+                        <a href="#" class="footer__bottom-made_by-elem">Верстка сайта: <strong>Николай Берсенев</strong></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Hotel Modal -->
+    <div id="hotelModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Добавить отель</h2>
+                <button class="modal-close" onclick="closeModal('hotelModal')">&times;</button>
+            </div>
+            <form class="admin-form" onsubmit="submitHotelForm(event)">
+                <div class="form-group">
+                    <label class="form-label">Название отеля</label>
+                    <input type="text" class="form-input" name="name" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Город</label>
+                    <input type="text" class="form-input" name="city" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Количество звезд</label>
+                    <input type="number" class="form-input" name="stars" min="1" max="5" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Расстояние (км)</label>
+                    <input type="number" class="form-input" name="distance" step="0.1" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Текст расстояния</label>
+                    <input type="text" class="form-input" name="distance_text" placeholder="Например: 500м от мечети" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Питание</label>
+                    <input type="text" class="form-input" name="meals" placeholder="Например: Завтрак включен" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Гости</label>
+                    <input type="text" class="form-input" name="guests" placeholder="Например: 2 взрослых" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">URL фото</label>
+                    <input type="url" class="form-input" name="photo_url" placeholder="https://example.com/photo.jpg" />
+                </div>
+                <button type="submit" class="btn">Создать отель</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('hotelModal')">Отмена</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Hotel Modal -->
+    <div id="editHotelModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Редактировать отель</h2>
+                <button class="modal-close" onclick="closeModal('editHotelModal')">&times;</button>
+            </div>
+            <form class="admin-form" onsubmit="submitEditHotelForm(event)">
+                <input type="hidden" name="hotel_id" value="" />
+                <div class="form-group">
+                    <label class="form-label">Название отеля</label>
+                    <input type="text" class="form-input" name="name" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Город</label>
+                    <input type="text" class="form-input" name="city" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Количество звезд</label>
+                    <input type="number" class="form-input" name="stars" min="1" max="5" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Расстояние (км)</label>
+                    <input type="number" class="form-input" name="distance" step="0.1" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Текст расстояния</label>
+                    <input type="text" class="form-input" name="distance_text" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Питание</label>
+                    <input type="text" class="form-input" name="meals" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Гости</label>
+                    <input type="text" class="form-input" name="guests" />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">URL фото</label>
+                    <input type="url" class="form-input" name="photo_url" />
+                </div>
+                <button type="submit" class="btn">Сохранить изменения</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('editHotelModal')">Отмена</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="./api/currency.js"></script>
+    <script src="./js/sidebar.js"></script>
+    <script src="./js/hotels-admin.js"></script>
+    <script src="./js/search.js"></script>
+</body>
+</html>
