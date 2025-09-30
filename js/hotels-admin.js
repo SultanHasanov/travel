@@ -42,13 +42,14 @@ async function loadHotels() {
                 <td>${hotel.distance} км</td>
                 <td>${hotel.meals || '-'}</td>
                 <td>${hotel.guests || '-'}</td>
+                <td>${hotel.transfer || '-'}</td>
                 <td>${new Date(hotel.created_at).toLocaleDateString("ru-RU")}</td>
                 <td class="admin-table__actions">
                     <button class="admin-table__btn admin-table__btn--edit" onclick="editHotel(${hotel.id})">
-                        Редактировать
+                        ✏️
                     </button>
                     <button class="admin-table__btn admin-table__btn--delete" onclick="deleteHotel(${hotel.id})">
-                        Удалить
+                        🗑️
                     </button>
                 </td>
             `;
@@ -71,6 +72,7 @@ async function submitHotelForm(event) {
         distance_text: formData.get("distance_text"),
         meals: formData.get("meals"),
         guests: formData.get("guests"),
+        transfer: formData.get("transfer"),
         photo_url: formData.get("photo_url")
     };
 
@@ -135,6 +137,7 @@ async function editHotel(hotelId) {
         document.querySelector('#editHotelModal input[name="distance_text"]').value = hotelData.distance_text || "";
         document.querySelector('#editHotelModal input[name="meals"]').value = hotelData.meals || "";
         document.querySelector('#editHotelModal input[name="guests"]').value = hotelData.guests || "";
+        document.querySelector('#editHotelModal input[name="transfer"]').value = hotelData.transfer || "";
         document.querySelector('#editHotelModal input[name="photo_url"]').value = hotelData.photo_url || "";
 
         openModal("editHotelModal");
@@ -157,6 +160,7 @@ async function submitEditHotelForm(event) {
         distance_text: formData.get("distance_text"),
         meals: formData.get("meals"),
         guests: formData.get("guests"),
+        transfer: formData.get("transfer"),
         photo_url: formData.get("photo_url")
     };
 
@@ -221,7 +225,7 @@ async function deleteHotel(hotelId) {
     }
 }
 
-// Modal functions (копируем из основного файла)
+// Modal functions
 function openModal(modalId) {
     document.getElementById(modalId).classList.add("active");
 }

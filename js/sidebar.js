@@ -57,7 +57,6 @@ async function loadSidebar() {
 
   if (token) {
     const data = parseJwt(token);
-    console.log("Расшифрованный токен:", data);
 
     if (data && data.full_name) {
       const authBlock = document.querySelector(".sidebar__auth");

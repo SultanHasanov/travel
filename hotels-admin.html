@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Управление отелями - Manasik Travel</title>
+    <title>Управление отелями и маршрутами - Manasik Travel</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet" />
@@ -71,48 +71,11 @@
         </div>
     </header>
 
-    <!-- Sidebar overlay -->
-    <div class="sidebar__overlay" id="sidebarOverlay"></div>
-
-    <!-- Sidebar -->
-    <div class="sidebar" id="sidebar">
-        <div class="sidebar__header">
-            <a href="#" class="sidebar__logo">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 60'%3E%3Ctext x='10' y='35' font-family='Arial' font-size='20' font-weight='bold' fill='%23FFB800'%3EMANASIK%3C/text%3E%3Ctext x='10' y='50' font-family='Arial' font-size='10' fill='%23ccc'%3ETRAVEL%3C/text%3E%3C/svg%3E" alt="Manasik Travel" />
-            </a>
-            <button class="sidebar__close" id="sidebarClose">&times;</button>
-        </div>
-
-        <div class="sidebar__auth">
-            <div class="sidebar__auth-title">Вход в личный кабинет</div>
-            <div class="sidebar__auth-buttons">
-                <a href="auth.html" class="sidebar__auth-btn primary">Войти</a>
-                <a href="auth.html" class="sidebar__auth-btn">Регистрация</a>
-            </div>
-        </div>
-
-        <div class="sidebar__menu">
-            <a href="./admin.html" class="sidebar__menu-item">Админ</a>
-            <a href="index.html" class="sidebar__menu-item">Главная</a>
-            <a href="tours-hadj.html" class="sidebar__menu-item">Туры на хадж</a>
-            <a href="tours-umra.html" class="sidebar__menu-item">Туры на умру</a>
-            <a href="news.html" class="sidebar__menu-item">Новости</a>
-            <a href="media-photo.html" class="sidebar__menu-item">Медиа</a>
-            <a href="#faq_title" class="sidebar__menu-item">Часто задаваемые вопросы</a>
-            <!-- Новый раздел для управления отелями -->
-            <a href="./hotels-admin.html" class="sidebar__menu-item active">Управление отелями</a>
-        </div>
-        
-        <!-- Кнопка выхода -->
-        <div class="sidebar__logout" id="sidebarLogout" style="display: none">
-            <button id="logoutBtn" class="sidebar__auth-btn">Выйти</button>
-        </div>
-    </div>
-
     <main class="main">
         <div class="auth-container">
             <div class="auth-tabs">
                 <button class="auth-tab active" data-section="hotels">Управление отелями</button>
+                <button class="auth-tab" data-section="routes">Управление маршрутами</button>
             </div>
 
             <div class="auth-form">
@@ -139,11 +102,49 @@
                                 <th>Расстояние</th>
                                 <th>Питание</th>
                                 <th>Гости</th>
+                                <th>Трансфер</th>
                                 <th>Дата создания</th>
                                 <th>Действия</th>
                             </tr>
                         </thead>
                         <tbody id="hotelsTableBody">
+                            <!-- Данные будут загружаться через API -->
+                        </tbody>
+                    </table>
+                </section>
+
+                <!-- Routes Section -->
+                <section id="routes" class="section">
+                    <h1 class="section__title">Управление маршрутами</h1>
+
+                    <div style="margin-bottom: 30px">
+                        <button class="btn" onclick="openModal('routeModal')">
+                            Добавить маршрут
+                        </button>
+                        <button class="btn" onclick="loadTrips()" style="margin-left: 10px;">
+                            Обновить список туров
+                        </button>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 20px;">
+                        <label class="form-label">Выберите тур:</label>
+                        <select class="form-input" id="tripSelect" onchange="loadRoutesForSelectedTrip()">
+                            <option value="">-- Выберите тур --</option>
+                        </select>
+                    </div>
+
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Позиция</th>
+                                <th>Город</th>
+                                <th>Длительность</th>
+                                <th>Время остановки</th>
+                                <th>Транспорт</th>
+                                <th>Действия</th>
+                            </tr>
+                        </thead>
+                        <tbody id="routesTableBody">
                             <!-- Данные будут загружаться через API -->
                         </tbody>
                     </table>
@@ -257,6 +258,10 @@
                     <input type="text" class="form-input" name="guests" placeholder="Например: 2 взрослых" />
                 </div>
                 <div class="form-group">
+                    <label class="form-label">Трансфер</label>
+                    <input type="text" class="form-input" name="transfer" placeholder="Например: Трансфер включен" />
+                </div>
+                <div class="form-group">
                     <label class="form-label">URL фото</label>
                     <input type="url" class="form-input" name="photo_url" placeholder="https://example.com/photo.jpg" />
                 </div>
@@ -304,6 +309,10 @@
                     <input type="text" class="form-input" name="guests" />
                 </div>
                 <div class="form-group">
+                    <label class="form-label">Трансфер</label>
+                    <input type="text" class="form-input" name="transfer" />
+                </div>
+                <div class="form-group">
                     <label class="form-label">URL фото</label>
                     <input type="url" class="form-input" name="photo_url" />
                 </div>
@@ -313,10 +322,51 @@
         </div>
     </div>
 
+    <!-- Route Modal -->
+    <div id="routeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Добавить маршрут</h2>
+                <button class="modal-close" onclick="closeModal('routeModal')">&times;</button>
+            </div>
+            <form class="admin-form" onsubmit="submitRouteForm(event)">
+                <div class="form-group">
+                    <label class="form-label">Выберите тур</label>
+                    <select class="form-input" name="trip_id" required>
+                        <option value="">-- Выберите тур --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Город</label>
+                    <input type="text" class="form-input" name="city" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Длительность</label>
+                    <input type="text" class="form-input" name="duration" placeholder="Например: 2 дня" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Позиция</label>
+                    <input type="number" class="form-input" name="position" min="0" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Время остановки</label>
+                    <input type="text" class="form-input" name="stop_time" placeholder="Например: 2 часа" required />
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Транспорт</label>
+                    <input type="text" class="form-input" name="transport" placeholder="Например: Автобус" required />
+                </div>
+                <button type="submit" class="btn">Создать маршрут</button>
+                <button type="button" class="btn btn-secondary" onclick="closeModal('routeModal')">Отмена</button>
+            </form>
+        </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="./api/currency.js"></script>
     <script src="./js/sidebar.js"></script>
     <script src="./js/hotels-admin.js"></script>
+    <script src="./js/routes-admin.js"></script>
     <script src="./js/search.js"></script>
 </body>
 </html>

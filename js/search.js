@@ -2,7 +2,64 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Инициализация поиска
     initSearch();
+     // Инициализация даты
+     initDate();
 });
+
+function initDate() {
+    // Находим элементы даты
+    const dateContainer = document.querySelector('.header__middle-date');
+    if (!dateContainer) return;
+
+    // Элементы для обновления
+    const gregorianElement = document.querySelector('.header__middle-date__gregorian');
+    const hijriElement = document.querySelector('.header__middle-date__hijri');
+    
+    // Временно показываем индикатор загрузки
+    if (gregorianElement) gregorianElement.textContent = 'Загрузка...';
+    if (hijriElement) hijriElement.textContent = '...';
+
+    // Запрашиваем данные с сервера
+    fetch('https://api.web95.tech/api/v1/date/today')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Ошибка сети: ' + response.status);
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.success && data.data && data.data.date) {
+                updateDateDisplay(data.data.date, gregorianElement, hijriElement);
+            } else {
+                throw new Error('Неверный формат данных');
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка загрузки даты:', error);
+            // В случае ошибки оставляем исходную дату или показываем сообщение
+            if (gregorianElement) gregorianElement.textContent = '1 августа';
+            if (hijriElement) hijriElement.textContent = '10 зуль-хиджа';
+        });
+}
+
+function updateDateDisplay(dateString, gregorianElement, hijriElement) {
+    // Разделяем дату по символу "/"
+    const dateParts = dateString.split(' / ');
+    
+    if (dateParts.length === 2) {
+        // Обновляем григорианскую дату (первая часть)
+        if (gregorianElement) {
+            gregorianElement.textContent = dateParts[0].trim();
+        }
+        
+        // Обновляем хиджру (вторая часть)
+        if (hijriElement) {
+            hijriElement.textContent = dateParts[1].trim();
+        }
+    } else {
+        console.warn('Неожиданный формат даты:', dateString);
+    }
+}
 
 function initSearch() {
     // Находим элементы поиска в header и footer
