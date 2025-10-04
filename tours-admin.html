@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <title>Управление турами - Manasik Travel</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="./styles/sidebar.css" />
+    <link rel="stylesheet" href="./styles/admin.css" />
+    <style>
+      /* Полноэкранная форма */
+      .fullscreen-form {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #f5f5f5;
+        z-index: 10000;
+        overflow-y: auto;
+      }
+
+      .fullscreen-form.active {
+        display: block;
+      }
+
+      .fullscreen-form__header {
+        background: white;
+        padding: 20px 40px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .fullscreen-form__content {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 40px;
+      }
+
+      .fullscreen-form__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .fullscreen-form__section {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+      }
+
+      .fullscreen-form__section-title {
+        font-size: 20px;
+        font-weight: 600;
+        margin-bottom: 20px;
+        color: #333;
+        border-bottom: 2px solid #4caf50;
+        padding-bottom: 10px;
+      }
+
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      .form-grid.full {
+        grid-template-columns: 1fr;
+      }
+
+      .hotel-selection-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        border: 1px solid #e0e0e0;
+        border-radius: 6px;
+        margin-bottom: 10px;
+      }
+
+      .hotel-selection-info {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      .hotel-selection-actions {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+      }
+
+      .form-input-small {
+        width: 100px;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+      }
+
+      .btn-small {
+        padding: 8px 16px;
+        background: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .btn-small:hover {
+        background: #45a049;
+      }
+
+      .selected-hotel-item,
+      .route-city-item {
+        background: #f9f9f9;
+        padding: 15px;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        border-left: 4px solid #4caf50;
+      }
+
+      .selected-hotel-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .route-city-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      }
+
+      .route-city-inputs {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr;
+        gap: 10px;
+      }
+
+      .btn-remove {
+        background: #f44336;
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .btn-remove:hover {
+        background: #da190b;
+      }
+
+      .btn-add {
+        background: #2196f3;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+      }
+
+      .btn-add:hover {
+        background: #0b7dda;
+      }
+
+      .form-actions {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        padding: 30px;
+        background: white;
+        position: sticky;
+        bottom: 0;
+        box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="container">
+        <div class="header__inner">
+          <div class="header__left">
+            <button class="header__left-burger" id="burgerBtn">
+              <img src="assets/icons/blocks/header/burger.svg" alt="Burger" />
+            </button>
+            <a href="/" class="header__left-logo">
+              <img src="assets/logo.svg" alt="Manasik Travel" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="main">
+      <div class="auth-container">
+        <h1 class="section__title">Управление турами</h1>
+
+        <div style="margin-bottom: 30px">
+          <button class="btn" onclick="openFullscreenTourForm()">
+            Создать тур
+          </button>
+          <button class="btn" onclick="loadTours()" style="margin-left: 10px">
+            Обновить список
+          </button>
+        </div>
+
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Название</th>
+              <th>Город отправления</th>
+              <th>Цена</th>
+              <th>Дата начала</th>
+              <th>Дата окончания</th>
+              <th>Активен</th>
+              <th>Действия</th>
+            </tr>
+          </thead>
+          <tbody id="toursTableBody"></tbody>
+        </table>
+      </div>
+    </main>
+
+    <!-- Fullscreen Tour Form -->
+    <div id="tourFullscreenForm" class="fullscreen-form">
+      <div class="fullscreen-form__header">
+        <h1>Создание тура</h1>
+        <button class="btn btn-secondary" onclick="closeFullscreenTourForm()">
+          Закрыть ✕
+        </button>
+      </div>
+
+      <form id="createTourForm" onsubmit="submitTourForm(event)">
+        <div class="fullscreen-form__content">
+          <div class="fullscreen-form__grid">
+            <!-- Основная информация о туре -->
+            <div class="fullscreen-form__section">
+              <h2 class="fullscreen-form__section-title">
+                Основная информация
+              </h2>
+              <div class="form-grid full">
+                <div class="form-group">
+                  <label class="form-label">Название тура *</label>
+                  <input type="text" class="form-input" name="title" required />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Описание</label>
+                  <textarea
+                    class="form-input"
+                    name="description"
+                    rows="4"
+                  ></textarea>
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">Город отправления *</label>
+                  <input
+                    type="text"
+                    class="form-input"
+                    name="departure_city"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Тип тура *</label>
+                  <select class="form-input" name="trip_type" required>
+                    <option value="">Выберите тип тура</option>
+                    <option value="Хадж">Хадж</option>
+                    <option value="Умра">Умра</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Сезон *</label>
+                  <select class="form-input" name="season" required>
+                    <option value="">Выберите сезон</option>
+                    <option value="Весна">Весна</option>
+                    <option value="Лето">Лето</option>
+                    <option value="Осень">Осень</option>
+                    <option value="Зима">Зима</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">URL фото</label>
+                  <input type="url" class="form-input" name="photo_url" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Даты и цены -->
+            <div class="fullscreen-form__section">
+              <h2 class="fullscreen-form__section-title">Даты и цены</h2>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="form-label">Дата начала *</label>
+                  <input
+                    type="date"
+                    class="form-input"
+                    name="start_date"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Дата окончания *</label>
+                  <input
+                    type="date"
+                    class="form-input"
+                    name="end_date"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Срок бронирования</label>
+                  <input
+                    type="date"
+                    class="form-input"
+                    name="booking_deadline"
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Цена *</label>
+                  <input
+                    type="number"
+                    class="form-input"
+                    name="price"
+                    step="0.01"
+                    required
+                  />
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Валюта</label>
+                  <select class="form-input" name="currency">
+                    <option value="RUB">RUB - Рубль</option>
+                    <option value="USD">USD - Доллар</option>
+                    <option value="EUR">EUR - Евро</option>
+                    <option value="SAR">SAR - Риял</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="checkbox-group">
+                    <input type="checkbox" name="active" checked />
+                    <span>Активный тур</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="checkbox-group">
+                    <input type="checkbox" name="main" />
+                    <span>Главный тур</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fullscreen-form__grid">
+            <!-- Выбор отелей -->
+            <div class="fullscreen-form__section">
+              <h2 class="fullscreen-form__section-title">Отели тура</h2>
+              <div
+                id="hotelSelectionList"
+                style="max-height: 400px; overflow-y: auto; margin-bottom: 20px"
+              ></div>
+              <div style="border-top: 2px solid #e0e0e0; padding-top: 20px">
+                <h3 style="margin-bottom: 15px">Выбранные отели:</h3>
+                <div id="selectedHotelsList">
+                  <p style="color: #888">Отели не выбраны</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Маршрут -->
+            <div class="fullscreen-form__section">
+              <h2 class="fullscreen-form__section-title">Маршрут тура</h2>
+              <div id="routeCitiesList"></div>
+              <button type="button" class="btn-add" onclick="addRouteCity()">
+                + Добавить город
+              </button>
+            </div>
+          </div>
+
+          <!-- Создание нового отеля (опционально) -->
+          <div class="fullscreen-form__section">
+            <h2 class="fullscreen-form__section-title">
+              Создать новый отель (опционально)
+            </h2>
+            <div class="form-grid">
+              <div class="form-group">
+                <label class="form-label">Название отеля</label>
+                <input type="text" class="form-input" name="new_hotel_name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Город</label>
+                <input type="text" class="form-input" name="new_hotel_city" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Звезды</label>
+                <input
+                  type="number"
+                  class="form-input"
+                  name="new_hotel_stars"
+                  min="1"
+                  max="5"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Расстояние (км)</label>
+                <input
+                  type="number"
+                  class="form-input"
+                  name="new_hotel_distance"
+                  step="0.1"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Текст расстояния</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  name="new_hotel_distance_text"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Питание</label>
+                <input type="text" class="form-input" name="new_hotel_meals" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Гости</label>
+                <input type="text" class="form-input" name="new_hotel_guests" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Трансфер</label>
+                <input
+                  type="text"
+                  class="form-input"
+                  name="new_hotel_transfer"
+                />
+              </div>
+              <div class="form-group">
+                <label class="form-label">URL фото отеля</label>
+                <input
+                  type="url"
+                  class="form-input"
+                  name="new_hotel_photo_url"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn" style="min-width: 200px">
+            Создать тур
+          </button>
+          <button
+            type="button"
+            class="btn btn-secondary"
+            onclick="closeFullscreenTourForm()"
+            style="min-width: 200px"
+          >
+            Отмена
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <script src="./js/tours-admin.js"></script>
+  </body>
+</html>

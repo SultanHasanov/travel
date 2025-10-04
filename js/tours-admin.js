@@ -1,0 +1,535 @@
+// Функции для управления турами
+let selectedHotels = [];
+let routeCities = {};
+let cityCounter = 1;
+let editingTourId = null;
+
+async function loadTours() {
+  try {
+    const token = localStorage.getItem("authToken");
+    if (!token) {
+      window.location.href = "/auth.html";
+      return;
+    }
+
+    const response = await fetch(
+      "https://api.web95.tech/api/v1/trips/relations",
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.status === 401) {
+      localStorage.removeItem("authToken");
+      window.location.href = "/auth.html";
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(`Ошибка HTTP: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    const tours = responseData.data.items || [];
+
+    const tbody = document.getElementById("toursTableBody");
+    tbody.innerHTML = "";
+
+    tours.forEach((tour) => {
+      const row = tbody.insertRow();
+      row.innerHTML = `
+                <td>${tour.trip.id}</td>
+                <td>${tour.trip.title}</td>
+                <td>${tour.trip.departure_city}</td>
+                <td>${tour.trip.price} ${tour.currency}</td>
+                <td>${new Date(tour.trip.start_date).toLocaleDateString(
+                  "ru-RU"
+                )}</td>
+                <td>${new Date(tour.trip.end_date).toLocaleDateString(
+                  "ru-RU"
+                )}</td>
+                <td>${tour.trip.active ? "✅" : "❌"}</td>
+                <td class="admin-table__actions">
+                    <button class="admin-table__btn admin-table__btn--edit" onclick="editTour(${
+                      tour.trip.id
+                    })">
+                        ✏️
+                    </button>
+                    <button class="admin-table__btn admin-table__btn--delete" onclick="deleteTour(${
+                      tour.trip.id
+                    })">
+                        🗑️
+                    </button>
+                </td>
+            `;
+    });
+  } catch (error) {
+    console.error("Ошибка загрузки туров:", error);
+    alert("Не удалось загрузить список туров");
+  }
+}
+
+// Функция: преобразовать дату ISO в формат DD-MM-YYYY
+function formatDateToDDMMYYYY(isoString) {
+  if (!isoString) return "";
+  const date = new Date(isoString);
+  const day = String(date.getDate()).padStart(2, "0");
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
+// Функция: преобразовать из DD-MM-YYYY обратно в ISO (для отправки)
+function parseDateFromDDMMYYYY(dateString) {
+  if (!dateString) return "";
+  const [day, month, year] = dateString.split("-");
+  return `${year}-${month}-${day}`;
+}
+
+async function editTour(tourId) {
+  try {
+    const token = localStorage.getItem("authToken");
+    const response = await fetch(
+      `https://api.web95.tech/api/v1/admin/trips/${tourId}/full`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (!response.ok) throw new Error("Ошибка при загрузке тура");
+
+    const data = await response.json();
+    const tour = data.data;
+    console.log("Загруженные данные тура:", tour);
+
+    openFullscreenTourForm();
+    document.querySelector("#tourFullscreenForm h1").textContent =
+      "Редактирование тура";
+    document.querySelector(".form-actions button[type='submit']").textContent =
+      "Сохранить изменения";
+
+    editingTourId = tour.id;
+    const form = document.getElementById("createTourForm");
+
+    // Заполняем поля
+    form.title.value = tour.trip.title || "";
+    form.description.value = tour.trip.description || "";
+    form.departure_city.value = tour.trip.departure_city || "";
+
+   // ✅ Правильное заполнение дат для <input type="date">
+form.start_date.value = tour.trip.start_date
+  ? tour.trip.start_date.split("T")[0]
+  : "";
+form.end_date.value = tour.trip.end_date
+  ? tour.trip.end_date.split("T")[0]
+  : "";
+form.booking_deadline.value = tour.trip.booking_deadline
+  ? tour.trip.booking_deadline.split("T")[0]
+  : "";
+
+    form.price.value = tour.trip.price || "";
+    form.currency.value = tour.trip.currency || "";
+    form.trip_type.value = tour.trip.trip_type || "";
+    form.season.value = tour.trip.season || "";
+    form.photo_url.value = tour.trip.photo_url || "";
+    form.active.checked = tour.trip.active || false;
+    form.main.checked = tour.trip.main || false;
+
+    // Отели тура
+    selectedHotels = (tour.hotels || []).map((h) => ({
+      hotel_id: h.id,
+      nights: h.nights || 1,
+      name: h.name || "Неизвестный отель",
+    }));
+    renderSelectedHotels();
+
+    // Маршрут
+    routeCities = {};
+    (tour.routes || []).forEach((city, i) => {
+      routeCities[`city_${i + 1}`] = {
+        city: city.name || city.city || "",
+        duration: city.duration || "",
+        stop_time: city.stop_time || "",
+      };
+    });
+
+    if (Object.keys(routeCities).length === 0) {
+      routeCities["city_1"] = { city: "", duration: "", stop_time: "" };
+    }
+
+    renderRouteCities();
+  } catch (error) {
+    console.error("Ошибка редактирования:", error);
+    alert("Не удалось загрузить данные тура");
+  }
+}
+
+async function loadAvailableHotels() {
+  try {
+    const token = localStorage.getItem("authToken");
+    const response = await fetch("https://api.web95.tech/api/v1/admin/hotels", {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.ok) {
+      const responseData = await response.json();
+      return responseData.data || [];
+    }
+    return [];
+  } catch (error) {
+    console.error("Ошибка загрузки отелей:", error);
+    return [];
+  }
+}
+
+function openFullscreenTourForm() {
+  document.getElementById("tourFullscreenForm").classList.add("active");
+  selectedHotels = [];
+  routeCities = {};
+  cityCounter = 1;
+  renderSelectedHotels();
+  renderRouteCities();
+  loadAvailableHotels().then((hotels) => {
+    renderHotelSelection(hotels);
+  });
+}
+
+function closeFullscreenTourForm() {
+  editingTourId = null;
+  document.querySelector("#tourFullscreenForm h1").textContent =
+    "Создание тура";
+  document.querySelector(".form-actions button[type='submit']").textContent =
+    "Создать тур";
+
+  document.getElementById("tourFullscreenForm").classList.remove("active");
+  document.getElementById("createTourForm").reset();
+  selectedHotels = [];
+  routeCities = {};
+  cityCounter = 1;
+}
+
+function renderHotelSelection(hotels) {
+  const container = document.getElementById("hotelSelectionList");
+  container.innerHTML = "";
+
+  hotels.forEach((hotel) => {
+    const div = document.createElement("div");
+    div.className = "hotel-selection-item";
+    div.innerHTML = `
+            <div class="hotel-selection-info">
+                <strong>${hotel.name}</strong>
+                <span>${hotel.city} - ${"★".repeat(hotel.stars)}</span>
+            </div>
+            <div class="hotel-selection-actions">
+                <input type="number" min="1" placeholder="Ночей" id="nights_${
+                  hotel.id
+                }" class="form-input-small" />
+                <button type="button" class="btn-small" onclick="addHotelToTour(${
+                  hotel.id
+                }, '${hotel.name}')">
+                    Добавить
+                </button>
+            </div>
+        `;
+    container.appendChild(div);
+  });
+}
+
+function addHotelToTour(hotelId, hotelName) {
+  const nightsInput = document.getElementById(`nights_${hotelId}`);
+  const nights = parseInt(nightsInput.value);
+
+  if (!nights || nights < 1) {
+    alert("Укажите количество ночей");
+    return;
+  }
+
+  const existing = selectedHotels.find((h) => h.hotel_id === hotelId);
+  if (existing) {
+    alert("Этот отель уже добавлен");
+    return;
+  }
+
+  selectedHotels.push({
+    hotel_id: hotelId,
+    nights: nights,
+    name: hotelName,
+  });
+
+  nightsInput.value = "";
+  renderSelectedHotels();
+}
+
+function renderSelectedHotels() {
+  const container = document.getElementById("selectedHotelsList");
+  container.innerHTML = "";
+
+  if (selectedHotels.length === 0) {
+    container.innerHTML = "<p style='color: #888;'>Отели не выбраны</p>";
+    return;
+  }
+
+  selectedHotels.forEach((hotel, index) => {
+    const div = document.createElement("div");
+    div.className = "selected-hotel-item";
+    div.innerHTML = `
+            <span><strong>${hotel.name}</strong> - ${hotel.nights} ночей</span>
+            <button type="button" class="btn-remove" onclick="removeHotelFromTour(${index})">
+                ✕
+            </button>
+        `;
+    container.appendChild(div);
+  });
+}
+
+function removeHotelFromTour(index) {
+  selectedHotels.splice(index, 1);
+  renderSelectedHotels();
+}
+
+function addRouteCity() {
+  cityCounter++;
+  const cityKey = `city_${cityCounter}`;
+  routeCities[cityKey] = {
+    city: "",
+    duration: "",
+    stop_time: "",
+  };
+  renderRouteCities();
+}
+
+function renderRouteCities() {
+  const container = document.getElementById("routeCitiesList");
+  container.innerHTML = "";
+
+  // Всегда показываем первый город
+  if (Object.keys(routeCities).length === 0) {
+    routeCities["city_1"] = { city: "", duration: "", stop_time: "" };
+  }
+
+  Object.keys(routeCities)
+    .sort()
+    .forEach((cityKey, index) => {
+      const city = routeCities[cityKey];
+      const div = document.createElement("div");
+      div.className = "route-city-item";
+
+      div.innerHTML = `
+            <div class="route-city-header">
+                <strong>Город ${index + 1}</strong>
+                ${
+                  index > 0
+                    ? `<button type="button" class="btn-remove" onclick="removeRouteCity('${cityKey}')">✕</button>`
+                    : ""
+                }
+            </div>
+            <div class="route-city-inputs">
+                <input type="text" class="form-input" placeholder="Название города" 
+                    value="${
+                      city.city
+                    }" onchange="updateRouteCity('${cityKey}', 'city', this.value)" required />
+                ${
+                  index > 0
+                    ? `
+                    <input type="text" class="form-input" placeholder="Длительность (например: 5h)" 
+                        value="${
+                          city.duration || ""
+                        }" onchange="updateRouteCity('${cityKey}', 'duration', this.value)" />
+                    <input type="text" class="form-input" placeholder="Время остановки (например: 2h)" 
+                        value="${
+                          city.stop_time || ""
+                        }" onchange="updateRouteCity('${cityKey}', 'stop_time', this.value)" />
+                `
+                    : ""
+                }
+            </div>
+        `;
+      container.appendChild(div);
+    });
+}
+
+function updateRouteCity(cityKey, field, value) {
+  if (routeCities[cityKey]) {
+    routeCities[cityKey][field] = value;
+  }
+}
+
+function removeRouteCity(cityKey) {
+  delete routeCities[cityKey];
+  renderRouteCities();
+}
+
+async function submitTourForm(event) {
+  event.preventDefault();
+  const formData = new FormData(event.target);
+
+  // Валидация выпадающих списков
+  const tripType = formData.get("trip_type");
+  const season = formData.get("season");
+
+  if (!tripType) {
+    alert("Пожалуйста, выберите тип тура");
+    return;
+  }
+
+  if (!season) {
+    alert("Пожалуйста, выберите сезон");
+    return;
+  }
+
+  // Собираем данные тура
+  const tripData = {
+    title: formData.get("title"),
+    description: formData.get("description"),
+    departure_city: formData.get("departure_city"),
+    start_date: formData.get("start_date"),
+    end_date: formData.get("end_date"),
+    price: parseFloat(formData.get("price")),
+    currency: formData.get("currency"),
+    season: season,
+    trip_type: tripType,
+    booking_deadline: formData.get("booking_deadline"),
+    photo_url: formData.get("photo_url"),
+    active: formData.get("active") === "on",
+    main: formData.get("main") === "on",
+    hotels: selectedHotels.map((h) => ({
+      hotel_id: h.hotel_id,
+      nights: h.nights,
+    })),
+  };
+
+  // Собираем маршрут
+  const route_cities = {};
+  Object.keys(routeCities).forEach((key) => {
+    const city = routeCities[key];
+    if (city.city) {
+      route_cities[key] = {};
+      route_cities[key].city = city.city;
+      if (city.duration) route_cities[key].duration = city.duration;
+      if (city.stop_time) route_cities[key].stop_time = city.stop_time;
+    }
+  });
+
+  // Собираем новые отели
+  const newHotels = [];
+  const newHotelName = formData.get("new_hotel_name");
+  if (newHotelName) {
+    newHotels.push({
+      name: newHotelName,
+      city: formData.get("new_hotel_city"),
+      stars: parseInt(formData.get("new_hotel_stars")),
+      distance: parseFloat(formData.get("new_hotel_distance")),
+      distance_text: formData.get("new_hotel_distance_text"),
+      meals: formData.get("new_hotel_meals"),
+      guests: formData.get("new_hotel_guests"),
+      transfer: formData.get("new_hotel_transfer"),
+      photo_url: formData.get("new_hotel_photo_url"),
+    });
+  }
+
+  const requestData = {
+    trip: tripData,
+    route_cities: route_cities,
+    hotels: newHotels,
+  };
+
+  // 🔹 Вот здесь начинаются изменения
+  try {
+    const token = localStorage.getItem("authToken");
+
+    // Проверяем — редактируем или создаём новый тур
+    const method = editingTourId ? "PUT" : "POST";
+    const url = editingTourId
+      ? `https://api.web95.tech/api/v1/trips/${editingTourId}`
+      : "https://api.web95.tech/api/v1/admin/tours";
+
+    const response = await fetch(url, {
+      method: method,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestData),
+    });
+
+    if (response.status === 401) {
+      localStorage.removeItem("authToken");
+      window.location.href = "/auth.html";
+      return;
+    }
+
+    if (response.ok) {
+      closeFullscreenTourForm();
+      loadTours();
+      alert(editingTourId ? "Тур успешно обновлён!" : "Тур успешно создан!");
+      editingTourId = null;
+    } else {
+      const errorData = await response.json();
+      throw new Error(
+        errorData.message ||
+          (editingTourId
+            ? "Ошибка при обновлении тура"
+            : "Ошибка при создании тура")
+      );
+    }
+  } catch (error) {
+    console.error("Ошибка:", error);
+    alert(
+      (editingTourId
+        ? "Не удалось обновить тур: "
+        : "Не удалось создать тур: ") + error.message
+    );
+  }
+}
+
+async function deleteTour(tourId) {
+  if (confirm(`Вы уверены, что хотите удалить тур #${tourId}?`)) {
+    try {
+      const token = localStorage.getItem("authToken");
+      const response = await fetch(
+        `https://api.web95.tech/api/v1/admin/trips/${tourId}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.status === 401) {
+        localStorage.removeItem("authToken");
+        window.location.href = "/auth.html";
+        return;
+      }
+
+      if (response.ok) {
+        loadTours();
+        alert("Тур успешно удален!");
+      } else {
+        throw new Error("Ошибка при удалении тура");
+      }
+    } catch (error) {
+      console.error("Ошибка:", error);
+      alert("Не удалось удалить тур");
+    }
+  }
+}
+
+// Загружаем туры при загрузке страницы
+document.addEventListener("DOMContentLoaded", function () {
+  if (document.getElementById("toursTableBody")) {
+    loadTours();
+  }
+});

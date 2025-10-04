@@ -1,74 +1,78 @@
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>
-        Туры
-    </title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-          rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"/>
-    <link rel="stylesheet" href="styles/global.css">
-    <link rel="stylesheet" href="styles/tours.css">
-    <link rel="stylesheet" href="styles/modals/review.css">
-    <link rel="stylesheet" href="styles/modals/subscription.css">
-    <link rel="stylesheet" href="styles/modals/book.css">
-    <link rel="stylesheet" href="styles/modals/consultation.css">
-</head>
-<body>
-<header class="header header--unfixed">
-    <div class="container">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Туры</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="styles/global.css" />
+    <link rel="stylesheet" href="styles/tours.css" />
+    <link rel="stylesheet" href="styles/modals/review.css" />
+    <link rel="stylesheet" href="styles/modals/subscription.css" />
+    <link rel="stylesheet" href="styles/modals/book.css" />
+    <link rel="stylesheet" href="styles/modals/consultation.css" />
+  </head>
+  <body>
+    <header class="header header--unfixed">
+      <div class="container">
         <div class="header__inner">
-            <div class="header__left">
-                <button class="header__left-burger">
-                    <img src="assets/icons/blocks/header/burger.svg" alt="Burger Button">
-                </button>
-                <a href="/" class="header__left-logo">
-                    <img src="assets/logo.svg" alt="Manasik Travel">
-                </a>
-                <div class="header__left-divider"></div>
-                <div class="header__left-city">
-                    <img src="assets/icons/location-tag.svg" alt="Location Tag">
-                    <span>Москва</span>
-                </div>
+          <div class="header__left">
+            <button class="header__left-burger">
+              <img
+                src="assets/icons/blocks/header/burger.svg"
+                alt="Burger Button"
+              />
+            </button>
+            <a href="/" class="header__left-logo">
+              <img src="assets/logo.svg" alt="Manasik Travel" />
+            </a>
+            <div class="header__left-divider"></div>
+            <div class="header__left-city">
+              <img src="assets/icons/location-tag.svg" alt="Location Tag" />
+              <span>Москва</span>
             </div>
-            <div class="header__middle">
-                <div class="header__middle-date">
-                    <div class="header__middle-date__gregorian">
-                        1 августа
-                    </div>
-                    <div class="header__middle-date__divider">
-                        /
-                    </div>
-                    <div class="header__middle-date__hijri">
-                        10 зуль-хиджа
-                    </div>
-                </div>
-                <div class="header__middle-form">
-                    <input type="text" class="header__middle-form__input" placeholder="Введите слово...">
-                    <button class="header__middle-form__button">
-                        <img src="assets/icons/loupe.svg" alt="Loupe">
-                    </button>
-                </div>
+          </div>
+          <div class="header__middle">
+            <div class="header__middle-date">
+              <div class="header__middle-date__gregorian">1 августа</div>
+              <div class="header__middle-date__divider">/</div>
+              <div class="header__middle-date__hijri">10 зуль-хиджа</div>
             </div>
-            <div class="header__right">
-                <div class="header__right-contact">
-                    <div class="header__right-contact__text">
-                        Представитель в Москве
-                    </div>
-                    <a href="tel:" class="header__right-contact__phone">
-                        <span>
-                            8-800-899-00-66
-                        </span>
-                        <img src="assets/icons/whatsapp.svg" alt="WhatsApp">
-                    </a>
-                </div>
-                <div class="header__right-currencies">
+            <div class="header__middle-form">
+              <input
+                type="text"
+                class="header__middle-form__input"
+                placeholder="Введите слово..."
+              />
+              <button class="header__middle-form__button">
+                <img src="assets/icons/loupe.svg" alt="Loupe" />
+              </button>
+            </div>
+          </div>
+          <div class="header__right">
+            <div class="header__right-contact">
+              <div class="header__right-contact__text">
+                Представитель в Москве
+              </div>
+              <a href="tel:" class="header__right-contact__phone">
+                <span> 8-800-899-00-66 </span>
+                <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
+              </a>
+            </div>
+            <div class="header__right-currencies">
               <div class="header__right-currency" data-currency="USD">
                 1 &nbsp;
                 <img src="assets/icons/dollar-sign.svg" alt="Dollar Sign" />
@@ -83,699 +87,720 @@
                 &nbsp; <span class="rate">17,40</span>&nbsp;руб.
               </div>
             </div>
-            </div>
+          </div>
         </div>
-    </div>
-</header>
-<main>
-    <div class="tours">
+      </div>
+    </header>
+    <main>
+      <div class="tours">
         <div class="tours-navigation tours-navigation--orange_bg">
-            <div class="container">
-                <div class="tours-navigation__inner">
-                    <ol class="breadcrumbs">
-                        <li>
-                            <a href="/">
-                                Главная страница
-                            </a>
-                        </li>
-                        <li class="current-page">
-                            <a href="#">
-                                Туры в хадж
-                            </a>
-                        </li>
-                    </ol>
-                    <h1 class="tours-navigation__title">
-                        Туры в хадж
-                    </h1>
-                </div>
+          <div class="container">
+            <div class="tours-navigation__inner">
+              <ol class="breadcrumbs">
+                <li>
+                  <a href="/"> Главная страница </a>
+                </li>
+                <li class="current-page">
+                  <a href="#"> Туры в хадж и умру </a>
+                </li>
+              </ol>
+              <h1 class="tours-navigation__title">Туры в хадж и умру</h1>
             </div>
+          </div>
         </div>
         <div class="tours-filters">
-            <div class="container">
-                <div class="tours-filters__inner">
-                    <div class="tours-filters__main">
-                        <div class="custom-dropdown">
-                            <div class="custom-dropdown__label">
-                                выбор тура
-                            </div>
-                            <div class="custom-dropdown__options">
-                                <span class="custom-dropdown__options-selected">Выберите тур</span>
-                                <ul class="custom-dropdown__options-list">
-                                    <li>Умра 2019</li>
-                                    <li>2020</li>
-                                    <li>2021</li>
-                                    <li>2022</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="custom-dropdown">
-                            <div class="custom-dropdown__label">
-                                дата поездки
-                            </div>
-                            <div class="custom-dropdown__options">
-                                <span class="custom-dropdown__options-selected">Выберите месяц</span>
-                                <ul class="custom-dropdown__options-list">
-                                    <li>Июнь</li>
-                                    <li>Июль</li>
-                                    <li>Август</li>
-                                    <li>Сентябрь</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="custom-dropdown">
-                            <div class="custom-dropdown__label">
-                                Город вылета
-                            </div>
-                            <div class="custom-dropdown__options">
-                                <span class="custom-dropdown__options-selected">Выберите город</span>
-                                <ul class="custom-dropdown__options-list">
-                                    <li>Москва</li>
-                                    <li>Санкт-Петербург</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tours-filters__additional">
-                        <div class="tours-filters__additional-selects">
-                            <div class="custom-dropdown">
-                                <div class="custom-dropdown__options">
-                                    <span class="custom-dropdown__options-selected">маршрут тура</span>
-                                    <ul class="custom-dropdown__options-list">
-                                        <li>Умра 2019</li>
-                                        <li>2020</li>
-                                        <li>2021</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="custom-dropdown">
-                                <div class="custom-dropdown__options">
-                                    <span class="custom-dropdown__options-selected">статус тура</span>
-                                    <ul class="custom-dropdown__options-list">
-                                        <li>Умра 2019</li>
-                                        <li>2020</li>
-                                        <li>2021</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <button class="tours-filters__additional-reset">
-                            <span>сбросить фильтры</span>
-                            <img src="assets/icons/cross.svg" alt="Cross">
-                        </button>
-                    </div>
-                    <div class="tours-filters__sort">
-                        <div class="tours-filters__sort-title">
-                            Сортировка:
-                        </div>
-                        <div class="tours-filters__sort-by">
-                            <button class="tours-filters__sort-filter tours-filters__sort-filter--price">
-                                по цене
-                            </button>
-                            <button class="tours-filters__sort-filter tours-filters__sort-filter--reviews">
-                                по отзывам
-                            </button>
-                            <button class="tours-filters__sort-filter tours-filters__sort-filter--popularity">
-                                по популярности
-                            </button>
-                        </div>
-                    </div>
+          <div class="container">
+            <div class="tours-filters__inner">
+              <div class="tours-filters__main">
+                <div class="custom-dropdown">
+                  <div class="custom-dropdown__label">выбор тура</div>
+                  <div class="custom-dropdown__options">
+                    <span class="custom-dropdown__options-selected"
+                      >Выберите тур</span
+                    >
+                    <ul class="custom-dropdown__options-list">
+                      <li>Умра 2019</li>
+                      <li>2020</li>
+                      <li>2021</li>
+                      <li>2022</li>
+                    </ul>
+                  </div>
                 </div>
+                <div class="custom-dropdown">
+                  <div class="custom-dropdown__label">тип</div>
+                  <div class="custom-dropdown__options">
+                    <span class="custom-dropdown__options-selected"
+                      >Выберите тип</span
+                    >
+                    <ul class="custom-dropdown__options-list">
+                      <li>Хадж</li>
+                      <li>Умра</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="custom-dropdown">
+                  <div class="custom-dropdown__label">дата поездки</div>
+                  <div class="custom-dropdown__options">
+                    <span class="custom-dropdown__options-selected"
+                      >Выберите месяц</span
+                    >
+                    <ul class="custom-dropdown__options-list">
+                      <li>Июнь</li>
+                      <li>Июль</li>
+                      <li>Август</li>
+                      <li>Сентябрь</li>
+                    </ul>
+                  </div>
+                </div>
+                <div class="custom-dropdown">
+                  <div class="custom-dropdown__label">Город вылета</div>
+                  <div class="custom-dropdown__options">
+                    <span class="custom-dropdown__options-selected"
+                      >Выберите город</span
+                    >
+                    <ul class="custom-dropdown__options-list">
+                      <li>Москва</li>
+                      <li>Санкт-Петербург</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="tours-filters__additional">
+                <div class="tours-filters__additional-selects">
+                  <div class="custom-dropdown">
+                    <div class="custom-dropdown__label">маршрут тура</div>
+                    <div class="custom-dropdown__options">
+                       <span class="custom-dropdown__options-selected"
+                        ></span
+                      >
+                      <ul class="custom-dropdown__options-list"></ul>
+                    </div>
+                  </div>
+
+                  <div class="custom-dropdown">
+                    <div class="custom-dropdown__label">статус тура</div>
+                    <div class="custom-dropdown__options">
+                      <span class="custom-dropdown__options-selected"
+                        ></span
+                      >
+                      <ul class="custom-dropdown__options-list"></ul>
+                    </div>
+                  </div>
+                </div>
+                <button class="tours-filters__additional-reset">
+                  <span>сбросить фильтры</span>
+                  <img src="assets/icons/cross.svg" alt="Cross" />
+                </button>
+              </div>
+              <div class="tours-filters__sort">
+                <div class="tours-filters__sort-title">Сортировка:</div>
+                <div class="tours-filters__sort-by">
+                  <button
+                    class="tours-filters__sort-filter tours-filters__sort-filter--price"
+                  >
+                    по цене
+                  </button>
+                  <button
+                    class="tours-filters__sort-filter tours-filters__sort-filter--reviews"
+                  >
+                    по отзывам
+                  </button>
+                  <button
+                    class="tours-filters__sort-filter tours-filters__sort-filter--popularity"
+                  >
+                    по популярности
+                  </button>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
         <div class="tours-cards">
-            <div class="container">
-                <div class="tours-cards__inner">
-                    <div class="tours-card">
-                        <div class="tours-card__info">
-                            <div class="tours-card__info-top">
-                                <div class="tours-card__info-rating">
-                                    <img src="assets/images/pages/tours/tour-rating--white.png" alt="">
-                                </div>
-                                <div class="tours-card__info-type">
-                                    эконом тур
-                                </div>
-                            </div>
-                            <div class="tours-card__info-name">
-                                хадж программа “супер эконом из москвы”
-                            </div>
-                            <div class="tours-card__info-route">
-                                <span>маршрут тура</span> Самолетно-автобусный
-                            </div>
-                            <div class="tours-card__info-discount">
-                                <div class="tours-card__info-discount__icon">
-                                    <div class="tours-card__info-discount__icon-inner">
-                                        <img src="assets/icons/pages/tours/percentage.svg" alt="">
-                                    </div>
-                                </div>
-                                <div class="tours-card__info-discount__text">
-                                    <strong>акция!</strong>
-                                    <br>
-                                    до 20 августа
-                                </div>
-                            </div>
-                            <div class="tours-card__info-main">
-                                <div class="tours-card__info-main__elem">
-                                    <span>город вылета</span> Санкт-Петербург
-                                </div>
-                                <div class="tours-card__info-main__elem">
-                                    <span>даты поездки</span> 20 июля - 10 августа
-                                </div>
-                                <div class="tours-card__info-main__elem">
-                                    <span>продолж-сть</span> 18-22 дня
-                                </div>
-                            </div>
-                            <a href="#" class="tours-card__info-reviews">
-                                <img src="assets/icons/pages/tours/reviews.svg" alt="Reviews">
-                                <span>отзывы</span>
-                            </a>
-                        </div>
-                        <div class="tours-card__details">
-                            <div class="tours-card__details-blocks">
-                                <div class="tours-card__details-block">
-                                    <div class="tours-card__details-city">
-                                        мекка
-                                    </div>
-                                    <div class="tours-card__details-hotel">
-                                        <div class="tours-card__details-hotel__name">
-                                            Pulman Zam-Zam
-                                        </div>
-                                        <img src="assets/icons/pages/tours/mecca-hotel-rating.svg" alt=""
-                                             class="tours-card__details-hotel__rating">
-                                    </div>
-                                    <div class="tours-card__details-mosque">
-                                        1,5 - 2км до Мечети
-                                    </div>
-                                    <div class="tours-card__details-amenities">
-                                        <div class="tours-card__details-amenity">
-                                            <img src="assets/icons/pages/tours/bus-side-view.svg" alt="">
-                                            <span>трансфер</span> <strong>включен</strong> (до мечети)
-                                        </div>
-                                        <div class="tours-card__details-amenity">
-                                            <img src="assets/icons/pages/tours/plate-with-cutlery.svg" alt="">
-                                            <span>питание</span> <strong>включено</strong> (2-х разовое)
-                                        </div>
-                                    </div>
-                                    <div class="tours-card__details-stay_info">
-                                        <div class="tours-card__details-nights">
-                                            <img src="assets/icons/pages/tours/crescent.svg" alt="">
-                                            10 ночей
-                                        </div>
-                                        <div class="tours-card__details-guests">
-                                            <img src="assets/icons/pages/tours/people.svg" alt="">
-                                            4-5 человек в номере
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tours-card__details-block">
-                                    <div class="tours-card__details-city">
-                                        медина
-                                    </div>
-                                    <div class="tours-card__details-hotel">
-                                        <div class="tours-card__details-hotel__name">
-                                            Anwar Al Madinah Mövenpick
-                                        </div>
-                                        <img src="assets/icons/pages/tours/medina-hotel-rating.svg" alt=""
-                                             class="tours-card__details-hotel__rating">
-                                    </div>
-                                    <div class="tours-card__details-mosque">
-                                        1,5 - 2км до Мечети Аль Харам
-                                    </div>
-                                    <div class="tours-card__details-amenities">
-                                        <div class="tours-card__details-amenity">
-                                            <img src="assets/icons/pages/tours/plate-with-cutlery.svg" alt="">
-                                            <span>питание</span> <strong>отсутствует</strong>
-                                        </div>
-                                    </div>
-                                    <div class="tours-card__details-stay_info">
-                                        <div class="tours-card__details-nights">
-                                            <img src="assets/icons/pages/tours/crescent.svg" alt="">
-                                            10 ночей
-                                        </div>
-                                        <div class="tours-card__details-guests">
-                                            <img src="assets/icons/pages/tours/people.svg" alt="">
-                                            4-5 человек в номере
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tours-card__details-buy">
-                                <div class="tours-card__details-buy__price">
-                                    <div class="tours-card__details-buy__price-undiscounted">
-                                        154 000 <span>руб.</span>
-                                        <img src="assets/icons/dollar-sign--grey.svg" alt="">
-                                    </div>
-                                    <div class="tours-card__details-buy__price-current">
-                                        <div class="price">
-                                            194 000 <span>руб.</span>
-                                        </div>
-                                        <img src="assets/icons/dollar-sign--grey.svg" alt="">
-                                    </div>
-                                </div>
-                                <a href="#" class="tours-card__details-buy__link">
-                                    выбрать тур
-                                </a>
-                            </div>
-                        </div>
+          <div class="container">
+            <div class="tours-cards__inner">
+              <div class="tours-card">
+                <div class="tours-card__info">
+                  <div class="tours-card__info-top">
+                    <div class="tours-card__info-rating">
+                      <img
+                        src="assets/images/pages/tours/tour-rating--white.png"
+                        alt=""
+                      />
                     </div>
-                    <div class="tours-card tours-card--premium">
-                        <div class="tours-card__info">
-                            <div class="tours-card__info-top">
-                                <div class="tours-card__info-rating">
-                                    <img src="assets/images/pages/tours/tour-rating--orange.png" alt="">
-                                </div>
-                                <div class="tours-card__info-type">
-                                    эконом тур
-                                </div>
-                            </div>
-                            <div class="tours-card__info-name">
-                                хадж программа “супер эконом из москвы”
-                            </div>
-                            <div class="tours-card__info-route">
-                                <span>маршрут тура</span> Самолетно-автобусный
-                            </div>
-                            <div class="tours-card__info-icons">
-                                <div class="tours-card__info-icon">
-                                    <div class="tours-card__info-icons__inner">
-                                        <img src="assets/icons/pages/tours/medal.svg" alt="">
-                                    </div>
-                                </div>
-                                <div class="tours-card__info-icon">
-                                    <div class="tours-card__info-icons__inner">
-                                        <img src="assets/icons/pages/tours/stars-amenity.svg" alt="">
-                                    </div>
-                                </div>
-                                <div class="tours-card__info-icon">
-                                    <div class="tours-card__info-icons__inner">
-                                        <img src="assets/icons/pages/tours/purple-plate-amenity.svg" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tours-card__info-main">
-                                <div class="tours-card__info-main__elem">
-                                    <span>город вылета</span> Санкт-Петербург
-                                </div>
-                                <div class="tours-card__info-main__elem">
-                                    <span>продолж-сть</span> 18-22 дня
-                                </div>
-                            </div>
-                            <a href="#" class="tours-card__info-reviews">
-                                <img src="assets/icons/pages/tours/reviews.svg" alt="Reviews">
-                                <span>отзывы</span>
-                            </a>
-                        </div>
-                        <div class="tours-card__details">
-                            <div class="tours-card__details-blocks">
-                                <div class="tours-card__details-block">
-                                    <div class="tours-card__details-city">
-                                        мекка
-                                    </div>
-                                    <div class="tours-card__details-hotel">
-                                        <div class="tours-card__details-hotel__name">
-                                            Pulman Zam-Zam
-                                        </div>
-                                        <img src="assets/icons/pages/tours/mecca-hotel-rating.svg" alt=""
-                                             class="tours-card__details-hotel__rating">
-                                    </div>
-                                    <div class="tours-card__details-mosque">
-                                        1,5 - 2км до Мечети
-                                    </div>
-                                    <div class="tours-card__details-amenities">
-                                        <div class="tours-card__details-amenity">
-                                            <img src="assets/icons/pages/tours/bus-side-view.svg" alt="">
-                                            <span>трансфер</span> <strong>включен</strong> (до мечети)
-                                        </div>
-                                        <div class="tours-card__details-amenity">
-                                            <img src="assets/icons/pages/tours/plate-with-cutlery.svg" alt="">
-                                            <span>питание</span> <strong>включено</strong> (2-х разовое)
-                                        </div>
-                                    </div>
-                                    <div class="tours-card__details-stay_info">
-                                        <div class="tours-card__details-nights">
-                                            <img src="assets/icons/pages/tours/crescent.svg" alt="">
-                                            10 ночей
-                                        </div>
-                                        <div class="tours-card__details-guests">
-                                            <img src="assets/icons/pages/tours/people.svg" alt="">
-                                            4-5 человек в номере
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tours-card__details-block">
-                                    <div class="tours-card__details-city">
-                                        медина
-                                    </div>
-                                    <div class="tours-card__details-hotel">
-                                        <div class="tours-card__details-hotel__name">
-                                            Anwar Al Madinah Mövenpick
-                                        </div>
-                                        <img src="assets/icons/pages/tours/medina-hotel-rating.svg" alt=""
-                                             class="tours-card__details-hotel__rating">
-                                    </div>
-                                    <div class="tours-card__details-mosque">
-                                        1,5 - 2км до Мечети Аль Харам
-                                    </div>
-                                    <div class="tours-card__details-amenities">
-                                        <div class="tours-card__details-amenity">
-                                            <img src="assets/icons/pages/tours/plate-with-cutlery.svg" alt="">
-                                            <span>питание</span> <strong>отсутствует</strong>
-                                        </div>
-                                    </div>
-                                    <div class="tours-card__details-stay_info">
-                                        <div class="tours-card__details-nights">
-                                            <img src="assets/icons/pages/tours/crescent.svg" alt="">
-                                            10 ночей
-                                        </div>
-                                        <div class="tours-card__details-guests">
-                                            <img src="assets/icons/pages/tours/people.svg" alt="">
-                                            4-5 человек в номере
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="tours-card__details-buy">
-                                <div class="tours-card__details-buy__price">
-                                    <div class="tours-card__details-buy__price-current">
-                                        <div class="price">
-                                            194 000 <span>руб.</span>
-                                        </div>
-                                        <img src="assets/icons/dollar-sign--grey.svg" alt="">
-                                    </div>
-                                </div>
-                                <a href="#" class="tours-card__details-buy__link">
-                                    выбрать тур
-                                </a>
-                            </div>
-                        </div>
+                    <div class="tours-card__info-type">эконом тур</div>
+                  </div>
+                  <div class="tours-card__info-name">
+                    хадж программа “супер эконом из москвы”
+                  </div>
+                  <div class="tours-card__info-route">
+                    <span>маршрут тура</span> Самолетно-автобусный
+                  </div>
+                  <div class="tours-card__info-discount">
+                    <div class="tours-card__info-discount__icon">
+                      <div class="tours-card__info-discount__icon-inner">
+                        <img
+                          src="assets/icons/pages/tours/percentage.svg"
+                          alt=""
+                        />
+                      </div>
                     </div>
+                    <div class="tours-card__info-discount__text">
+                      <strong>акция!</strong>
+                      <br />
+                      до 20 августа
+                    </div>
+                  </div>
+                  <div class="tours-card__info-main">
+                    <div class="tours-card__info-main__elem">
+                      <span>город вылета</span> Санкт-Петербург
+                    </div>
+                    <div class="tours-card__info-main__elem">
+                      <span>даты поездки</span> 20 июля - 10 августа
+                    </div>
+                    <div class="tours-card__info-main__elem">
+                      <span>продолж-сть</span> 18-22 дня
+                    </div>
+                  </div>
+                  <a href="#" class="tours-card__info-reviews">
+                    <img
+                      src="assets/icons/pages/tours/reviews.svg"
+                      alt="Reviews"
+                    />
+                    <span>отзывы</span>
+                  </a>
                 </div>
+                <div class="tours-card__details">
+                  <div class="tours-card__details-blocks">
+                    <div class="tours-card__details-block">
+                      <div class="tours-card__details-city">мекка</div>
+                      <div class="tours-card__details-hotel">
+                        <div class="tours-card__details-hotel__name">
+                          Pulman Zam-Zam
+                        </div>
+                        <img
+                          src="assets/icons/pages/tours/mecca-hotel-rating.svg"
+                          alt=""
+                          class="tours-card__details-hotel__rating"
+                        />
+                      </div>
+                      <div class="tours-card__details-mosque">
+                        1,5 - 2км до Мечети
+                      </div>
+                      <div class="tours-card__details-amenities">
+                        <div class="tours-card__details-amenity">
+                          <img
+                            src="assets/icons/pages/tours/bus-side-view.svg"
+                            alt=""
+                          />
+                          <span>трансфер</span> <strong>включен</strong> (до
+                          мечети)
+                        </div>
+                        <div class="tours-card__details-amenity">
+                          <img
+                            src="assets/icons/pages/tours/plate-with-cutlery.svg"
+                            alt=""
+                          />
+                          <span>питание</span> <strong>включено</strong> (2-х
+                          разовое)
+                        </div>
+                      </div>
+                      <div class="tours-card__details-stay_info">
+                        <div class="tours-card__details-nights">
+                          <img
+                            src="assets/icons/pages/tours/crescent.svg"
+                            alt=""
+                          />
+                          10 ночей
+                        </div>
+                        <div class="tours-card__details-guests">
+                          <img
+                            src="assets/icons/pages/tours/people.svg"
+                            alt=""
+                          />
+                          4-5 человек в номере
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tours-card__details-block">
+                      <div class="tours-card__details-city">медина</div>
+                      <div class="tours-card__details-hotel">
+                        <div class="tours-card__details-hotel__name">
+                          Anwar Al Madinah Mövenpick
+                        </div>
+                        <img
+                          src="assets/icons/pages/tours/medina-hotel-rating.svg"
+                          alt=""
+                          class="tours-card__details-hotel__rating"
+                        />
+                      </div>
+                      <div class="tours-card__details-mosque">
+                        1,5 - 2км до Мечети Аль Харам
+                      </div>
+                      <div class="tours-card__details-amenities">
+                        <div class="tours-card__details-amenity">
+                          <img
+                            src="assets/icons/pages/tours/plate-with-cutlery.svg"
+                            alt=""
+                          />
+                          <span>питание</span> <strong>отсутствует</strong>
+                        </div>
+                      </div>
+                      <div class="tours-card__details-stay_info">
+                        <div class="tours-card__details-nights">
+                          <img
+                            src="assets/icons/pages/tours/crescent.svg"
+                            alt=""
+                          />
+                          10 ночей
+                        </div>
+                        <div class="tours-card__details-guests">
+                          <img
+                            src="assets/icons/pages/tours/people.svg"
+                            alt=""
+                          />
+                          4-5 человек в номере
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tours-card__details-buy">
+                    <div class="tours-card__details-buy__price">
+                      <div class="tours-card__details-buy__price-undiscounted">
+                        154 000 <span>руб.</span>
+                        <img src="assets/icons/dollar-sign--grey.svg" alt="" />
+                      </div>
+                      <div class="tours-card__details-buy__price-current">
+                        <div class="price">194 000 <span>руб.</span></div>
+                        <img src="assets/icons/dollar-sign--grey.svg" alt="" />
+                      </div>
+                    </div>
+                    <a href="#" class="tours-card__details-buy__link">
+                      выбрать тур
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="tours-card tours-card--premium">
+                <div class="tours-card__info">
+                  <div class="tours-card__info-top">
+                    <div class="tours-card__info-rating">
+                      <img
+                        src="assets/images/pages/tours/tour-rating--orange.png"
+                        alt=""
+                      />
+                    </div>
+                    <div class="tours-card__info-type">эконом тур</div>
+                  </div>
+                  <div class="tours-card__info-name">
+                    хадж программа “супер эконом из москвы”
+                  </div>
+                  <div class="tours-card__info-route">
+                    <span>маршрут тура</span> Самолетно-автобусный
+                  </div>
+                  <div class="tours-card__info-icons">
+                    <div class="tours-card__info-icon">
+                      <div class="tours-card__info-icons__inner">
+                        <img src="assets/icons/pages/tours/medal.svg" alt="" />
+                      </div>
+                    </div>
+                    <div class="tours-card__info-icon">
+                      <div class="tours-card__info-icons__inner">
+                        <img
+                          src="assets/icons/pages/tours/stars-amenity.svg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                    <div class="tours-card__info-icon">
+                      <div class="tours-card__info-icons__inner">
+                        <img
+                          src="assets/icons/pages/tours/purple-plate-amenity.svg"
+                          alt=""
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tours-card__info-main">
+                    <div class="tours-card__info-main__elem">
+                      <span>город вылета</span> Санкт-Петербург
+                    </div>
+                    <div class="tours-card__info-main__elem">
+                      <span>продолж-сть</span> 18-22 дня
+                    </div>
+                  </div>
+                  <a href="#" class="tours-card__info-reviews">
+                    <img
+                      src="assets/icons/pages/tours/reviews.svg"
+                      alt="Reviews"
+                    />
+                    <span>отзывы</span>
+                  </a>
+                </div>
+                <div class="tours-card__details">
+                  <div class="tours-card__details-blocks">
+                    <div class="tours-card__details-block">
+                      <div class="tours-card__details-city">мекка</div>
+                      <div class="tours-card__details-hotel">
+                        <div class="tours-card__details-hotel__name">
+                          Pulman Zam-Zam
+                        </div>
+                        <img
+                          src="assets/icons/pages/tours/mecca-hotel-rating.svg"
+                          alt=""
+                          class="tours-card__details-hotel__rating"
+                        />
+                      </div>
+                      <div class="tours-card__details-mosque">
+                        1,5 - 2км до Мечети
+                      </div>
+                      <div class="tours-card__details-amenities">
+                        <div class="tours-card__details-amenity">
+                          <img
+                            src="assets/icons/pages/tours/bus-side-view.svg"
+                            alt=""
+                          />
+                          <span>трансфер</span> <strong>включен</strong> (до
+                          мечети)
+                        </div>
+                        <div class="tours-card__details-amenity">
+                          <img
+                            src="assets/icons/pages/tours/plate-with-cutlery.svg"
+                            alt=""
+                          />
+                          <span>питание</span> <strong>включено</strong> (2-х
+                          разовое)
+                        </div>
+                      </div>
+                      <div class="tours-card__details-stay_info">
+                        <div class="tours-card__details-nights">
+                          <img
+                            src="assets/icons/pages/tours/crescent.svg"
+                            alt=""
+                          />
+                          10 ночей
+                        </div>
+                        <div class="tours-card__details-guests">
+                          <img
+                            src="assets/icons/pages/tours/people.svg"
+                            alt=""
+                          />
+                          4-5 человек в номере
+                        </div>
+                      </div>
+                    </div>
+                    <div class="tours-card__details-block">
+                      <div class="tours-card__details-city">медина</div>
+                      <div class="tours-card__details-hotel">
+                        <div class="tours-card__details-hotel__name">
+                          Anwar Al Madinah Mövenpick
+                        </div>
+                        <img
+                          src="assets/icons/pages/tours/medina-hotel-rating.svg"
+                          alt=""
+                          class="tours-card__details-hotel__rating"
+                        />
+                      </div>
+                      <div class="tours-card__details-mosque">
+                        1,5 - 2км до Мечети Аль Харам
+                      </div>
+                      <div class="tours-card__details-amenities">
+                        <div class="tours-card__details-amenity">
+                          <img
+                            src="assets/icons/pages/tours/plate-with-cutlery.svg"
+                            alt=""
+                          />
+                          <span>питание</span> <strong>отсутствует</strong>
+                        </div>
+                      </div>
+                      <div class="tours-card__details-stay_info">
+                        <div class="tours-card__details-nights">
+                          <img
+                            src="assets/icons/pages/tours/crescent.svg"
+                            alt=""
+                          />
+                          10 ночей
+                        </div>
+                        <div class="tours-card__details-guests">
+                          <img
+                            src="assets/icons/pages/tours/people.svg"
+                            alt=""
+                          />
+                          4-5 человек в номере
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="tours-card__details-buy">
+                    <div class="tours-card__details-buy__price">
+                      <div class="tours-card__details-buy__price-current">
+                        <div class="price">194 000 <span>руб.</span></div>
+                        <img src="assets/icons/dollar-sign--grey.svg" alt="" />
+                      </div>
+                    </div>
+                    <a href="#" class="tours-card__details-buy__link">
+                      выбрать тур
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
         <div class="pagination">
-            <div class="container">
-                <div class="pagination__inner">
-                    <button class="pagination__prev">
-                        <img src="assets/icons/short-white-arrow-left.svg" alt="Arrow Left">
-                    </button>
-                    <div class="pagination__pages">
-                        <button class="pagination__page pagination__page--current">
-                            01
-                        </button>
-                        <button class="pagination__page">
-                            02
-                        </button>
-                    </div>
-                    <button class="pagination__next">
-                        <img src="assets/icons/short-white-arrow-right.svg" alt="Arrow Right">
-                    </button>
-                </div>
+          <div class="container">
+            <div class="pagination__inner">
+              <button class="pagination__prev">
+                <img
+                  src="assets/icons/short-white-arrow-left.svg"
+                  alt="Arrow Left"
+                />
+              </button>
+              <div class="pagination__pages">
+                <button class="pagination__page pagination__page--current">
+                  01
+                </button>
+                <button class="pagination__page">02</button>
+              </div>
+              <button class="pagination__next">
+                <img
+                  src="assets/icons/short-white-arrow-right.svg"
+                  alt="Arrow Right"
+                />
+              </button>
             </div>
+          </div>
         </div>
         <article class="social-media">
-            <div class="container">
-                <div class="social-media__inner">
-                    <div class="social-media__text">
-                        Подпишитесь на нас и будьте в курсе новостей хаджа и акций компании!
-                    </div>
-                    <div class="social-media__list">
-                        <a href="#" class="social-media__list-elem">
-                            вконтакте
-                        </a>
-                        <a href="#" class="social-media__list-elem">
-                            Instagram
-                        </a>
-                        <a href="#" class="social-media__list-elem">
-                            telegram
-                        </a>
-                    </div>
-                </div>
+          <div class="container">
+            <div class="social-media__inner">
+              <div class="social-media__text">
+                Подпишитесь на нас и будьте в курсе новостей хаджа и акций
+                компании!
+              </div>
+              <div class="social-media__list">
+                <a href="#" class="social-media__list-elem"> вконтакте </a>
+                <a href="#" class="social-media__list-elem"> Instagram </a>
+                <a href="#" class="social-media__list-elem"> telegram </a>
+              </div>
             </div>
+          </div>
         </article>
-    </div>
-</main>
-<footer class="footer">
-    <div class="container">
+      </div>
+    </main>
+    <footer class="footer">
+      <div class="container">
         <div class="footer__inner">
-            <div class="footer__top">
-                <div class="footer__top-left">
-                    <a href="/" class="footer__top-left__logo">
-                        <img src="assets/logo.svg" alt="Manasik Travel">
-                    </a>
-                    <div class="footer__top-left__divider"></div>
-                    <div class="footer__top-left__city">
-                        <img src="assets/icons/location-tag.svg" alt="Location Tag">
-                        <span>Москва</span>
-                    </div>
-                </div>
-                <div class="footer__top-middle">
-                    <div class="footer__middle-form">
-                        <input type="text" class="footer__middle-form__input" placeholder="Введите слово...">
-                        <button class="footer__middle-form__button">
-                            <img src="assets/icons/loupe.svg" alt="Loupe">
-                        </button>
-                    </div>
-                </div>
-                <div class="footer__top-right">
-                    <div class="footer__top-social_media">
-                        <div class="footer__top-social_media-label">
-                            Социальные сети
-                        </div>
-                        <div class="footer__top-social_media-list">
-                            <a href="#">
-                                <img src="assets/icons/blocks/footer/instagram.svg" alt="Instagram">
-                            </a>
-                            <a href="#">
-                                <img src="assets/icons/blocks/footer/vk.svg" alt="VKontakte">
-                            </a>
-                            <a href="#">
-                                <img src="assets/icons/blocks/footer/telegram.svg" alt="Telegram">
-                            </a>
-                        </div>
-                    </div>
-                    <div class="footer__top-phone">
-                        <div class="footer__top-phone__label">
-                            Представитель в Москве
-                        </div>
-                        <a href="#" class="footer__top-phone__number">
-                            8-800-899-00-66
-                            <img src="assets/icons/whatsapp.svg" alt="WhatsApp">
-                        </a>
-                    </div>
-                </div>
+          <div class="footer__top">
+            <div class="footer__top-left">
+              <a href="/" class="footer__top-left__logo">
+                <img src="assets/logo.svg" alt="Manasik Travel" />
+              </a>
+              <div class="footer__top-left__divider"></div>
+              <div class="footer__top-left__city">
+                <img src="assets/icons/location-tag.svg" alt="Location Tag" />
+                <span>Москва</span>
+              </div>
             </div>
-            <div class="footer__divider"></div>
-            <div class="footer__navigation">
-                <div class="footer__navigation-column">
-                    <div class="footer__navigation-column__name">
-                        Хадж 2019
-                    </div>
-                    <ul class="footer__navigation-column__links">
-                        <li>
-                            <a href="#">
-                                Туры в Хадж
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Необходимые документы на Хадж
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Информация о дате начала хаджа
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Проверить доплату за повторный Хадж
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="footer__navigation-column__divider"></div>
-                    <div class="footer__navigation-column__name">
-                        новости
-                    </div>
-                </div>
-                <div class="footer__navigation-column">
-                    <div class="footer__navigation-column__name">
-                        умра 2019
-                    </div>
-                    <ul class="footer__navigation-column__links">
-                        <li>
-                            <a href="#">
-                                Туры на Умру
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Необходимые документы на Умру
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Проверить доплату за повторную Умру
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="footer__navigation-column__divider"></div>
-                    <div class="footer__navigation-column__name">
-                        Погода в Мекке и Медине
-                    </div>
-                </div>
-                <div class="footer__navigation-column">
-                    <div class="footer__navigation-column__name">
-                        подготовка и уроки
-                    </div>
-                    <ul class="footer__navigation-column__links">
-                        <li>
-                            <a href="#">
-                                Советы паломникам
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Уроки
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Часто задаваемые вопросы
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Адреса вакцинаций
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="footer__navigation-column__divider"></div>
-                    <div class="footer__navigation-column__name">
-                        Карта Мекки / Медины
-                    </div>
-                </div>
-                <div class="footer__navigation-column">
-                    <div class="footer__navigation-column__name">
-                        медиа
-                    </div>
-                    <ul class="footer__navigation-column__links">
-                        <li>
-                            <a href="#">
-                                Фото хаджа и умры
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Видео хаджа и умры
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Онлайн трансляция Мекки
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Онлайн трансляция Медины
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="footer__navigation-column__divider"></div>
-                    <div class="footer__navigation-column__name">
-                        время намаза мекка и медина
-                    </div>
-                </div>
-                <div class="footer__navigation-column">
-                    <div class="footer__navigation-column__name">
-                        о компании
-                    </div>
-                    <ul class="footer__navigation-column__links">
-                        <li>
-                            <a href="#">
-                                О нас
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Филиалы и контакты
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Сотрудничество
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Обратная связь
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Банковские реквизиты
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Вакансии
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Пресса о нас
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer__navigation-column">
-                    <div class="footer__navigation-column__name">
-                        клиентам
-                    </div>
-                    <ul class="footer__navigation-column__links">
-                        <li>
-                            <a href="#">
-                                Проверить договор
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Узнать дату вылета
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                Проверка готовности визы
-                            </a>
-                        </li>
-                    </ul>
-                    <div class="footer__navigation-column__divider"></div>
-                    <div class="footer__navigation-column__name">
-                        отзывы
-                    </div>
-                </div>
+            <div class="footer__top-middle">
+              <div class="footer__middle-form">
+                <input
+                  type="text"
+                  class="footer__middle-form__input"
+                  placeholder="Введите слово..."
+                />
+                <button class="footer__middle-form__button">
+                  <img src="assets/icons/loupe.svg" alt="Loupe" />
+                </button>
+              </div>
             </div>
-            <div class="footer__bottom">
-                <div class="footer__bottom-copyright">
-                    ООО “Манасик Тревел” 2019
+            <div class="footer__top-right">
+              <div class="footer__top-social_media">
+                <div class="footer__top-social_media-label">
+                  Социальные сети
                 </div>
-                <div class="footer__bottom-made_by">
-                    <a href="#" class="footer__bottom-made_by-elem">
-                        Дизайн сайта:
-                        <strong>Лия Сечка</strong>
-                    </a>
-                    <a href="#" class="footer__bottom-made_by-elem">
-                        Верстка сайта:
-                        <strong>Николай Берсенев</strong>
-                    </a>
+                <div class="footer__top-social_media-list">
+                  <a href="#">
+                    <img
+                      src="assets/icons/blocks/footer/instagram.svg"
+                      alt="Instagram"
+                    />
+                  </a>
+                  <a href="#">
+                    <img
+                      src="assets/icons/blocks/footer/vk.svg"
+                      alt="VKontakte"
+                    />
+                  </a>
+                  <a href="#">
+                    <img
+                      src="assets/icons/blocks/footer/telegram.svg"
+                      alt="Telegram"
+                    />
+                  </a>
                 </div>
+              </div>
+              <div class="footer__top-phone">
+                <div class="footer__top-phone__label">
+                  Представитель в Москве
+                </div>
+                <a href="#" class="footer__top-phone__number">
+                  8-800-899-00-66
+                  <img src="assets/icons/whatsapp.svg" alt="WhatsApp" />
+                </a>
+              </div>
             </div>
+          </div>
+          <div class="footer__divider"></div>
+          <div class="footer__navigation">
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">Хадж 2019</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Туры в Хадж </a>
+                </li>
+                <li>
+                  <a href="#"> Необходимые документы на Хадж </a>
+                </li>
+                <li>
+                  <a href="#"> Информация о дате начала хаджа </a>
+                </li>
+                <li>
+                  <a href="#"> Проверить доплату за повторный Хадж </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">новости</div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">умра 2019</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Туры на Умру </a>
+                </li>
+                <li>
+                  <a href="#"> Необходимые документы на Умру </a>
+                </li>
+                <li>
+                  <a href="#"> Проверить доплату за повторную Умру </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">
+                Погода в Мекке и Медине
+              </div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">
+                подготовка и уроки
+              </div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Советы паломникам </a>
+                </li>
+                <li>
+                  <a href="#"> Уроки </a>
+                </li>
+                <li>
+                  <a href="#"> Часто задаваемые вопросы </a>
+                </li>
+                <li>
+                  <a href="#"> Адреса вакцинаций </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">
+                Карта Мекки / Медины
+              </div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">медиа</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Фото хаджа и умры </a>
+                </li>
+                <li>
+                  <a href="#"> Видео хаджа и умры </a>
+                </li>
+                <li>
+                  <a href="#"> Онлайн трансляция Мекки </a>
+                </li>
+                <li>
+                  <a href="#"> Онлайн трансляция Медины </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">
+                время намаза мекка и медина
+              </div>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">о компании</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> О нас </a>
+                </li>
+                <li>
+                  <a href="#"> Филиалы и контакты </a>
+                </li>
+                <li>
+                  <a href="#"> Сотрудничество </a>
+                </li>
+                <li>
+                  <a href="#"> Обратная связь </a>
+                </li>
+                <li>
+                  <a href="#"> Банковские реквизиты </a>
+                </li>
+                <li>
+                  <a href="#"> Вакансии </a>
+                </li>
+                <li>
+                  <a href="#"> Пресса о нас </a>
+                </li>
+              </ul>
+            </div>
+            <div class="footer__navigation-column">
+              <div class="footer__navigation-column__name">клиентам</div>
+              <ul class="footer__navigation-column__links">
+                <li>
+                  <a href="#"> Проверить договор </a>
+                </li>
+                <li>
+                  <a href="#"> Узнать дату вылета </a>
+                </li>
+                <li>
+                  <a href="#"> Проверка готовности визы </a>
+                </li>
+              </ul>
+              <div class="footer__navigation-column__divider"></div>
+              <div class="footer__navigation-column__name">отзывы</div>
+            </div>
+          </div>
+          <div class="footer__bottom">
+            <div class="footer__bottom-copyright">
+              ООО “Манасик Тревел” 2019
+            </div>
+            <div class="footer__bottom-made_by">
+              <a href="#" class="footer__bottom-made_by-elem">
+                Дизайн сайта:
+                <strong>Лия Сечка</strong>
+              </a>
+              <a href="#" class="footer__bottom-made_by-elem">
+                Верстка сайта:
+                <strong>Николай Берсенев</strong>
+              </a>
+            </div>
+          </div>
         </div>
-    </div>
-</footer>
-<script src="./api/currency.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script src="js/index.js"></script>
-<script src="js/tours-page/dropdowns.js"></script>
-<script src="./js/sidebar.js"></script>
-    <script src="./js/search.js"></script>
+      </div>
+    </footer>
+    <script src="./api/currency.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/tours-hadj-admin.js"></script>
 
-</body>
+    <script src="js/tours-page/dropdowns.js"></script>
+    <script src="./js/sidebar.js"></script>
+    <script src="./js/search.js"></script>
+  </body>
 </html>

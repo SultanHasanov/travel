@@ -24,7 +24,9 @@ async function loadTours() {
     }
 
     const responseData = await response.json();
-    const tours = responseData.data;
+    const tours = responseData.data.items;
+
+    console.log("Загруженные туры:", tours);
     renderToursTable(tours);
   } catch (error) {
     console.error("Ошибка загрузки туров:", error);
@@ -390,7 +392,7 @@ async function loadAllTours() {
     if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
 
     const dataResp = await response.json();
-    return dataResp.data;
+    return dataResp.data.items;
   } catch (error) {
     console.error("Ошибка загрузки туров:", error);
     return [];
