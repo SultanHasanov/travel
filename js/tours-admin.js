@@ -108,7 +108,6 @@ async function editTour(tourId) {
 
     const data = await response.json();
     const tour = data.data;
-    console.log("Загруженные данные тура:", tour);
 
     openFullscreenTourForm();
     document.querySelector("#tourFullscreenForm h1").textContent =
@@ -116,7 +115,8 @@ async function editTour(tourId) {
     document.querySelector(".form-actions button[type='submit']").textContent =
       "Сохранить изменения";
 
-    editingTourId = tour.id;
+    editingTourId = tour.trip.id;
+    console.log(editingTourId)
     const form = document.getElementById("createTourForm");
 
     // Заполняем поля
@@ -145,7 +145,7 @@ form.booking_deadline.value = tour.trip.booking_deadline
 
     // Отели тура
     selectedHotels = (tour.hotels || []).map((h) => ({
-      hotel_id: h.id,
+      hotel_id: h.hotel_id,
       nights: h.nights || 1,
       name: h.name || "Неизвестный отель",
     }));
@@ -185,6 +185,8 @@ async function loadAvailableHotels() {
 
     if (response.ok) {
       const responseData = await response.json();
+    console.log( responseData.data )
+
       return responseData.data || [];
     }
     return [];
@@ -196,7 +198,6 @@ async function loadAvailableHotels() {
 
 function openFullscreenTourForm() {
   document.getElementById("tourFullscreenForm").classList.add("active");
-  selectedHotels = [];
   routeCities = {};
   cityCounter = 1;
   renderSelectedHotels();
@@ -224,6 +225,8 @@ function renderHotelSelection(hotels) {
   const container = document.getElementById("hotelSelectionList");
   container.innerHTML = "";
 
+  console.log(hotels)
+
   hotels.forEach((hotel) => {
     const div = document.createElement("div");
     div.className = "hotel-selection-item";
@@ -236,9 +239,8 @@ function renderHotelSelection(hotels) {
                 <input type="number" min="1" placeholder="Ночей" id="nights_${
                   hotel.id
                 }" class="form-input-small" />
-                <button type="button" class="btn-small" onclick="addHotelToTour(${
-                  hotel.id
-                }, '${hotel.name}')">
+                <button type="button" class="btn-small" onclick="addHotelToTour(${hotel.id}, '${hotel.name}')"
+>
                     Добавить
                 </button>
             </div>
@@ -282,6 +284,7 @@ function renderSelectedHotels() {
   }
 
   selectedHotels.forEach((hotel, index) => {
+    console.log(hotel)
     const div = document.createElement("div");
     div.className = "selected-hotel-item";
     div.innerHTML = `
@@ -411,16 +414,19 @@ async function submitTourForm(event) {
   };
 
   // Собираем маршрут
-  const route_cities = {};
-  Object.keys(routeCities).forEach((key) => {
-    const city = routeCities[key];
-    if (city.city) {
-      route_cities[key] = {};
-      route_cities[key].city = city.city;
-      if (city.duration) route_cities[key].duration = city.duration;
-      if (city.stop_time) route_cities[key].stop_time = city.stop_time;
-    }
-  });
+ const routes = [];
+Object.keys(routeCities).forEach((key) => {
+  const city = routeCities[key];
+  if (city.city) {
+    const cityObj = {
+      city: city.city
+    };
+    if (city.duration) cityObj.duration = city.duration;
+    if (city.stop_time) cityObj.stop_time = city.stop_time;
+    
+    routes.push(cityObj);
+  }
+});
 
   // Собираем новые отели
   const newHotels = [];
@@ -439,11 +445,17 @@ async function submitTourForm(event) {
     });
   }
 
-  const requestData = {
-    trip: tripData,
-    route_cities: route_cities,
-    hotels: newHotels,
-  };
+ const allHotels = [
+  ...selectedHotels.map(h => ({ hotel_id: h.hotel_id, nights: h.nights })),
+  ...newHotels
+];
+
+const requestData = {
+  trip: tripData,
+  routes: routes,
+  hotels: allHotels,
+};
+
 
   // 🔹 Вот здесь начинаются изменения
   try {
@@ -452,7 +464,7 @@ async function submitTourForm(event) {
     // Проверяем — редактируем или создаём новый тур
     const method = editingTourId ? "PUT" : "POST";
     const url = editingTourId
-      ? `https://api.web95.tech/api/v1/trips/${editingTourId}`
+      ? `https://api.web95.tech/api/v1/admin/trips/${editingTourId}/full`
       : "https://api.web95.tech/api/v1/admin/tours";
 
     const response = await fetch(url, {

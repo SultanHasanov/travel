@@ -5,6 +5,7 @@ async function initCountdown() {
     const response = await fetch('https://api.web95.tech/api/v1/trips/main');
     const respData = await response.json();
     const data = respData.data.countdown;
+    console.log(data)
     
     if (data) {
       const { days, hours, minutes, seconds } = data;

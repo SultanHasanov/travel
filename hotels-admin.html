@@ -853,8 +853,8 @@
                     <small>${hotel.distance_text || ""}</small>
                 </div>
                 <div class="hotel-selection-actions">
-                    <input type="number" class="form-input-small" placeholder="Цена" id="price_${hotel.id}">
-                    <button type="button" class="btn-small" onclick="addHotelToTour(${hotel.id})">Добавить</button>
+                    <input type="number" class="form-input-small" placeholder="ночей" id="nights_${hotel.id}">
+                    <button type="button" class="btn-small" onclick="addHotelToTour(${hotel.id}, '${hotel.name}')">Добавить</button>
                 </div>
             `;
             container.appendChild(item);
@@ -862,15 +862,7 @@
     })
     .catch((error) => console.error("Ошибка загрузки отелей:", error));
 }
-      
-      function addHotelToTour(hotelId) {
-        // Добавление отеля в выбранные
-        const priceInput = document.getElementById(`price_${hotelId}`);
-        const price = priceInput.value || "0";
-
-        // Здесь должна быть логика добавления отеля в список выбранных
-        console.log(`Добавлен отель ${hotelId} с ценой ${price}`);
-      }
+     
 
       function addRouteCity() {
         // Добавление города в маршрут
@@ -892,13 +884,6 @@
             `;
         container.appendChild(item);
       }
-
-    //   function submitTourForm(event) {
-    //     event.preventDefault();
-    //     // Логика отправки формы тура
-    //     console.log("Форма тура отправлена");
-    //     // Здесь должен быть fetch запрос к API
-    //   }
     </script>
   </body>
 </html>

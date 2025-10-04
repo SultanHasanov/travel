@@ -479,7 +479,6 @@ function setupFilterEventListeners() {
           currentFilters[filterKey] = this.dataset.value || "";
         }
 
-        // 🔴 filterTours() убираем отсюда!
       });
     });
 
