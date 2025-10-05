@@ -500,6 +500,117 @@ function getCurrencySymbol(currency) {
   return symbols[currency] || currency;
 }
 
+// Создаем HTML модалки (один раз при загрузке страницы)
+document.addEventListener("DOMContentLoaded", () => {
+  const modalHTML = `
+    <div class="modal-overlay" id="tourModalOverlay" style="display:none;">
+      <div class="modal" id="tourModal">
+        <button class="modal__close" id="closeTourModal">&times;</button>
+        <h2 class="modal__title">Заявка на тур</h2>
+        <form id="tourRequestForm" class="modal__form">
+          <div class="modal__form-group">
+            <label>Название тура</label>
+            <input type="text" id="modalTourName" name="tour_name" readonly>
+          </div>
+          <div class="modal__form-group">
+            <label>Дата поездки</label>
+            <input type="text" id="modalTourDate" name="tour_date" readonly>
+          </div>
+          <div class="modal__form-group">
+            <label>Цена</label>
+            <input type="text" id="modalTourPrice" name="tour_price" readonly>
+          </div>
+          <div class="modal__form-group">
+            <label>Ваше имя</label>
+            <input type="text" id="modalUserName" name="user_name" placeholder="Введите имя" required>
+          </div>
+          <div class="modal__form-group">
+            <label>Телефон</label>
+            <input type="tel" id="modalUserPhone" name="user_phone" placeholder="+7 (___) ___-__-__" required>
+          </div>
+          <button type="submit" class="modal__submit">Отправить заявку</button>
+        </form>
+      </div>
+    </div>
+  `;
+  document.body.insertAdjacentHTML("beforeend", modalHTML);
+  initModalLogic();
+});
+
+// ========================== ЛОГИКА МОДАЛКИ ==========================
+
+function initModalLogic() {
+  const overlay = document.getElementById("tourModalOverlay");
+  const modal = document.getElementById("tourModal");
+  const closeBtn = document.getElementById("closeTourModal");
+  const form = document.getElementById("tourRequestForm");
+
+  // Открытие модалки при нажатии "Выбрать тур"
+  document.body.addEventListener("click", (event) => {
+    const link = event.target.closest(".tours-card__details-buy__link");
+    if (!link) return;
+    event.preventDefault();
+
+    const card = link.closest(".tours-card");
+    if (!card) return;
+
+    // Берем данные тура
+    const tourName = card.querySelector(".tours-card__info-name")?.textContent.trim() || "";
+    const tourDate = card.querySelector(".tours-card__info-main__elem:nth-child(2)")?.textContent.replace("дата поездки", "").trim() || "";
+    const tourPrice = card.querySelector(".price")?.textContent.trim() || "";
+
+    // Заполняем модалку
+    document.getElementById("modalTourName").value = tourName;
+    document.getElementById("modalTourDate").value = tourDate;
+    document.getElementById("modalTourPrice").value = tourPrice;
+
+    // Открываем
+    overlay.style.display = "flex";
+    setTimeout(() => overlay.classList.add("active"), 10);
+  });
+
+  // Закрытие окна
+  closeBtn.addEventListener("click", closeModal);
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  function closeModal() {
+    overlay.classList.remove("active");
+    setTimeout(() => (overlay.style.display = "none"), 200);
+  }
+
+  // Отправка формы
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const data = {
+      tour_name: form.tour_name.value,
+      tour_date: form.tour_date.value,
+      tour_price: form.tour_price.value,
+      user_name: form.user_name.value,
+      user_phone: form.user_phone.value,
+    };
+
+    try {
+      const response = await fetch("https://api.web95.tech/api/v1/trips/buy", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) throw new Error("Ошибка при отправке заявки");
+
+      alert("✅ Ваша заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.");
+      form.reset();
+      closeModal();
+    } catch (error) {
+      console.error(error);
+      alert("❌ Не удалось отправить заявку. Попробуйте позже.");
+    }
+  });
+}
+
 // Загружаем туры при загрузке страницы
 document.addEventListener("DOMContentLoaded", function () {
   loadHajjTours();

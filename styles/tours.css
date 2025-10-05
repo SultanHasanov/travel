@@ -695,6 +695,72 @@ main {
     color: #FFF;
 }
 
+
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,0.6);
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.modal-overlay.active { opacity: 1; }
+
+.modal {
+  background: #fff;
+  padding: 30px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  position: relative;
+  transform: scale(0.95);
+  transition: transform 0.2s ease;
+}
+.modal-overlay.active .modal { transform: scale(1); }
+
+.modal__close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.modal__title {
+  font-size: 22px;
+  margin-bottom: 16px;
+}
+
+.modal__form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+.modal__form-group input {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.modal__submit {
+  width: 100%;
+  padding: 10px;
+  background: #5b4ee5;
+  color: white;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+.modal__submit:hover { background: #4a3ecb; }
+
 @media (max-width: 1000px) {
     .tours-card__info-name {
         font-size: 20px;

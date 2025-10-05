@@ -582,17 +582,17 @@ function addTourButtonHandlers() {
   tourButtons.forEach((button) => {
     button.addEventListener("click", function (e) {
       e.preventDefault();
-      const modal = document.getElementById("bookingModal");
-      if (modal) {
-        modal.style.display = "block";
 
-        // Можно также передать ID тура в форму, если нужно
-        const tourId = this.id.split("_")[2]; // извлекаем ID тура
-        console.log("Выбран тур ID:", tourId);
-      }
+      // Извлекаем ID тура из кнопки
+      const tourId = this.id.split("_")[2];
+      console.log("Переход к туру ID:", tourId);
+
+      // Переход на страницу хаджа с передачей ID тура в URL
+     window.location.href = "tours-hadj.html";
     });
   });
 }
+
 
 // Функция для обновления обратного отсчета
 async function initCountdown() {

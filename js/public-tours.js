@@ -55,7 +55,7 @@ function renderToursForHome(tours) {
       tour.currency
     }</span>
     </div>
-    <button class="tours__card-buy__button" id="orders_booking">купить путевку</button>
+     <a href="tours-hadj.html" class="tours__card-buy__button">купить путевку</a>
   </div>
 `;
 
@@ -90,7 +90,7 @@ async function loadToursForHome() {
 
     if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
      const responseData = await response.json();
-    const tours = responseData.data;
+    const tours = responseData.data.items;
     renderToursForHome(tours);
   } catch (error) {
     console.error("Ошибка загрузки туров:", error);
