@@ -318,7 +318,7 @@ main {
     background-size: cover;
     border-radius: 20px;
     color: #fff;
-    max-height: 438px;
+    min-height: 438px;
 }
 
 .tours-card__info {
@@ -760,6 +760,10 @@ main {
   transition: background 0.2s ease;
 }
 .modal__submit:hover { background: #4a3ecb; }
+
+.tours-card__details-buy__price--right {
+    justify-content: right;
+}
 
 @media (max-width: 1000px) {
     .tours-card__info-name {

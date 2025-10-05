@@ -84,7 +84,7 @@ async function loadOrders() {
     }
 
     const responseData = await response.json();
-    const orders = responseData.data.orders; // Если данные в свойстве "data"
+    const orders = responseData.data.orders;
 
     const tbody = document.getElementById("ordersTableBody");
     const countSpan = document.getElementById("ordersCount");
@@ -96,20 +96,82 @@ async function loadOrders() {
       const row = document.createElement("tr");
       row.innerHTML = `
         <td>${order.id || "N/A"}</td>
-        <td>${order.user_name}</td>
-        <td>${order.user_phone}</td>
-        <td>${new Date(order.created_at || new Date()).toLocaleDateString(
-          "ru-RU"
-        )}</td>
+        <td>${order.username}</td>
+        <td>${order.name}</td>
+        <td>${order.phone}</td>
+        <td>${order.price}</td>
+        <td>${new Date(order.created_at).toLocaleDateString("ru-RU", {
+          timeZone: "UTC",
+        })}</td>
         <td class="admin-table__actions">
-          <button class="admin-table__btn admin-table__btn--delete">Удалить</button>
+          <button class="admin-table__btn admin-table__btn--delete" data-order-id="${order.id}">Удалить</button>
         </td>
       `;
       tbody.appendChild(row);
     });
+
+    // Добавляем обработчики событий для кнопок удаления
+    addDeleteEventListeners();
   } catch (error) {
     console.error("Ошибка загрузки заявок:", error);
     alert("Ошибка загрузки заявок");
+  }
+}
+
+// Функция для добавления обработчиков событий на кнопки удаления
+function addDeleteEventListeners() {
+  const deleteButtons = document.querySelectorAll('.admin-table__btn--delete');
+  
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', handleDeleteOrder);
+  });
+}
+
+// Функция обработки удаления заказа
+async function handleDeleteOrder(event) {
+  const button = event.target;
+  const orderId = button.getAttribute('data-order-id');
+  
+  if (!orderId) {
+    console.error('ID заказа не найден');
+    return;
+  }
+
+  // Подтверждение удаления
+  if (!confirm('Вы уверены, что хотите удалить эту заявку?')) {
+    return;
+  }
+
+  try {
+    const token = localStorage.getItem("authToken");
+    
+    const response = await fetch(`https://api.web95.tech/api/v1/admin/orders/${orderId}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (response.status === 401) {
+      localStorage.removeItem("authToken");
+      window.location.href = "/auth.html";
+      return;
+    }
+
+    if (!response.ok) {
+      throw new Error(`Ошибка HTTP: ${response.status}`);
+    }
+
+    // Успешное удаление
+    alert('Заявка успешно удалена');
+    
+    // Перезагружаем список заказов
+    loadOrders();
+    
+  } catch (error) {
+    console.error("Ошибка удаления заявки:", error);
+    alert("Ошибка удаления заявки");
   }
 }
 

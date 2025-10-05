@@ -353,6 +353,8 @@
                   <th>Название</th>
                   <th>Город отправления</th>
                   <th>Цена</th>
+                  <th>Скидка</th>
+                  <!-- Новая колонка -->
                   <th>Дата начала</th>
                   <th>Дата окончания</th>
                   <th>Активен</th>
@@ -433,6 +435,7 @@
             </div>
 
             <!-- Даты и цены -->
+            <!-- В секции "Даты и цены" -->
             <div class="fullscreen-form__section">
               <h2 class="fullscreen-form__section-title">Даты и цены</h2>
               <div class="form-grid">
@@ -473,6 +476,18 @@
                   />
                 </div>
                 <div class="form-group">
+                  <label class="form-label">Скидка (%)</label>
+                  <input
+                    type="number"
+                    class="form-input"
+                    name="discount_percent"
+                    min="0"
+                    max="100"
+                    step="0.1"
+                    value="0"
+                  />
+                </div>
+                <div class="form-group">
                   <label class="form-label">Валюта</label>
                   <select class="form-input" name="currency">
                     <option value="RUB">RUB - Рубль</option>
@@ -482,20 +497,7 @@
                   </select>
                 </div>
               </div>
-              <div class="form-grid">
-                <div class="form-group">
-                  <label class="checkbox-group">
-                    <input type="checkbox" name="active" checked />
-                    <span>Активный тур</span>
-                  </label>
-                </div>
-                <div class="form-group">
-                  <label class="checkbox-group">
-                    <input type="checkbox" name="main" />
-                    <span>Главный тур</span>
-                  </label>
-                </div>
-              </div>
+              <!-- остальные чекбоксы остаются без изменений -->
             </div>
           </div>
 
@@ -822,47 +824,50 @@
           .classList.remove("active");
       }
 
-   function loadHotelsForSelection() {
-    // Загрузка отелей для выбора в форме создания тура
-    const token = localStorage.getItem("authToken");
+      function loadHotelsForSelection() {
+        // Загрузка отелей для выбора в форме создания тура
+        const token = localStorage.getItem("authToken");
 
-    fetch("https://api.web95.tech/api/v1/admin/hotels", {
-        method: "GET",
-        headers: {
+        fetch("https://api.web95.tech/api/v1/admin/hotels", {
+          method: "GET",
+          headers: {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
-        },
-    })
-    .then((response) => {
-        if (!response.ok) {
-            throw new Error("Ошибка загрузки отелей: " + response.status);
-        }
-        return response.json(); // возвращаем промис с данными
-    })
-    .then((hotels) => {
-        const container = document.getElementById("hotelSelectionList");
-        container.innerHTML = "";
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Ошибка загрузки отелей: " + response.status);
+            }
+            return response.json(); // возвращаем промис с данными
+          })
+          .then((hotels) => {
+            const container = document.getElementById("hotelSelectionList");
+            container.innerHTML = "";
 
-        hotels.data.forEach((hotel) => {
-            const item = document.createElement("div");
-            item.className = "hotel-selection-item";
-            item.innerHTML = `
+            hotels.data.forEach((hotel) => {
+              const item = document.createElement("div");
+              item.className = "hotel-selection-item";
+              item.innerHTML = `
                 <div class="hotel-selection-info">
                     <strong>${hotel.name}</strong>
                     <span>${hotel.city} • ${hotel.stars}★</span>
                     <small>${hotel.distance_text || ""}</small>
                 </div>
                 <div class="hotel-selection-actions">
-                    <input type="number" class="form-input-small" placeholder="ночей" id="nights_${hotel.id}">
-                    <button type="button" class="btn-small" onclick="addHotelToTour(${hotel.id}, '${hotel.name}')">Добавить</button>
+                    <input type="number" class="form-input-small" placeholder="ночей" id="nights_${
+                      hotel.id
+                    }">
+                    <button type="button" class="btn-small" onclick="addHotelToTour(${
+                      hotel.id
+                    }, '${hotel.name}')">Добавить</button>
                 </div>
             `;
-            container.appendChild(item);
-        });
-    })
-    .catch((error) => console.error("Ошибка загрузки отелей:", error));
-}
-     
+              container.appendChild(item);
+            });
+          })
+          .catch((error) => console.error("Ошибка загрузки отелей:", error));
+      }
 
       function addRouteCity() {
         // Добавление города в маршрут

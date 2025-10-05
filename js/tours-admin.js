@@ -42,17 +42,14 @@ async function loadTours() {
     tours.forEach((tour) => {
       const row = tbody.insertRow();
       row.innerHTML = `
-                <td>${tour.trip.id}</td>
-                <td>${tour.trip.title}</td>
-                <td>${tour.trip.departure_city}</td>
-                <td>${tour.trip.price} ${tour.currency}</td>
-                <td>${new Date(tour.trip.start_date).toLocaleDateString(
-                  "ru-RU"
-                )}</td>
-                <td>${new Date(tour.trip.end_date).toLocaleDateString(
-                  "ru-RU"
-                )}</td>
-                <td>${tour.trip.active ? "✅" : "❌"}</td>
+                 <td>${tour.trip.id}</td>
+  <td>${tour.trip.title}</td>
+  <td>${tour.trip.departure_city}</td>
+  <td>${tour.trip.price} ${tour.currency}</td>
+  <td>${tour.trip.discount_percent || 0}%</td> <!-- Новая колонка -->
+  <td>${new Date(tour.trip.start_date).toLocaleDateString("ru-RU")}</td>
+  <td>${new Date(tour.trip.end_date).toLocaleDateString("ru-RU")}</td>
+  <td>${tour.trip.active ? "✅" : "❌"}</td>
                 <td class="admin-table__actions">
                     <button class="admin-table__btn admin-table__btn--edit" onclick="editTour(${
                       tour.trip.id
@@ -109,63 +106,79 @@ async function editTour(tourId) {
     const data = await response.json();
     const tour = data.data;
 
-    openFullscreenTourForm();
-    document.querySelector("#tourFullscreenForm h1").textContent =
-      "Редактирование тура";
-    document.querySelector(".form-actions button[type='submit']").textContent =
-      "Сохранить изменения";
-
     editingTourId = tour.trip.id;
-    console.log(editingTourId)
-    const form = document.getElementById("createTourForm");
+    console.log(editingTourId);
 
-    // Заполняем поля
-    form.title.value = tour.trip.title || "";
-    form.description.value = tour.trip.description || "";
-    form.departure_city.value = tour.trip.departure_city || "";
+    // Сначала загружаем доступные отели
+    const availableHotels = await loadAvailableHotels();
+    
+    // Только после загрузки всех данных открываем форму
+    openFullscreenTourForm();
+    
+    // Даем время DOM обновиться перед заполнением полей
+    setTimeout(() => {
+      // Устанавливаем заголовки формы
+      document.querySelector("#tourFullscreenForm h1").textContent =
+        "Редактирование тура";
+      document.querySelector(".form-actions button[type='submit']").textContent =
+        "Сохранить изменения";
 
-   // ✅ Правильное заполнение дат для <input type="date">
-form.start_date.value = tour.trip.start_date
-  ? tour.trip.start_date.split("T")[0]
-  : "";
-form.end_date.value = tour.trip.end_date
-  ? tour.trip.end_date.split("T")[0]
-  : "";
-form.booking_deadline.value = tour.trip.booking_deadline
-  ? tour.trip.booking_deadline.split("T")[0]
-  : "";
+      const form = document.getElementById("createTourForm");
 
-    form.price.value = tour.trip.price || "";
-    form.currency.value = tour.trip.currency || "";
-    form.trip_type.value = tour.trip.trip_type || "";
-    form.season.value = tour.trip.season || "";
-    form.photo_url.value = tour.trip.photo_url || "";
-    form.active.checked = tour.trip.active || false;
-    form.main.checked = tour.trip.main || false;
+      // Заполняем поля
+      form.title.value = tour.trip.title || "";
+      form.description.value = tour.trip.description || "";
+      form.departure_city.value = tour.trip.departure_city || "";
+      form.start_date.value = tour.trip.start_date
+        ? tour.trip.start_date.split("T")[0]
+        : "";
+      form.end_date.value = tour.trip.end_date
+        ? tour.trip.end_date.split("T")[0]
+        : "";
+      form.booking_deadline.value = tour.trip.booking_deadline
+        ? tour.trip.booking_deadline.split("T")[0]
+        : "";
+      form.price.value = tour.trip.price || "";
+      form.discount_percent.value = tour.trip.discount_percent || 0;
+      form.currency.value = tour.trip.currency || "";
+      form.trip_type.value = tour.trip.trip_type || "";
+      form.season.value = tour.trip.season || "";
+      form.photo_url.value = tour.trip.photo_url || "";
+      
+      // Безопасная установка чекбоксов
+      const activeCheckbox = form.querySelector('input[name="active"]');
+      const mainCheckbox = form.querySelector('input[name="main"]');
+      if (activeCheckbox) activeCheckbox.checked = tour.trip.active || false;
+      if (mainCheckbox) mainCheckbox.checked = tour.trip.main || false;
 
-    // Отели тура
-    selectedHotels = (tour.hotels || []).map((h) => ({
-      hotel_id: h.hotel_id,
-      nights: h.nights || 1,
-      name: h.name || "Неизвестный отель",
-    }));
-    renderSelectedHotels();
+      // Отели тура
+      selectedHotels = (tour.hotels || []).map((h) => ({
+        hotel_id: h.hotel_id,
+        nights: h.nights || 1,
+        name: h.name || "Неизвестный отель",
+      }));
+      renderSelectedHotels();
 
-    // Маршрут
-    routeCities = {};
-    (tour.routes || []).forEach((city, i) => {
-      routeCities[`city_${i + 1}`] = {
-        city: city.name || city.city || "",
-        duration: city.duration || "",
-        stop_time: city.stop_time || "",
-      };
-    });
+      // Маршрут
+      routeCities = {};
+      (tour.routes || []).forEach((city, i) => {
+        routeCities[`city_${i + 1}`] = {
+          city: city.name || city.city || "",
+          duration: city.duration || "",
+          stop_time: city.stop_time || "",
+        };
+      });
 
-    if (Object.keys(routeCities).length === 0) {
-      routeCities["city_1"] = { city: "", duration: "", stop_time: "" };
-    }
+      if (Object.keys(routeCities).length === 0) {
+        routeCities["city_1"] = { city: "", duration: "", stop_time: "" };
+      }
 
-    renderRouteCities();
+      renderRouteCities();
+      
+      // Рендерим список отелей для выбора
+      renderHotelSelection(availableHotels);
+    }, 100); // небольшая задержка для обновления DOM
+
   } catch (error) {
     console.error("Ошибка редактирования:", error);
     alert("Не удалось загрузить данные тура");
@@ -185,8 +198,7 @@ async function loadAvailableHotels() {
 
     if (response.ok) {
       const responseData = await response.json();
-    console.log( responseData.data )
-
+      console.log(responseData.data);
       return responseData.data || [];
     }
     return [];
@@ -198,13 +210,17 @@ async function loadAvailableHotels() {
 
 function openFullscreenTourForm() {
   document.getElementById("tourFullscreenForm").classList.add("active");
-  routeCities = {};
-  cityCounter = 1;
-  renderSelectedHotels();
-  renderRouteCities();
-  loadAvailableHotels().then((hotels) => {
-    renderHotelSelection(hotels);
-  });
+  // Убираем автоматическую загрузку отелей, так как они будут загружены в editTour
+  if (!editingTourId) {
+    // Если создаем новый тур, то загружаем отели
+    routeCities = {};
+    cityCounter = 1;
+    renderSelectedHotels();
+    renderRouteCities();
+    loadAvailableHotels().then((hotels) => {
+      renderHotelSelection(hotels);
+    });
+  }
 }
 
 function closeFullscreenTourForm() {
@@ -225,7 +241,7 @@ function renderHotelSelection(hotels) {
   const container = document.getElementById("hotelSelectionList");
   container.innerHTML = "";
 
-  console.log(hotels)
+  console.log(hotels);
 
   hotels.forEach((hotel) => {
     const div = document.createElement("div");
@@ -239,7 +255,9 @@ function renderHotelSelection(hotels) {
                 <input type="number" min="1" placeholder="Ночей" id="nights_${
                   hotel.id
                 }" class="form-input-small" />
-                <button type="button" class="btn-small" onclick="addHotelToTour(${hotel.id}, '${hotel.name}')"
+                <button type="button" class="btn-small" onclick="addHotelToTour(${
+                  hotel.id
+                }, '${hotel.name}')"
 >
                     Добавить
                 </button>
@@ -284,7 +302,7 @@ function renderSelectedHotels() {
   }
 
   selectedHotels.forEach((hotel, index) => {
-    console.log(hotel)
+    console.log(hotel);
     const div = document.createElement("div");
     div.className = "selected-hotel-item";
     div.innerHTML = `
@@ -400,6 +418,7 @@ async function submitTourForm(event) {
     start_date: formData.get("start_date"),
     end_date: formData.get("end_date"),
     price: parseFloat(formData.get("price")),
+    discount_percent: parseFloat(formData.get("discount_percent")) || 0, // Добавляем скидку
     currency: formData.get("currency"),
     season: season,
     trip_type: tripType,
@@ -414,19 +433,19 @@ async function submitTourForm(event) {
   };
 
   // Собираем маршрут
- const routes = [];
-Object.keys(routeCities).forEach((key) => {
-  const city = routeCities[key];
-  if (city.city) {
-    const cityObj = {
-      city: city.city
-    };
-    if (city.duration) cityObj.duration = city.duration;
-    if (city.stop_time) cityObj.stop_time = city.stop_time;
-    
-    routes.push(cityObj);
-  }
-});
+  const routes = [];
+  Object.keys(routeCities).forEach((key) => {
+    const city = routeCities[key];
+    if (city.city) {
+      const cityObj = {
+        city: city.city,
+      };
+      if (city.duration) cityObj.duration = city.duration;
+      if (city.stop_time) cityObj.stop_time = city.stop_time;
+
+      routes.push(cityObj);
+    }
+  });
 
   // Собираем новые отели
   const newHotels = [];
@@ -445,17 +464,16 @@ Object.keys(routeCities).forEach((key) => {
     });
   }
 
- const allHotels = [
-  ...selectedHotels.map(h => ({ hotel_id: h.hotel_id, nights: h.nights })),
-  ...newHotels
-];
+  const allHotels = [
+    ...selectedHotels.map((h) => ({ hotel_id: h.hotel_id, nights: h.nights })),
+    ...newHotels,
+  ];
 
-const requestData = {
-  trip: tripData,
-  routes: routes,
-  hotels: allHotels,
-};
-
+  const requestData = {
+    trip: tripData,
+    routes: routes,
+    hotels: allHotels,
+  };
 
   // 🔹 Вот здесь начинаются изменения
   try {
