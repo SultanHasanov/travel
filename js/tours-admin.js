@@ -111,17 +111,18 @@ async function editTour(tourId) {
 
     // Сначала загружаем доступные отели
     const availableHotels = await loadAvailableHotels();
-    
+
     // Только после загрузки всех данных открываем форму
     openFullscreenTourForm();
-    
+
     // Даем время DOM обновиться перед заполнением полей
     setTimeout(() => {
       // Устанавливаем заголовки формы
       document.querySelector("#tourFullscreenForm h1").textContent =
         "Редактирование тура";
-      document.querySelector(".form-actions button[type='submit']").textContent =
-        "Сохранить изменения";
+      document.querySelector(
+        ".form-actions button[type='submit']"
+      ).textContent = "Сохранить изменения";
 
       const form = document.getElementById("createTourForm");
 
@@ -144,7 +145,7 @@ async function editTour(tourId) {
       form.trip_type.value = tour.trip.trip_type || "";
       form.season.value = tour.trip.season || "";
       form.photo_url.value = tour.trip.photo_url || "";
-      
+
       // Безопасная установка чекбоксов
       const activeCheckbox = form.querySelector('input[name="active"]');
       const mainCheckbox = form.querySelector('input[name="main"]');
@@ -174,11 +175,10 @@ async function editTour(tourId) {
       }
 
       renderRouteCities();
-      
+
       // Рендерим список отелей для выбора
       renderHotelSelection(availableHotels);
     }, 100); // небольшая задержка для обновления DOM
-
   } catch (error) {
     console.error("Ошибка редактирования:", error);
     alert("Не удалось загрузить данные тура");
