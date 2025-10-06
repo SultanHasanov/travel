@@ -507,7 +507,7 @@ async function filterTours() {
     if (!response.ok) throw new Error(`Ошибка HTTP: ${response.status}`);
 
     const responseData = await response.json();
-    const filteredTours = responseData.data;
+    const filteredTours = responseData.data.items;
 
     renderToursForHome(filteredTours);
   } catch (error) {
