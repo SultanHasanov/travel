@@ -327,10 +327,10 @@ function createTourCard(tourData) {
   );
 
   // Создаем стиль с фоновым изображением
-  const backgroundStyle =
-    hotels.length > 0 && hotels[0].photo_url
-      ? `style="background: url('${hotels[0].photo_url}') no-repeat center; background-size: cover;"`
-      : `style="background: url(../assets/images/pages/tours/tour-card-bg.png) no-repeat center; background-size: cover;"`;
+ const backgroundStyle =
+  hotels.length > 0 && hotels[0].photo_url
+    ? `style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('${hotels[0].photo_url}') no-repeat center; background-size: cover;"`
+    : `style="background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url(../assets/images/pages/tours/tour-card-bg.png) no-repeat center; background-size: cover;"`;
 
   return `
     <div class="tours-card ${
