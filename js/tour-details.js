@@ -1,16 +1,22 @@
 async function loadTourDetails(tourId) {
     try {
         const response = await fetch(`https://api.web95.tech/api/v1/trips/${tourId}/relations`);
+
+        const resRoutes = await fetch(`https://api.web95.tech/api/v1/trips/${tourId}/routes/ui`)
         
-        if (!response.ok) {
+        if (!response.ok || !resRoutes.ok) {
             throw new Error('Ошибка загрузки тура');
         }
+
         
         const data = await response.json();
         const tourData = data.data;
+
+        const dataRoutes = await resRoutes.json();
+        const tourRoutes = dataRoutes.data;
         
         // Заполняем данные на странице
-        fillTourData(tourData);
+        fillTourData(tourData, tourRoutes);
         
     } catch (error) {
         console.error('Ошибка:', error);
@@ -18,10 +24,10 @@ async function loadTourDetails(tourId) {
     }
 }
 
-function fillTourData(data) {
+function fillTourData(data, tourRoutes) {
     const tour = data.trip;
     const hotels = data.hotels;
-    const routes = data.routes.route_cities;
+    const routes = tourRoutes;
     
     // Заголовок и описание
     document.querySelector('.tour__top-info__block-title').innerHTML = 
@@ -33,7 +39,7 @@ function fillTourData(data) {
     
     // Маршрут
     fillRoute(routes);
-    
+
     // Отели
     fillHotels(hotels);
     
@@ -60,55 +66,65 @@ function fillTourData(data) {
     document.querySelector('.tour__description-paragraph').textContent = tour.description;
 }
 
-function fillRoute(routeCities) {
+function fillRoute(routeData) {
     const routeContainer = document.querySelector('.tour__top-route__inner');
+    const duration = document.querySelector('.tour__top-route__duration');
     routeContainer.innerHTML = '';
-    
-    const cities = Object.values(routeCities);
-    
-    cities.forEach((city, index) => {
-        // Точка маршрута
-        const pointClass = index === 0 ? 'from' : 
-                          index === cities.length - 1 ? 'to' : 'transfer';
-        
-        const pointDiv = document.createElement('div');
-        pointDiv.className = `tour__top-route__point tour__top-route__point--${pointClass}`;
-        
-        if (pointClass === 'transfer') {
-            pointDiv.innerHTML = `
-                <img src="assets/icons/pages/tour/clock.svg" alt="Clock">
-                <br><strong>${city.city}</strong><br>
-                <span>${city.stop_time || ''}</span>
-            `;
-        } else {
-            pointDiv.textContent = city.city;
-            if (pointClass === 'to') {
+    duration.innerHTML = '';
+
+    const items = routeData.items;
+
+    items.forEach((item, index) => {
+        if (item.kind === 'city') {
+            const isFirst = item.city === routeData.from;
+            const isLast = item.city === routeData.to;
+            const pointClass = isFirst ? 'from' : isLast ? 'to' : 'transfer';
+
+            const pointDiv = document.createElement('div');
+            pointDiv.className = `tour__top-route__point tour__top-route__point--${pointClass}`;
+
+            if (pointClass === 'transfer') {
+                pointDiv.innerHTML = `
+                    <img src="assets/icons/pages/tour/clock.svg" alt="Clock">
+                    <br><strong>${item.city}</strong><br>
+                    <span>${item.stop_time_text || ''}</span>
+                `;
+            } else if (pointClass === 'to') {
                 pointDiv.innerHTML = `
                     <img src="assets/icons/pages/tour/white-qibla.svg" alt="Qibla">
-                    ${city.city}
+                    ${item.city}
                 `;
+            } else {
+                pointDiv.textContent = item.city;
             }
-        }
-        
-        routeContainer.appendChild(pointDiv);
-        
-        // Транспорт между точками
-        if (index < cities.length - 1) {
+
+            routeContainer.appendChild(pointDiv);
+        } else if (item.kind === 'leg' && index < items.length - 1) {
             const transportDiv = document.createElement('div');
             transportDiv.className = 'tour__top-route__transport';
+
+            const isFirstLeg = index === 1;
+            const transportType = isFirstLeg ? 'airplane' : 'bus';
+            const transportName = isFirstLeg ? 'Airplane' : 'Bus';
+
             transportDiv.innerHTML = `
                 <div class="tour__top-route__transport-name">
-                    <img src="assets/icons/pages/tour/${index === 0 ? 'airplane' : 'bus'}.svg" alt="">
-                    ${index === 0 ? 'Airplane' : 'Bus'}
+                    <img src="assets/icons/pages/tour/${transportType}.svg" alt="">
+                    ${transportName}
                 </div>
                 <div class="tour__top-route__transport-divider"></div>
                 <div class="tour__top-route__transport-duration">
-                    ${city.duration || ''}
+                    ${item.duration_text || ''}
                 </div>
             `;
             routeContainer.appendChild(transportDiv);
         }
     });
+    duration.innerHTML = `
+        <strong>время в пути</strong>
+        <br>
+        <span>${routeData.total_duration}</span>
+    `
 }
 
 function fillHotels(hotels) {
