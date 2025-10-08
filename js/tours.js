@@ -570,11 +570,11 @@ function renderToursForHome(tours) {
   });
 
   // Добавляем обработчики для новых кнопок
-  addTourButtonHandlers();
+  addTourButtonHandlers(tours);
 }
 
 // Функция для добавления обработчиков на кнопки туров
-function addTourButtonHandlers() {
+function addTourButtonHandlers(tours) {
   const tourButtons = document.querySelectorAll(
     '.tours__card-buy__button[id^="tour_booking_"]'
   );
@@ -585,10 +585,12 @@ function addTourButtonHandlers() {
 
       // Извлекаем ID тура из кнопки
       const tourId = this.id.split("_")[2];
+      const tour = tours.find(item => item.id == tourId);
       console.log("Переход к туру ID:", tourId);
 
       // Переход на страницу хаджа с передачей ID тура в URL
-     window.location.href = "tours-hadj.html";
+      const page = tour.trip_type === "Умра" ? "tour-umra.html" : "tour-hadj.html"
+      window.location.href = `${page}?id=${tourId}`;
     });
   });
 }
