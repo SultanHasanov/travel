@@ -26,7 +26,6 @@ async function loadTours() {
     const responseData = await response.json();
     const tours = responseData.data.items;
 
-    console.log("Загруженные туры:", tours);
     renderToursTable(tours);
   } catch (error) {
     console.error("Ошибка загрузки туров:", error);
@@ -546,8 +545,8 @@ function renderToursForHome(tours) {
       </div>
     `;
 
-    slide.style.backgroundImage = tour.photo_url
-      ? `url(${tour.photo_url})`
+    slide.style.backgroundImage = tour.urls
+      ? `url(${tour.urls[0]})`
       : "none";
     wrapper.appendChild(slide);
   });

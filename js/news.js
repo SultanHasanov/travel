@@ -235,7 +235,9 @@ async function submitNewsForm(event) {
     content: formData.get("content"),
     status: formData.get("status"),
     media_type: formData.get("media_type") || null,
-    preview_url: formData.get("preview_url") || null,
+     urls: formData.get("preview_url") 
+  ? formData.get("preview_url").split(',').map(url => url.trim()).filter(url => url)
+  : [],
     video_url: formData.get("video_url") || null,
     published_at:
       formData.get("status") === "published" ? new Date().toISOString() : null,
@@ -250,6 +252,14 @@ async function submitEditNewsForm(event) {
   const formData = new FormData(event.target);
   const id = formData.get("news_id");
 
+  const previewUrlValue = formData.get("preview_url") || "[]";
+let urls = [];
+try {
+    urls = JSON.parse(previewUrlValue);
+} catch (e) {
+    urls = previewUrlValue ? [previewUrlValue] : [];
+}
+
   const newsData = {
     title: formData.get("title"),
     category: formData.get("category"),
@@ -257,7 +267,7 @@ async function submitEditNewsForm(event) {
     content: formData.get("content"),
     status: formData.get("status"),
     media_type: formData.get("media_type") || null,
-    preview_url: formData.get("preview_url") || null,
+     urls: urls,
     video_url: formData.get("video_url") || null,
   };
 
@@ -273,21 +283,31 @@ async function submitEditNewsForm(event) {
 }
 
 // Инициализация модуля новостей
+// В функции initNews добавьте:
 function initNews() {
-  loadNews();
+    loadNews();
 
-  // Добавляем обработчики событий
-  const newsForm = document.querySelector("#newsModal form");
-  if (newsForm) {
-    newsForm.addEventListener("submit", submitNewsForm);
-  }
+    // Добавляем обработчики событий
+    const newsForm = document.querySelector("#newsModal form");
+    if (newsForm) {
+        newsForm.addEventListener("submit", submitNewsForm);
+        const photoInput = newsForm.querySelector('[name="photo_upload"]');
+        const previewUrlInput = newsForm.querySelector('[name="preview_url"]');
+        if (photoInput && previewUrlInput) {
+            photoInput.addEventListener('change', (e) => handlePhotoUpload(e, previewUrlInput));
+        }
+    }
 
-  const editNewsForm = document.querySelector("#editNewsModal form");
-  if (editNewsForm) {
-    editNewsForm.addEventListener("submit", submitEditNewsForm);
-  }
+    const editNewsForm = document.querySelector("#editNewsModal form");
+    if (editNewsForm) {
+        editNewsForm.addEventListener("submit", submitEditNewsForm);
+        const photoInput = editNewsForm.querySelector('[name="photo_upload"]');
+        const previewUrlInput = editNewsForm.querySelector('[name="preview_url"]');
+        if (photoInput && previewUrlInput) {
+            photoInput.addEventListener('change', (e) => handlePhotoUpload(e, previewUrlInput));
+        }
+    }
 }
-
 async function loadHadjNews() {
   try {
     const response = await fetch("https://api.web95.tech/api/v1/news");
@@ -314,7 +334,7 @@ function renderHadjNews(news) {
     slide.innerHTML = `
       <div class="hadj-news__card-date">${formatDate(item.published_at)}</div>
       <div class="hadj-news__card-image">
-        <img src="${item.preview_url}" alt="${item.title}" />
+        <img src="${item.urls[0]}" alt="${item.title}" />
       </div>
       <div class="hadj-news__card-info">
         <h3 class="hadj-news__card-title">${item.title}</h3>
@@ -373,7 +393,7 @@ function renderCompanyNews(news) {
     slide.innerHTML = `
       <div class="company-news__card-date">${formatDate(item.published_at)}</div>
       <div class="company-news__card-image">
-        <img src="${item.preview_url || 'assets/images/pages/index-page/news/article-preview.png'}" alt="${item.title}" />
+        <img src="${item.urls[0] || 'assets/images/pages/index-page/news/article-preview.png'}" alt="${item.title}" />
       </div>
       <div class="company-news__card-info">
         <h3 class="company-news__card-title">${item.title}</h3>
@@ -404,6 +424,46 @@ function renderCompanyNews(news) {
   if (typeof companySwiper !== 'undefined') {
     companySwiper.update();
   }
+}
+
+// Функция для загрузки фото
+async function uploadPhoto(file) {
+    const token = localStorage.getItem("authToken");
+    const formData = new FormData();
+    formData.append('files', file);
+
+    try {
+        const response = await fetch('https://api.web95.tech/api/v1/admin/upload', {
+            method: 'POST',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+            body: formData
+        });
+
+        if (!response.ok) throw new Error('Ошибка загрузки фото');
+        
+        const result = await response.json();
+        console.log('Uploaded photo URL:', result.data[0].url);
+        return result.data[0].url;; // Предполагая, что API возвращает {data: {url: '...'}}
+    } catch (error) {
+        console.error('Error uploading photo:', error);
+        alert('Ошибка загрузки фото');
+        return null;
+    }
+}
+
+// Обработчик изменения файла
+function handlePhotoUpload(event, previewUrlInput) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    uploadPhoto(file).then(url => {
+        if (url) {
+            // Вставляем просто URL, а не массив
+            previewUrlInput.value = url;
+        }
+    });
 }
 
 // Запуск при загрузке страницы
