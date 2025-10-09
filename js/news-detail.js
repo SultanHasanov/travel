@@ -36,8 +36,8 @@ function updatePageContent(newsData) {
 
   // Обновляем изображение
   const photoElement = document.querySelector(".article__content-photo img");
-  if (photoElement && newsData.preview_url) {
-    photoElement.src = newsData.preview_url;
+  if (photoElement && newsData.urls && newsData.urls.length > 0) {
+    photoElement.src = newsData.urls[0];
     photoElement.alt = newsData.title || "Изображение новости";
   }
 

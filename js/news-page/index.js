@@ -82,6 +82,7 @@ async function loadNews() {
     if (!res.ok) throw new Error("Ошибка загрузки");
 
     const data = await res.json();
+    console.log(data.data.items);
     renderNews(data.data.items);
     renderPagination(data.data.meta);
   } catch (err) {
@@ -123,7 +124,7 @@ function createNewsCard(item) {
     <div class="news__card-preview">
       ${isVideo 
         ? `<iframe width="520" height="217" src="${item.video_url}" frameborder="0" allowfullscreen></iframe>`
-        : `<img src="${item.preview_url}" alt="${item.title}">`}
+        : `<img src="${item.urls[0]}" alt="${item.title}">`}
     </div>
     <div class="news__card-info">
       <h2 class="news__card-title">${item.title}</h2>

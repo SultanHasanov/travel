@@ -210,6 +210,12 @@
         width: 20px;
         height: 20px;
       }
+      .route-city-inputs {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr; /* Добавляем четвертую колонку для транспорта */
+  gap: 10px;
+}
+
     </style>
   </head>
   <body>
@@ -428,6 +434,16 @@
                   </select>
                 </div>
                 <div class="form-group">
+    <label class="form-label">Загрузить фото с компьютера</label>
+    <input 
+        type="file" 
+        class="form-input" 
+        id="photoUpload" 
+        accept="image/*"
+        onchange="uploadPhoto(this.files[0])"
+    />
+</div>
+                <div class="form-group">
                   <label class="form-label">URL фото</label>
                   <input type="url" class="form-input" name="photo_url" />
                 </div>
@@ -497,7 +513,20 @@
                   </select>
                 </div>
               </div>
-              <!-- остальные чекбоксы остаются без изменений -->
+              <div class="form-grid">
+                <div class="form-group">
+                  <label class="checkbox-group">
+                    <input type="checkbox" name="active" checked />
+                    <span>Активный тур</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label class="checkbox-group">
+                    <input type="checkbox" name="main" />
+                    <span>Главный тур</span>
+                  </label>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -688,14 +717,26 @@
             />
           </div>
           <div class="form-group">
-            <label class="form-label">URL фото</label>
-            <input
-              type="url"
-              class="form-input"
-              name="photo_url"
-              placeholder="https://example.com/photo.jpg"
-            />
-          </div>
+    <label class="form-label">Загрузить фото с компьютера</label>
+    <input 
+        type="file" 
+        class="form-input" 
+        id="hotelPhotoUpload" 
+        accept="image/*"
+        multiple
+        onchange="uploadHotelPhotos(this.files)"
+    />
+</div>
+          <div class="form-group">
+    <label class="form-label">URL фото (массив)</label>
+    <textarea 
+        class="form-input" 
+        name="urls" 
+        placeholder="URL фото будут добавлены автоматически после загрузки"
+        rows="3"
+        readonly
+    ></textarea>
+</div>
           <button type="submit" class="btn">Создать отель</button>
           <button
             type="button"
@@ -764,10 +805,27 @@
             <label class="form-label">Трансфер</label>
             <input type="text" class="form-input" name="transfer" />
           </div>
-          <div class="form-group">
-            <label class="form-label">URL фото</label>
-            <input type="url" class="form-input" name="photo_url" />
-          </div>
+         <!-- В форме редактирования отеля добавьте: -->
+<div class="form-group">
+    <label class="form-label">Загрузить фото с компьютера</label>
+    <input 
+        type="file" 
+        class="form-input" 
+        id="editHotelPhotoUpload" 
+        accept="image/*"
+        multiple
+        onchange="uploadEditHotelPhotos(this.files)"
+    />
+</div>
+<div class="form-group">
+    <label class="form-label">URL фото (массив)</label>
+    <textarea 
+        class="form-input" 
+        name="urls" 
+        placeholder="URL фото будут добавлены автоматически после загрузки"
+        rows="3"
+    ></textarea>
+</div>
           <button type="submit" class="btn">Сохранить изменения</button>
           <button
             type="button"
@@ -869,26 +927,7 @@
           .catch((error) => console.error("Ошибка загрузки отелей:", error));
       }
 
-      function addRouteCity() {
-        // Добавление города в маршрут
-        const container = document.getElementById("routeCitiesList");
-        const cityId = Date.now(); // Временный ID
-
-        const item = document.createElement("div");
-        item.className = "route-city-item";
-        item.innerHTML = `
-                <div class="route-city-header">
-                    <h4>Город маршрута</h4>
-                    <button type="button" class="btn-remove" onclick="this.parentElement.parentElement.remove()">Удалить</button>
-                </div>
-                <div class="route-city-inputs">
-                    <input type="text" class="form-input" name="route_city_${cityId}" placeholder="Название города" required>
-                    <input type="number" class="form-input" name="route_days_${cityId}" placeholder="Дни" min="1">
-                    <input type="number" class="form-input" name="route_nights_${cityId}" placeholder="Ночи" min="0">
-                </div>
-            `;
-        container.appendChild(item);
-      }
+      
     </script>
   </body>
 </html>
