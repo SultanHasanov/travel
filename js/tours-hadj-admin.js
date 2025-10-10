@@ -75,8 +75,33 @@ function initializeFilters() {
     resetBtn.addEventListener("click", resetFilters);
   }
 }
-// Функция для фильтрации туров
-// Функция для фильтрации туров
+
+const resetBtn = document.querySelector(".tours-filters__additional-reset");
+
+function updateResetButtonState() {
+  if (!resetBtn) return;
+
+  const tourType = getSelectedFilterValue("тип");
+  const tourName = getSelectedFilterValue("выбор тура");
+  const departureCity = getSelectedFilterValue("город вылета");
+  const route = getSelectedFilterValue("маршрут тура");
+  const status = getSelectedFilterValue("статус тура");
+  const month = getSelectedFilterValue("дата поездки");
+
+  // Проверяем, есть ли хоть один выбранный фильтр
+  const hasAnyFilter =
+    (tourType && tourType !== "Выберите тип") ||
+    (tourName && tourName !== "Выберите тур") ||
+    (departureCity && departureCity !== "Выберите город") ||
+    (route && route !== "Выберите маршрут") ||
+    (status && status !== "Выберите статус") ||
+    (month && month !== "Выберите месяц");
+
+  // Меняем состояние кнопки
+  resetBtn.disabled = !hasAnyFilter;
+  resetBtn.classList.toggle("disabled", !hasAnyFilter);
+}
+
 // Функция для фильтрации туров
 function filterTours() {
   const tourType = getSelectedFilterValue("тип");
@@ -132,6 +157,7 @@ function filterTours() {
 
   console.log("Запрос с параметрами:", params);
   loadHajjTours(params);
+  updateResetButtonState();
 }
 
 // Вспомогательная функция для форматирования даты в нужный формат
@@ -188,6 +214,7 @@ function resetFilters() {
   });
 
   loadHajjTours(); // без параметров -> все туры
+  resetBtn.disabled = true;
 }
 
 // Функция для заполнения фильтров данными из API
@@ -679,4 +706,5 @@ function initModalLogic() {
 document.addEventListener("DOMContentLoaded", function () {
   loadHajjTours();
   initializeFilters();
+  updateResetButtonState();
 });
