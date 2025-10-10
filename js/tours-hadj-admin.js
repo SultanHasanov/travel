@@ -180,9 +180,9 @@ function resetFilters() {
     } else if (labelText === "тип") {
       span.textContent = "Выберите тип";
     } else if (labelText === "маршрут тура") {
-      span.textContent = "маршрут тура";
+      span.textContent = "Выберите маршрут";
     } else if (labelText === "статус тура") {
-      span.textContent = "статус тура";
+      span.textContent = "Выберите стутус";
     }
   });
 
