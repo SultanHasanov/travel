@@ -491,7 +491,7 @@ async function submitTourForm(event) {
 
   const requestData = {
     trip: tripData,
-    routes: routes, // Теперь это объект с ключами city_1, city_2 и т.д.
+    route_cities: routes, // Теперь это объект с ключами city_1, city_2 и т.д.
     hotels: allHotels,
   };
 
