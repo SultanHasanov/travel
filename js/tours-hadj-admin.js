@@ -94,13 +94,14 @@ function filterTours() {
   if (tourType && tourType !== "Выберите тип") params.trip_type = tourType;
 
   // ИСПРАВЛЕНИЕ: передаем только первый город маршрута
-  if (route && route !== "маршрут тура") {
+  if (route && route !== "Выберите маршрут") {
     // Берем только первый город из маршрута (разделитель "→")
     const firstCity = route.split("→")[0].trim();
     params.route_city = firstCity;
+    
   }
 
-  if (status && status !== "статус тура")
+  if (status && status !== "Выберите статус")
     params.active = status === "Активный" ? 1 : 0;
 
   // Исправленная обработка даты поездки
@@ -180,9 +181,9 @@ function resetFilters() {
     } else if (labelText === "тип") {
       span.textContent = "Выберите тип";
     } else if (labelText === "маршрут тура") {
-      span.textContent = "маршрут тура";
+      span.textContent = "Выберите муршрут";
     } else if (labelText === "статус тура") {
-      span.textContent = "статус тура";
+      span.textContent = "Выберите статус";
     }
   });
 

@@ -152,7 +152,7 @@ main {
 .tours-filters__additional-selects .custom-dropdown {
     height: 100%;
     width: 264px;
-    padding: 19px 0 19px 0;
+    padding: 12px 0 19px 0;
 }
 
 .custom-dropdown::after {
@@ -173,7 +173,6 @@ main {
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
-    margin-bottom: 6px;
     padding-left: 55px;
 }
 
@@ -192,7 +191,7 @@ main {
 }
 
 .tours-filters__additional .custom-dropdown__options {
-    padding: 0 0 0 32px;
+    padding: 0 0 0 55px;
 }
 
 .tours-filters__main .custom-dropdown__options-selected {
@@ -202,8 +201,8 @@ main {
 
 .tours-filters__additional .custom-dropdown__options-selected {
     color: #FFB800;
-    font-size: 12px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 400;
     text-transform: uppercase;
 }
 
