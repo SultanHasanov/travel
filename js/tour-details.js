@@ -28,6 +28,20 @@ function fillTourData(data, tourRoutes) {
     const tour = data.trip;
     const hotels = data.hotels;
     const routes = tourRoutes;
+
+    console.log(tour.urls);
+
+    //получение изображений отеля
+    const images = document.querySelectorAll('.tour__hotel-slide img');
+    images.forEach((img, index) => {
+        if(tour.urls[index]) {
+            img.src = tour.urls[index];
+        } else {
+            img.src = "assets/images/pages/tour/gallery/hotel-3.png"
+        }
+    })
+
+    console.log(images);
     
     // Заголовок и описание
     document.querySelector('.tour__top-info__block-title').innerHTML = 
