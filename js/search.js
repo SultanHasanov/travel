@@ -272,7 +272,7 @@ function displaySearchResults(results) {
                     border-bottom: 1px solid #f0f0f0;
                     cursor: pointer;
                     transition: background-color 0.2s;
-                " data-link="${item.link}" data-index="${index}">
+                " data-link="${item.link}" data-index="${index}" data-id="${item.id}" data-type="${item.trip_type}">
                     <div style="
                         font-weight: 500;
                         margin-bottom: 4px;
@@ -303,9 +303,12 @@ function displaySearchResults(results) {
     const resultItems = resultsContainer.querySelectorAll('.search-result-item');
     resultItems.forEach(item => {
         item.addEventListener('click', function() {
-            const link = this.getAttribute('data-link');
-            if (link) {
-                window.location.href = link;
+            const id = this.dataset.id;
+            const type = this.dataset.trup_type;
+
+            const page = type === 'Умра' ? 'tour-umra.html' : 'tour-hadj.html';
+            if (page) {
+                window.location.href = `${page}?id=${id}`;
             }
         });
         
