@@ -625,7 +625,6 @@ main {
 .tours-filters__additional-reset.disabled,
 .tours-filters__additional-reset:disabled {
   opacity: 0.5;
-  pointer-events: none;
   cursor: not-allowed;
 }
 
