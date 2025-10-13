@@ -45,7 +45,7 @@ async function loadTours() {
                  <td>${tour.trip.id}</td>
   <td>${tour.trip.title}</td>
   <td>${tour.trip.departure_city}</td>
-  <td>${tour.trip.price} ${tour.currency}</td>
+  <td>${tour.trip.price} ${tour.trip.currency}</td>
   <td>${tour.trip.discount_percent || 0}%</td> <!-- Новая колонка -->
   <td>${new Date(tour.trip.start_date).toLocaleDateString("ru-RU")}</td>
   <td>${new Date(tour.trip.end_date).toLocaleDateString("ru-RU")}</td>

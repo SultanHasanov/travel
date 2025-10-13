@@ -95,7 +95,7 @@ async function loadCompanyNews() {
           })}
         </div>
         <div class="recent-news__card-image">
-          <img src="${news.preview_url}" alt="${news.title}" />
+          <img src="${news.urls[0]}" alt="${news.title}" />
         </div>
         <div class="recent-news__card-info">
           <h3 class="recent-news__card-title">${news.title}</h3>
