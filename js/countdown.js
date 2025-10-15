@@ -69,11 +69,17 @@ function updateCountdownElements(days, hours, minutes, seconds) {
   const minuteElement1 = document.querySelector('.introduction__booking-time__measurement:nth-child(3) .booking-time__measurement-int');
   const secondElement1 = document.querySelector('.introduction__booking-time__measurement:nth-child(4) .booking-time__measurement-int');
   
-  // Селекторы для второго типа (новые)
+  // Селекторы для второго типа
   const dayElement2 = document.querySelector('.article__aside-booking__time-measurement:nth-child(1) .article__aside-measurement__int');
   const hourElement2 = document.querySelector('.article__aside-booking__time-measurement:nth-child(2) .article__aside-measurement__int');
   const minuteElement2 = document.querySelector('.article__aside-booking__time-measurement:nth-child(3) .article__aside-measurement__int');
   const secondElement2 = document.querySelector('.article__aside-booking__time-measurement:nth-child(4) .article__aside-measurement__int');
+  
+  // Селекторы для третьего типа (новые из примера)
+  const dayElement3 = document.querySelector('.tour__top-timer__measurement:nth-child(1) .timer__measurement-int');
+  const hourElement3 = document.querySelector('.tour__top-timer__measurement:nth-child(2) .timer__measurement-int');
+  const minuteElement3 = document.querySelector('.tour__top-timer__measurement:nth-child(3) .timer__measurement-int');
+  const secondElement3 = document.querySelector('.tour__top-timer__measurement:nth-child(4) .timer__measurement-int');
   
   // Обновляем первый тип селекторов
   if (dayElement1) dayElement1.textContent = dayStr;
@@ -86,30 +92,32 @@ function updateCountdownElements(days, hours, minutes, seconds) {
   if (hourElement2) hourElement2.textContent = hourStr;
   if (minuteElement2) minuteElement2.textContent = minuteStr;
   if (secondElement2) secondElement2.textContent = secondStr;
+  
+  // Обновляем третий тип селекторов
+  if (dayElement3) dayElement3.textContent = dayStr;
+  if (hourElement3) hourElement3.textContent = hourStr;
+  if (minuteElement3) minuteElement3.textContent = minuteStr;
+  if (secondElement3) secondElement3.textContent = secondStr;
 }
 
 // Функция для обновления заголовка
 function updateTitleElement(text) {
   const titleElement1 = document.querySelector('.introduction__booking-title');
-  const titleElement2 = document.querySelector('.article__aside-booking__title'); // предполагаемый селектор для заголовка
+  const titleElement2 = document.querySelector('.article__aside-booking__title');
+  const titleElement3 = document.querySelector('.tour__top-timer__title'); // новый селектор для заголовка
   
-  if (titleElement1) {
-    titleElement1.textContent = text;
-    titleElement1.style.textAlign = 'center';
-    titleElement1.style.width = '100%';
-    titleElement1.style.fontSize = '24px';
-    titleElement1.style.color = '#ffb800';
-    titleElement1.style.marginTop = '20px';
-  }
+  const titleElements = [titleElement1, titleElement2, titleElement3];
   
-  if (titleElement2) {
-    titleElement2.textContent = text;
-    titleElement2.style.textAlign = 'center';
-    titleElement2.style.width = '100%';
-    titleElement2.style.fontSize = '24px';
-    titleElement2.style.color = '#ffb800';
-    titleElement2.style.marginTop = '20px';
-  }
+  titleElements.forEach(element => {
+    if (element) {
+      element.textContent = text;
+      element.style.textAlign = 'center';
+      element.style.width = '100%';
+      element.style.fontSize = '24px';
+      element.style.color = '#ffb800';
+      element.style.marginTop = '20px';
+    }
+  });
 }
 
 // Функция для показа сообщения об отсутствии активных туров
@@ -117,16 +125,23 @@ function showNoActiveToursMessage() {
   // Скрываем контейнеры отсчета
   const countdownContainer1 = document.querySelector('.introduction__booking-time');
   const countdownContainer2 = document.querySelector('.article__aside-booking__time');
+  const countdownContainer3 = document.querySelector('.tour__top-timer__measurements'); // новый селектор
   
   // Скрываем кнопки
   const bookingButton1 = document.querySelector('.introduction__booking-button');
-  const bookingButton2 = document.querySelector('.article__aside-booking__button'); // предполагаемый селектор для кнопки
+  const bookingButton2 = document.querySelector('.article__aside-booking__button');
+  // Добавьте селектор для кнопки в третьем типе, если она есть
   
-  if (countdownContainer1) countdownContainer1.style.display = 'none';
-  if (countdownContainer2) countdownContainer2.style.display = 'none';
+  const countdownContainers = [countdownContainer1, countdownContainer2, countdownContainer3];
+  const bookingButtons = [bookingButton1, bookingButton2];
   
-  if (bookingButton1) bookingButton1.style.display = 'none';
-  if (bookingButton2) bookingButton2.style.display = 'none';
+  countdownContainers.forEach(container => {
+    if (container) container.style.display = 'none';
+  });
+  
+  bookingButtons.forEach(button => {
+    if (button) button.style.display = 'none';
+  });
   
   // Обновляем заголовки
   updateTitleElement('Пока нет активных туров');
@@ -137,8 +152,9 @@ document.addEventListener('DOMContentLoaded', function() {
   // Проверяем, есть ли на странице элементы таймера
   const countdownElements1 = document.querySelector('.introduction__booking-time');
   const countdownElements2 = document.querySelector('.article__aside-booking__time');
+  const countdownElements3 = document.querySelector('.tour__top-timer__measurements');
   
-  if (countdownElements1 || countdownElements2) {
+  if (countdownElements1 || countdownElements2 || countdownElements3) {
     initCountdown();
   }
 });
