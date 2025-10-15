@@ -29,19 +29,49 @@ function fillTourData(data, tourRoutes) {
     const hotels = data.hotels;
     const routes = tourRoutes;
 
-    console.log(tour.urls);
 
     //получение изображений отеля
-    const images = document.querySelectorAll('.tour__hotel-slide img');
-    images.forEach((img, index) => {
-        if(tour.urls[index]) {
-            img.src = tour.urls[index];
-        } else {
-            img.src = "assets/images/pages/tour/gallery/hotel-3.png"
-        }
-    })
+    //получение изображений отеля
+    const slidesImg = document.querySelector('.tour__hotel-slides');
+    slidesImg.innerHTML = '';
 
-    console.log(images);
+    if(tour.urls && tour.urls.length > 0) {
+      tour.urls.forEach((url, index) => {
+        const slide = document.createElement('div')
+        slide.classList = 'tour__hotel-slide';
+        if(index === 0) slide.classList.add('tour__hotel-slide--active');
+
+        const img = document.createElement('img');
+        img.src = url;
+        img.alt = `Изображения отеля ${index + 1}`;
+
+        slide.appendChild(img);
+
+        slidesImg.appendChild(slide);
+
+        if(tour.urls.length === 1) {
+          slidesImg.style.display = 'block';
+
+          img.style.maxWidth = '1300px';
+          img.style.height = '550px';
+        }
+      })
+    } else {
+        const fallbackSlide = document.createElement('div');
+        fallbackSlide.classList.add('tour__hotel-slide', 'tour__hotel-slide--active');
+
+        const img = document.createElement('img');
+        img.src = "assets/images/pages/tour/gallery/hotel-1.png";
+        img.alt = "Заглушка отеля";
+
+        slidesImg.style.display = 'block';
+
+        img.style.maxWidth = '1300px';
+        img.style.height = '550px';
+
+        fallbackSlide.appendChild(img);
+        slidesImg.appendChild(fallbackSlide);
+    }
     
     // Заголовок и описание
     document.querySelector('.tour__top-info__block-title').innerHTML = 
