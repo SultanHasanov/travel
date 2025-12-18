@@ -706,7 +706,7 @@ async function initSearchFilters() {
   }
 }
 
-// Добавьте CSS для стилизации активных фильтров
+// Добавьте CSS для стилизации активных фильтровfff
 const style = document.createElement("style");
 style.textContent = `
   .custom-dropdown__options-list li.active {
