@@ -1,200 +1,234 @@
 async function loadTourDetails(tourId) {
-    try {
-        const response = await fetch(`https://api.web95.tech/api/v1/trips/${tourId}/relations`);
+  try {
+    const response = await fetch(
+      `https://api.web95.tech/api/v1/trips/${tourId}/relations`
+    );
 
-        const resRoutes = await fetch(`https://api.web95.tech/api/v1/trips/${tourId}/routes/ui`)
-        
-        if (!response.ok || !resRoutes.ok) {
-            throw new Error('Ошибка загрузки тура');
-        }
+    const resRoutes = await fetch(
+      `https://api.web95.tech/api/v1/trips/${tourId}/routes/ui`
+    );
 
-        
-        const data = await response.json();
-        const tourData = data.data;
-
-        const dataRoutes = await resRoutes.json();
-        const tourRoutes = dataRoutes.data;
-        
-        // Заполняем данные на странице
-        fillTourData(tourData, tourRoutes);
-        
-    } catch (error) {
-        console.error('Ошибка:', error);
-        alert('Не удалось загрузить данные тура');
+    if (!response.ok || !resRoutes.ok) {
+      throw new Error("Ошибка загрузки тура");
     }
+
+    const data = await response.json();
+    const tourData = data.data;
+
+    const dataRoutes = await resRoutes.json();
+    const tourRoutes = dataRoutes.data;
+
+    // Заполняем данные на странице
+    fillTourData(tourData, tourRoutes);
+  } catch (error) {
+    console.error("Ошибка:", error);
+    alert("Не удалось загрузить данные тура");
+  }
 }
 
 function fillTourData(data, tourRoutes) {
-    const tour = data.trip;
-    const hotels = data.hotels;
-    const routes = tourRoutes;
+  const tour = data.trip;
+  const hotels = data.hotels;
+  const routes = tourRoutes;
 
+  console.log("Данные отелей:", hotels); // Для отладки
 
-    //получение изображений отеля
-    //получение изображений отеля
-    const slidesImg = document.querySelector('.tour__hotel-slides');
-    slidesImg.innerHTML = '';
+  //получение изображений отеля
+  const slidesImg = document.querySelector(".tour__hotel-slides");
+  slidesImg.innerHTML = "";
 
-    if(tour.urls && tour.urls.length > 0) {
-      tour.urls.forEach((url, index) => {
-        const slide = document.createElement('div')
-        slide.classList = 'tour__hotel-slide';
-        if(index === 0) slide.classList.add('tour__hotel-slide--active');
+  // Проверяем, есть ли отели и есть ли у первого отеля изображения
+  if (
+    hotels &&
+    hotels.length > 0 &&
+    hotels[0].urls &&
+    hotels[0].urls.length > 0
+  ) {
+    // Используем изображения первого отеля (или можно циклом по всем отелям)
+    hotels[0].urls.forEach((url, index) => {
+      console.log("URL изображения отеля:", url);
+      const slide = document.createElement("div");
+      slide.classList = "tour__hotel-slide";
+      if (index === 0) slide.classList.add("tour__hotel-slide--active");
 
-        const img = document.createElement('img');
-        img.src = url;
-        img.alt = `Изображения отеля ${index + 1}`;
+      const img = document.createElement("img");
+      img.src = url;
+      img.alt = `Изображения отеля ${index + 1}`;
 
-        slide.appendChild(img);
+      slide.appendChild(img);
+      slidesImg.appendChild(slide);
 
-        slidesImg.appendChild(slide);
+      if (hotels[0].urls.length === 1) {
+        slidesImg.style.display = "block";
+        img.style.maxWidth = "1300px";
+        img.style.height = "550px";
+      }
+    });
+  } else {
+    // Если нет изображений отеля, используем заглушку
+    const fallbackSlide = document.createElement("div");
+    fallbackSlide.classList.add(
+      "tour__hotel-slide",
+      "tour__hotel-slide--active"
+    );
 
-        if(tour.urls.length === 1) {
-          slidesImg.style.display = 'block';
+    const img = document.createElement("img");
+    img.src = "assets/images/pages/tour/gallery/hotel-1.png";
+    img.alt = "Заглушка отеля";
 
-          img.style.maxWidth = '1300px';
-          img.style.height = '550px';
-        }
-      })
-    } else {
-        const fallbackSlide = document.createElement('div');
-        fallbackSlide.classList.add('tour__hotel-slide', 'tour__hotel-slide--active');
+    slidesImg.style.display = "block";
+    img.style.maxWidth = "1300px";
+    img.style.height = "550px";
 
-        const img = document.createElement('img');
-        img.src = "assets/images/pages/tour/gallery/hotel-1.png";
-        img.alt = "Заглушка отеля";
+    fallbackSlide.appendChild(img);
+    slidesImg.appendChild(fallbackSlide);
+  }
 
-        slidesImg.style.display = 'block';
+  // Остальной код остается без изменений...
+  // Заголовок и описание
+  document.querySelector(
+    ".tour__top-info__block-title"
+  ).innerHTML = `${tour.trip_type} программа<br>"${tour.title}"`;
 
-        img.style.maxWidth = '1300px';
-        img.style.height = '550px';
+  // Тип тура
+  document.querySelector(".tour__top-info__stats-type").textContent =
+    tour.trip_type === "Хадж" ? "хадж тур" : "умра тур";
 
-        fallbackSlide.appendChild(img);
-        slidesImg.appendChild(fallbackSlide);
-    }
-    
-    // Заголовок и описание
-    document.querySelector('.tour__top-info__block-title').innerHTML = 
-        `${tour.trip_type} программа<br>"${tour.title}"`;
-    
-    // Тип тура
-    document.querySelector('.tour__top-info__stats-type').textContent = 
-        tour.trip_type === 'Хадж' ? 'хадж тур' : 'умра тур';
-    
-    // Маршрут
-    fillRoute(routes);
+  // Маршрут
+  fillRoute(routes);
 
-    // Отели
-    fillHotels(hotels);
-    
-    // Цены
-    document.querySelector('.tour__details-price__discounted-number').innerHTML = 
-        `${tour.final_price.toLocaleString()} <span>руб.</span>`;
-    
-    if (tour.discount_percent > 0) {
-        document.querySelector('.tour__details-price__undiscounted-number').innerHTML = 
-            `${tour.price.toLocaleString()} <span>руб.</span>`;
-    }
-    
-    // Даты
-    const startDate = new Date(tour.start_date).toLocaleDateString('ru-RU');
-    const endDate = new Date(tour.end_date).toLocaleDateString('ru-RU');
-    document.querySelector('.tour__details-card__main-elem:nth-child(1) strong').textContent = 
-        `${startDate} - ${endDate}`;
-    
-    // Город вылета
-    document.querySelector('.tour__details-card__main-elem:nth-child(2) strong').textContent = 
-        tour.departure_city;
-    
-    // Описание
-    document.querySelector('.tour__description-paragraph').textContent = tour.description;
+  // Отели
+  fillHotels(hotels);
+
+  // Цены
+  document.querySelector(
+    ".tour__details-price__discounted-number"
+  ).innerHTML = `${tour.final_price.toLocaleString()} <span>руб.</span>`;
+
+  if (tour.discount_percent > 0) {
+    document.querySelector(
+      ".tour__details-price__undiscounted-number"
+    ).textContent = `${tour.price.toLocaleString()} руб.`;
+  } else {
+    // Скрываем старую цену если нет скидки
+    document.querySelector(".tour__details-price__undiscounted").style.display =
+      "none";
+  }
+
+  // Даты
+  const startDate = new Date(tour.start_date).toLocaleDateString("ru-RU");
+  const endDate = new Date(tour.end_date).toLocaleDateString("ru-RU");
+  document.querySelector(
+    ".tour__details-card__main-elem:nth-child(1) strong"
+  ).textContent = `${startDate} - ${endDate}`;
+
+  // Город вылета
+  document.querySelector(
+    ".tour__details-card__main-elem:nth-child(2) strong"
+  ).textContent = tour.departure_city;
+
+  // Описание
+  document.querySelector(".tour__description-paragraph").textContent =
+    tour.description;
 }
 
 function fillRoute(routeData) {
-    const routeContainer = document.querySelector('.tour__top-route__inner');
-    const duration = document.querySelector('.tour__top-route__duration');
-    routeContainer.innerHTML = '';
-    duration.innerHTML = '';
+  const routeContainer = document.querySelector(".tour__top-route__inner");
+  const duration = document.querySelector(".tour__top-route__duration");
+  routeContainer.innerHTML = "";
+  duration.innerHTML = "";
 
-    const items = routeData.items;
+  const items = routeData.items;
 
-    items.forEach((item, index) => {
-        if (item.kind === 'city') {
-            const isFirst = item.city === routeData.from;
-            const isLast = item.city === routeData.to;
-            const pointClass = isFirst ? 'from' : isLast ? 'to' : 'transfer';
+  items.forEach((item, index) => {
+    if (item.kind === "city") {
+      const isFirst = index === 0;
+      const isLast = index === items.length - 1;
+      const pointClass = isFirst ? "from" : isLast ? "to" : "transfer";
+      const isTransfer = !isFirst && !isLast;
 
-            const pointDiv = document.createElement('div');
-            pointDiv.className = `tour__top-route__point tour__top-route__point--${pointClass}`;
+      const pointDiv = document.createElement("div");
+      pointDiv.className = `tour__top-route__point tour__top-route__point--${pointClass}`;
 
-            if (pointClass === 'transfer') {
-                pointDiv.innerHTML = `
-                    <img src="assets/icons/pages/tour/clock.svg" alt="Clock">
-                    <br><strong>${item.city}</strong><br>
-                    <span>${item.stop_time_text || ''}</span>
-                `;
-            } else if (pointClass === 'to') {
-                pointDiv.innerHTML = `
+      if (isTransfer) {
+        pointDiv.innerHTML = `
+        <img src="assets/icons/pages/tour/clock.svg" alt="Clock">
+        <br>
+        <strong>${item.city}</strong><br>
+        <span>${item.stop_time_text || ""}</span>
+      `;
+      } else if (pointClass === "to") {
+        pointDiv.innerHTML = `
                     <img src="assets/icons/pages/tour/white-qibla.svg" alt="Qibla">
                     ${item.city}
                 `;
-            } else {
-                pointDiv.textContent = item.city;
-            }
+      } else {
+        pointDiv.textContent = item.city;
+      }
 
-            routeContainer.appendChild(pointDiv);
-        } else if (item.kind === 'leg' && index < items.length - 1) {
-            const transportDiv = document.createElement('div');
-            transportDiv.className = 'tour__top-route__transport';
+      routeContainer.appendChild(pointDiv);
+    } else if (item.kind === "leg" && index < items.length - 1) {
+      const transportDiv = document.createElement("div");
+      transportDiv.className = "tour__top-route__transport";
 
-            const isFirstLeg = index === 1;
-            const transportType = isFirstLeg ? 'airplane' : 'bus';
-            const transportName = isFirstLeg ? 'Airplane' : 'Bus';
+      const isFirstLeg = index === 1;
+      const transportType = isFirstLeg ? "airplane" : "bus";
+      const transportName = isFirstLeg ? "Airplane" : "Bus";
 
-            transportDiv.innerHTML = `
+      transportDiv.innerHTML = `
                 <div class="tour__top-route__transport-name">
                     <img src="assets/icons/pages/tour/${transportType}.svg" alt="">
                     ${transportName}
                 </div>
                 <div class="tour__top-route__transport-divider"></div>
                 <div class="tour__top-route__transport-duration">
-                    ${item.duration_text || ''}
+                    ${item.duration_text || ""}
                 </div>
             `;
-            routeContainer.appendChild(transportDiv);
-        }
-    });
-    duration.innerHTML = `
+      routeContainer.appendChild(transportDiv);
+    }
+  });
+  duration.innerHTML = `
         <strong>время в пути</strong>
         <br>
         <span>${routeData.total_duration}</span>
-    `
+    `;
 }
 
 function fillHotels(hotels) {
-    const cardsContainer = document.querySelector('.tour__details-cards');
-    
-    // Очищаем существующие карточки отелей
-    const existingHotelCards = cardsContainer.querySelectorAll('.tour__details-card:not(.tour__details-card--long)');
-    existingHotelCards.forEach(card => card.remove());
-    
-    hotels.forEach(hotel => {
-        const cardDiv = document.createElement('div');
-        cardDiv.className = 'tour__details-card';
-        cardDiv.innerHTML = `
+  const cardsContainer = document.querySelector(".tour__details-cards");
+
+  // Очищаем существующие карточки отелей
+  const existingHotelCards = cardsContainer.querySelectorAll(
+    ".tour__details-card:not(.tour__details-card--long)"
+  );
+  existingHotelCards.forEach((card) => card.remove());
+
+  hotels.forEach((hotel) => {
+    const cardDiv = document.createElement("div");
+    cardDiv.className = "tour__details-card";
+    cardDiv.innerHTML = `
             <div class="tour__details-card__city">${hotel.city}</div>
             <div class="tour__details-card__hotel">
                 <div class="tour__details-card__hotel-name">${hotel.name}</div>
-                <img src="assets/icons/pages/tours/${hotel.city.toLowerCase() === 'мекка' ? 'mecca' : 'medina'}-hotel-rating.svg" 
+                <img src="assets/icons/pages/tours/${
+                  hotel.city.toLowerCase() === "мекка" ? "mecca" : "medina"
+                }-hotel-rating.svg" 
                      alt="" class="tour__details-card__hotel-rating">
             </div>
-            <div class="tour__details-card__mosque">${hotel.distance}км до Мечети</div>
+            <div class="tour__details-card__mosque">${
+              hotel.distance
+            }км до Мечети</div>
             <div class="tour__details-card__amenities">
-                ${hotel.transfer ? `
+                ${
+                  hotel.transfer
+                    ? `
                 <div class="tour__details-card__amenity">
                     <img src="assets/icons/pages/tours/bus-side-view.svg" alt="">
                     <span>трансфер</span> <strong>${hotel.transfer}</strong>
-                </div>` : ''}
+                </div>`
+                    : ""
+                }
                 <div class="tour__details-card__amenity">
                     <img src="assets/icons/pages/tours/plate-with-cutlery.svg" alt="">
                     <span>питание</span> <strong>${hotel.meals}</strong>
@@ -211,11 +245,11 @@ function fillHotels(hotels) {
                 </div>
             </div>
         `;
-        
-        // Вставляем перед длинной карточкой с дополнительными опциями
-        const longCard = cardsContainer.querySelector('.tour__details-card--long');
-        cardsContainer.insertBefore(cardDiv, longCard);
-    });
+
+    // Вставляем перед длинной карточкой с дополнительными опциями
+    const longCard = cardsContainer.querySelector(".tour__details-card--long");
+    cardsContainer.insertBefore(cardDiv, longCard);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -272,7 +306,9 @@ function initModalLogic() {
 
     // Достаём данные из верстки
     const tourName =
-      document.querySelector(".tour__top-info__block-title")?.textContent.trim() || "";
+      document
+        .querySelector(".tour__top-info__block-title")
+        ?.textContent.trim() || "";
 
     const tourRoute =
       document
@@ -281,7 +317,9 @@ function initModalLogic() {
 
     const tourDate =
       document
-        .querySelector(".tour__details-card__main-elems:nth-child(2) .tour__details-card__main-elem strong")
+        .querySelector(
+          ".tour__details-card__main-elems:nth-child(2) .tour__details-card__main-elem strong"
+        )
         ?.textContent.trim() || "";
 
     const tourPrice =
@@ -344,13 +382,12 @@ function initModalLogic() {
   });
 }
 
-
 // Запускаем загрузку при загрузке страницы
-document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const tourId = urlParams.get('id');
-    
-    if (tourId) {
-        loadTourDetails(tourId);
-    }
+document.addEventListener("DOMContentLoaded", () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const tourId = urlParams.get("id");
+
+  if (tourId) {
+    loadTourDetails(tourId);
+  }
 });

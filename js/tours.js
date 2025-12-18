@@ -73,7 +73,7 @@ function renderToursTable(tours) {
     row.innerHTML = `
             <td>${tour.id}</td>
             <td>${tour.title}</td>
-            <td>${tour.trip_type === "hajj" ? "Хадж" : "Умра"}</td>
+            <td>${tour.trip_type}</td>
             <td>${Number(tour.price).toLocaleString("ru-RU")} ${
       tour.currency
     }</td>
@@ -424,8 +424,9 @@ function populateFilters(filterValues) {
   const tripTypeFilter = document.getElementById("tripTypeFilter");
   filterValues.trip_types.forEach((type) => {
     const li = document.createElement("li");
-    li.textContent = type === "hajj" ? "Хадж" : "Умра";
-    li.dataset.value = type;
+    li.textContent = type;
+li.dataset.value = type;
+
     tripTypeFilter.appendChild(li);
   });
 

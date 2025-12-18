@@ -5,7 +5,6 @@ async function initCountdown() {
     const response = await fetch('https://api.web95.tech/api/v1/trips/main');
     const respData = await response.json();
     const data = respData.data.countdown;
-    console.log(data)
     
     if (data) {
       const { days, hours, minutes, seconds } = data;
@@ -32,10 +31,11 @@ async function initCountdown() {
 
 // Функция для фронтенд-отсчета
 function startCountdown(totalSeconds) {
+  let countdownInterval; // ← объявляем здесь
+  
   function updateDisplay() {
     if (totalSeconds <= 0) {
-      clearInterval(countdownInterval);
-      // Можно добавить действие по окончании отсчета
+      clearInterval(countdownInterval); // ← теперь переменная доступна
       updateTitleElement('Запись на хадж завершена');
       return;
     }
@@ -45,15 +45,13 @@ function startCountdown(totalSeconds) {
     const minutes = Math.floor((totalSeconds % (60 * 60)) / 60);
     const seconds = totalSeconds % 60;
     
-    // Обновляем значения на странице для разных селекторов
     updateCountdownElements(days, hours, minutes, seconds);
     
     totalSeconds--;
   }
   
-  // Обновляем сразу и затем каждую секунду
   updateDisplay();
-  const countdownInterval = setInterval(updateDisplay, 1000);
+  countdownInterval = setInterval(updateDisplay, 1000); // ← присваиваем значение
 }
 
 // Функция для обновления элементов отсчета

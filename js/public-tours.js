@@ -59,8 +59,8 @@ function renderToursForHome(tours) {
   </div>
 `;
 
-    slide.style.backgroundImage = tour.photo_url
-      ? `url(${tour.photo_url})`
+    slide.style.backgroundImage = tour.urls
+      ? `url(${tour.urls[0]})`
       : "none";
 
     wrapper.appendChild(slide);

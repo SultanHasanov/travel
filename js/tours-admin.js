@@ -4,6 +4,32 @@ let routeCities = {};
 let cityCounter = 1;
 let editingTourId = null;
 
+const TRANSPORT_OPTIONS = [
+  { value: "", label: "Выберите транспорт" },
+  { value: "airplane", label: "Самолёт" },
+  { value: "train", label: "Поезд" },
+  { value: "bus", label: "Автобус" },
+  { value: "car", label: "Авто" },
+];
+
+const DURATION_OPTIONS = [
+  { value: "", label: "Время в пути" },
+  { value: "30 минут", label: "30 минут" },
+  { value: "1 час", label: "1 час" },
+  { value: "2 часа", label: "2 часа" },
+  { value: "4 часа", label: "4 часа" },
+  { value: "6 часов", label: "6 часов" },
+  { value: "12 часов", label: "12 часов" },
+];
+
+const STOP_TIME_OPTIONS = [
+  { value: "", label: "Время остановки" },
+  { value: "30 минут", label: "30 минут" },
+  { value: "1 час", label: "1 час" },
+  { value: "2 часа", label: "2 часа" },
+  { value: "4 часа", label: "4 часа" },
+];
+
 async function loadTours() {
   try {
     const token = localStorage.getItem("authToken");
@@ -163,14 +189,14 @@ async function editTour(tourId) {
       // Маршрут - преобразуем массив в объект с ключами city_1, city_2 и т.д.
       routeCities = {};
       cityCounter = 1;
-      
+
       (tour.routes || []).forEach((route, index) => {
         const cityKey = `city_${index + 1}`;
         routeCities[cityKey] = {
           city: route.name || route.city || "",
           duration: route.duration || "",
           stop_time: route.stop_time || "",
-          transport: route.transport || ""
+          transport: route.transport || "",
         };
         cityCounter = index + 2; // Устанавливаем счетчик для следующих городов
       });
@@ -179,9 +205,13 @@ async function editTour(tourId) {
         const cityKey = `city_${cityCounter}`;
         routeCities[cityKey] = {
           city: "",
+
+          // leg из предыдущего города
+          transport: "",
           duration: "",
+
+          // остановка В ЭТОМ городе
           stop_time: "",
-          transport: ""
         };
         cityCounter++;
       }
@@ -236,8 +266,10 @@ function openFullscreenTourForm() {
 
 function closeFullscreenTourForm() {
   editingTourId = null;
-  document.querySelector("#tourFullscreenForm h1").textContent = "Создание тура";
-  document.querySelector(".form-actions button[type='submit']").textContent = "Создать тур";
+  document.querySelector("#tourFullscreenForm h1").textContent =
+    "Создание тура";
+  document.querySelector(".form-actions button[type='submit']").textContent =
+    "Создать тур";
 
   document.getElementById("tourFullscreenForm").classList.remove("active");
   document.getElementById("createTourForm").reset();
@@ -245,7 +277,7 @@ function closeFullscreenTourForm() {
   routeCities = {}; // Объект вместо массива
   cityCounter = 1;
   renderRouteCities();
-  
+
   if (!editingTourId) {
     loadAvailableHotels().then((hotels) => {
       renderHotelSelection(hotels);
@@ -340,8 +372,8 @@ function addRouteCity() {
   routeCities[cityKey] = {
     city: "",
     duration: "",
-    stop_time: "", 
-    transport: ""
+    stop_time: "",
+    transport: "",
   };
   cityCounter++;
   renderRouteCities();
@@ -351,27 +383,15 @@ function renderRouteCities() {
   const container = document.getElementById("routeCitiesList");
   container.innerHTML = "";
 
-  // Всегда показываем хотя бы один город
-  if (Object.keys(routeCities).length === 0) {
-    const cityKey = `city_${cityCounter}`;
-    routeCities[cityKey] = {
-      city: "",
-      duration: "",
-      stop_time: "",
-      transport: ""
-    };
-    cityCounter++;
-  }
+  const keys = Object.keys(routeCities).sort(
+    (a, b) => Number(a.split("_")[1]) - Number(b.split("_")[1])
+  );
 
-  // Сортируем ключи для правильного порядка отображения
-  const sortedKeys = Object.keys(routeCities).sort((a, b) => {
-    const numA = parseInt(a.replace('city_', ''));
-    const numB = parseInt(b.replace('city_', ''));
-    return numA - numB;
-  });
-
-  sortedKeys.forEach((cityKey, index) => {
+  keys.forEach((cityKey, index) => {
     const city = routeCities[cityKey];
+    const isFirst = index === 0;
+    const isLast = index === keys.length - 1;
+
     const div = document.createElement("div");
     div.className = "route-city-item";
 
@@ -384,26 +404,63 @@ function renderRouteCities() {
             : ""
         }
       </div>
+
       <div class="route-city-inputs">
-        <input type="text" class="form-input" placeholder="Название города" 
-            value="${city.city}" 
-            onchange="updateRouteCity('${cityKey}', 'city', this.value)" 
-            required />
-        <input type="text" class="form-input" placeholder="Длительность (например: 5 дней)" 
-            value="${city.duration || ""}" 
-            onchange="updateRouteCity('${cityKey}', 'duration', this.value)" />
-        <input type="text" class="form-input" placeholder="Время остановки (например: 2 часа)" 
-            value="${city.stop_time || ""}" 
-            onchange="updateRouteCity('${cityKey}', 'stop_time', this.value)" />
-        <input type="text" class="form-input" placeholder="Транспорт" 
-            value="${city.transport || ""}" 
-            onchange="updateRouteCity('${cityKey}', 'transport', this.value)" />
+
+        <input class="form-input"
+          placeholder="Название города"
+          value="${city.city || ""}"
+          onchange="updateRouteCity('${cityKey}', 'city', this.value)"
+          required />
+
+        ${
+          !isFirst
+            ? `
+          <select class="form-input"
+            onchange="updateRouteCity('${cityKey}', 'transport', this.value)">
+            ${TRANSPORT_OPTIONS.map(
+              (o) =>
+                `<option value="${o.value}" ${
+                  o.value === city.transport ? "selected" : ""
+                }>${o.label}</option>`
+            ).join("")}
+          </select>
+
+          <select class="form-input"
+            onchange="updateRouteCity('${cityKey}', 'duration', this.value)">
+            ${DURATION_OPTIONS.map(
+              (o) =>
+                `<option value="${o.value}" ${
+                  o.value === city.duration ? "selected" : ""
+                }>${o.label}</option>`
+            ).join("")}
+          </select>
+          `
+            : ""
+        }
+
+        ${
+          !isLast
+            ? `
+          <select class="form-input"
+            onchange="updateRouteCity('${cityKey}', 'stop_time', this.value)">
+            ${STOP_TIME_OPTIONS.map(
+              (o) =>
+                `<option value="${o.value}" ${
+                  o.value === city.stop_time ? "selected" : ""
+                }>${o.label}</option>`
+            ).join("")}
+          </select>
+          `
+            : ""
+        }
+
       </div>
     `;
+
     container.appendChild(div);
   });
 }
-
 
 function updateRouteCity(cityKey, field, value) {
   if (routeCities[cityKey]) {
@@ -447,8 +504,12 @@ async function submitTourForm(event) {
     season: season,
     trip_type: tripType,
     booking_deadline: formData.get("booking_deadline"),
-    urls: formData.get("photo_url") 
-      ? formData.get("photo_url").split(',').map(url => url.trim()).filter(url => url)
+    urls: formData.get("photo_url")
+      ? formData
+          .get("photo_url")
+          .split(",")
+          .map((url) => url.trim())
+          .filter((url) => url)
       : [],
     active: formData.get("active") === "on",
     main: formData.get("main") === "on",
@@ -459,13 +520,30 @@ async function submitTourForm(event) {
   };
 
   // Собираем маршрут - фильтруем только заполненные города
-  const routes = {};
-  Object.keys(routeCities).forEach(cityKey => {
-    const city = routeCities[cityKey];
-    if (city.city && city.city.trim() !== "") {
-      routes[cityKey] = city;
-    }
-  });
+  const routes = [];
+
+  Object.keys(routeCities)
+    .sort((a, b) => Number(a.split("_")[1]) - Number(b.split("_")[1]))
+    .forEach((key, index, arr) => {
+      const city = routeCities[key];
+      if (!city.city) return;
+
+      const item = {
+        city: city.city,
+        position: index + 1,
+      };
+
+      if (index > 0) {
+        item.transport = city.transport;
+        item.duration = city.duration;
+      }
+
+      if (index < arr.length - 1) {
+        item.stop_time = city.stop_time;
+      }
+
+      routes.push(item);
+    });
 
   // Собираем новые отели
   const newHotels = [];
@@ -491,7 +569,7 @@ async function submitTourForm(event) {
 
   const requestData = {
     trip: tripData,
-    route_cities: routes, // Теперь это объект с ключами city_1, city_2 и т.д.
+    routes,
     hotels: allHotels,
   };
 
