@@ -1110,8 +1110,8 @@
     padding: 155px 0 230px;
     background: url("../assets/images/pages/index-page/banner/qibla.png") no-repeat center;
     background-size: cover;
-    position: relative;
-    z-index: -4;
+    /* position: relative;
+    z-index: -4; */
 }
 
 .banner__inner {
