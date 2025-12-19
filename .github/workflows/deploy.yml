@@ -15,8 +15,7 @@ jobs:
 
       - name: 📦 Archive project
         run: |
-          tar -czf /tmp/build.tar.gz .
-          mv /tmp/build.tar.gz build.tar.gz
+          tar -czf build.tar.gz *
 
       - name: 📤 Copy build to server
         uses: appleboy/scp-action@v0.1.3
@@ -35,6 +34,5 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             cd /travel
-            rm -rf ./*
+            rm -rf dist
             tar -xzf build.tar.gz
-            ls -lah
