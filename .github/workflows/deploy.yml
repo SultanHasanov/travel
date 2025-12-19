@@ -15,7 +15,7 @@ jobs:
 
       - name: 📦 Archive project
         run: |
-          tar -czf build.tar.gz .
+          tar --exclude=build.tar.gz -czf build.tar.gz .
 
       - name: 📤 Copy build to server
         uses: appleboy/scp-action@v0.1.3
