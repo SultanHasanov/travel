@@ -1,5 +1,11 @@
 async function loadTourDetails(tourId) {
   try {
+    // Показываем лоадер при начале загрузки
+    const loader = document.querySelector('.tour__hotel-loader');
+    if (loader) {
+      loader.style.display = 'flex';
+    }
+
     const response = await fetch(
       `https://api.web95.tech/api/v1/trips/${tourId}/relations`
     );
@@ -22,7 +28,22 @@ async function loadTourDetails(tourId) {
     fillTourData(tourData, tourRoutes);
   } catch (error) {
     console.error("Ошибка:", error);
-    alert("Не удалось загрузить данные тура");
+    
+    // Скрываем лоадер при ошибке
+    const loader = document.querySelector('.tour__hotel-loader');
+    if (loader) {
+      loader.style.display = 'none';
+    }
+    
+    // Показываем сообщение об ошибке вместо алерта
+    const slidesImg = document.querySelector(".tour__hotel-slides");
+    const errorDiv = document.createElement("div");
+    errorDiv.className = "tour__hotel-error";
+    errorDiv.innerHTML = `
+      <p>⚠️ Не удалось загрузить фотографии отеля</p>
+      <button onclick="location.reload()">Попробовать снова</button>
+    `;
+    slidesImg.appendChild(errorDiv);
   }
 }
 
@@ -31,22 +52,28 @@ function fillTourData(data, tourRoutes) {
   const hotels = data.hotels;
   const routes = tourRoutes;
 
-  console.log("Данные отелей:", hotels); // Для отладки
+  // 1. Сначала скрываем лоадер
+  const loader = document.querySelector('.tour__hotel-loader');
+  if (loader) {
+    loader.style.display = 'none';
+  }
 
-  //получение изображений отеля
+  // 2. Получение изображений отеля
   const slidesImg = document.querySelector(".tour__hotel-slides");
-  slidesImg.innerHTML = "";
+  
+  // Очищаем только если есть контент кроме лоадера
+  // Оставляем лоадер скрытым для возможного повторного использования
+  const slidesToRemove = slidesImg.querySelectorAll('.tour__hotel-slide');
+  slidesToRemove.forEach(slide => slide.remove());
 
-  // Проверяем, есть ли отели и есть ли у первого отеля изображения
+  // 3. Проверяем, есть ли отели и изображения
   if (
     hotels &&
     hotels.length > 0 &&
     hotels[0].urls &&
     hotels[0].urls.length > 0
   ) {
-    // Используем изображения первого отеля (или можно циклом по всем отелям)
     hotels[0].urls.forEach((url, index) => {
-      console.log("URL изображения отеля:", url);
       const slide = document.createElement("div");
       slide.classList = "tour__hotel-slide";
       if (index === 0) slide.classList.add("tour__hotel-slide--active");
@@ -54,6 +81,11 @@ function fillTourData(data, tourRoutes) {
       const img = document.createElement("img");
       img.src = url;
       img.alt = `Изображения отеля ${index + 1}`;
+      
+      // Добавляем обработчик ошибки загрузки изображения
+      img.onerror = function() {
+        this.src = 'assets/images/pages/tour/gallery/hotel-fallback.png';
+      };
 
       slide.appendChild(img);
       slidesImg.appendChild(slide);
@@ -65,7 +97,7 @@ function fillTourData(data, tourRoutes) {
       }
     });
   } else {
-    // Если нет изображений отеля, используем заглушку
+    // Если нет изображений отеля, показываем заглушку
     const fallbackSlide = document.createElement("div");
     fallbackSlide.classList.add(
       "tour__hotel-slide",
@@ -73,8 +105,8 @@ function fillTourData(data, tourRoutes) {
     );
 
     const img = document.createElement("img");
-    img.src = "assets/images/pages/tour/gallery/hotel-1.png";
-    img.alt = "Заглушка отеля";
+    img.src = "assets/images/pages/tour/gallery/hotel-fallback.png";
+    img.alt = "Изображение отеля временно недоступно";
 
     slidesImg.style.display = "block";
     img.style.maxWidth = "1300px";

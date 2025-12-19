@@ -3,6 +3,7 @@ let selectedHotels = [];
 let routeCities = {};
 let cityCounter = 1;
 let editingTourId = null;
+let originalHotels = null;
 
 const TRANSPORT_OPTIONS = [
   { value: "", label: "Выберите транспорт" },
@@ -131,18 +132,20 @@ async function editTour(tourId) {
 
     const data = await response.json();
     const tour = data.data;
+    originalHotels = (tour.hotels || []).map((h) => ({
+      hotel_id: h.hotel_id,
+      nights: h.nights,
+    }));
 
     editingTourId = tour.trip.id;
     console.log(editingTourId);
 
-    // Сначала загружаем доступные отели
-    const availableHotels = await loadAvailableHotels();
-
-    // Только после загрузки всех данных открываем форму
+    // ОТКРЫВАЕМ ФОРМУ СРАЗУ
     openFullscreenTourForm();
 
     // Даем время DOM обновиться перед заполнением полей
-    setTimeout(() => {
+    setTimeout(async () => {
+      // Добавляем async здесь
       // Устанавливаем заголовки формы
       document.querySelector("#tourFullscreenForm h1").textContent =
         "Редактирование тура";
@@ -184,6 +187,7 @@ async function editTour(tourId) {
         nights: h.nights || 1,
         name: h.name || "Неизвестный отель",
       }));
+
       renderSelectedHotels();
 
       // Маршрут - преобразуем массив в объект с ключами city_1, city_2 и т.д.
@@ -205,12 +209,8 @@ async function editTour(tourId) {
         const cityKey = `city_${cityCounter}`;
         routeCities[cityKey] = {
           city: "",
-
-          // leg из предыдущего города
           transport: "",
           duration: "",
-
-          // остановка В ЭТОМ городе
           stop_time: "",
         };
         cityCounter++;
@@ -218,7 +218,8 @@ async function editTour(tourId) {
 
       renderRouteCities();
 
-      // Рендерим список отелей для выбора
+      // ЗАГРУЖАЕМ ОТЕЛИ ПОСЛЕ ЗАПОЛНЕНИЯ ВСЕХ ДАННЫХ
+      const availableHotels = await loadAvailableHotels();
       renderHotelSelection(availableHotels);
     }, 100);
   } catch (error) {
@@ -252,20 +253,25 @@ async function loadAvailableHotels() {
 
 function openFullscreenTourForm() {
   document.getElementById("tourFullscreenForm").classList.add("active");
+
+  // Очищаем данные только если это новый тур
   if (!editingTourId) {
-    // Если создаем новый тур, то загружаем отели
-    routeCities = {}; // Объект вместо массива
+    routeCities = {};
     cityCounter = 1;
-    renderSelectedHotels();
-    renderRouteCities();
-    loadAvailableHotels().then((hotels) => {
-      renderHotelSelection(hotels);
-    });
+    selectedHotels = [];
   }
+
+  // Рендерим текущие данные
+  renderSelectedHotels();
+  renderRouteCities();
+
+  // Загружаем отели в любом случае (для нового тура и для редактирования)
+  loadAvailableHotels().then((hotels) => {
+    renderHotelSelection(hotels);
+  });
 }
 
 function closeFullscreenTourForm() {
-  editingTourId = null;
   document.querySelector("#tourFullscreenForm h1").textContent =
     "Создание тура";
   document.querySelector(".form-actions button[type='submit']").textContent =
@@ -273,27 +279,65 @@ function closeFullscreenTourForm() {
 
   document.getElementById("tourFullscreenForm").classList.remove("active");
   document.getElementById("createTourForm").reset();
-  selectedHotels = [];
-  routeCities = {}; // Объект вместо массива
-  cityCounter = 1;
-  renderRouteCities();
 
-  if (!editingTourId) {
-    loadAvailableHotels().then((hotels) => {
-      renderHotelSelection(hotels);
-    });
-  }
+  // Сбрасываем все данные
+  selectedHotels = [];
+  routeCities = {};
+  cityCounter = 1;
+  editingTourId = null;
+
+  // Очищаем отображение
+  renderSelectedHotels();
+  renderRouteCities();
 }
+
 function renderHotelSelection(hotels) {
   const container = document.getElementById("hotelSelectionList");
   container.innerHTML = "";
 
-  console.log(hotels);
+  console.log("Загруженные отели:", hotels);
+  console.log("Выбранные отели:", selectedHotels);
 
   hotels.forEach((hotel) => {
+    // Проверяем, выбран ли уже этот отель
+    const isSelected = selectedHotels.some((h) => h.hotel_id === hotel.id);
+
     const div = document.createElement("div");
     div.className = "hotel-selection-item";
-    div.innerHTML = `
+
+    // Если отель уже выбран, показываем кнопку удаления
+    if (isSelected) {
+      const selectedHotel = selectedHotels.find((h) => h.hotel_id === hotel.id);
+      div.innerHTML = `
+    <div class="hotel-selection-info">
+      <strong>${hotel.name}</strong>
+      <span>${hotel.city} • ${hotel.stars}★</span>
+      <small>${hotel.distance_text || ""}</small>
+    </div>
+    <div class="hotel-selection-actions">
+      <input
+        type="number"
+        min="1"
+        placeholder="Ночей"
+        id="nights_${hotel.id}"
+        class="form-input-small"
+        value="${selectedHotel ? selectedHotel.nights : ""}"
+        onchange="updateHotelNights(${hotel.id}, this.value)"
+      />
+      <button
+        type="button"
+        class="btn-small"
+        onclick="addHotelToTour(${hotel.id}, '${hotel.name.replace(
+        /'/g,
+        "\\'"
+      )}')"
+      >
+        Добавить
+      </button>
+    </div>
+  `;
+    } else {
+      div.innerHTML = `
             <div class="hotel-selection-info">
                 <strong>${hotel.name}</strong>
                 <span>${hotel.city} - ${"★".repeat(hotel.stars)}</span>
@@ -301,16 +345,30 @@ function renderHotelSelection(hotels) {
             <div class="hotel-selection-actions">
                 <input type="number" min="1" placeholder="Ночей" id="nights_${
                   hotel.id
-                }" class="form-input-small" />
-                <button type="button" class="btn-small" onclick="addHotelToTour(${
-                  hotel.id
-                }, '${hotel.name}')"
->
+                }" 
+                       class="form-input-small" />
+                <button type="button" class="btn-small" 
+                        onclick="addHotelToTour(${
+                          hotel.id
+                        }, '${hotel.name.replace(/'/g, "\\'")}')">
                     Добавить
                 </button>
             </div>
         `;
+    }
+
     container.appendChild(div);
+  });
+}
+
+// Новая функция для удаления выбранного отеля
+function removeSelectedHotel(hotelId) {
+  selectedHotels = selectedHotels.filter((h) => h.hotel_id !== hotelId);
+  renderSelectedHotels();
+
+  // Перерисовываем список отелей, чтобы обновить состояние кнопок
+  loadAvailableHotels().then((hotels) => {
+    renderHotelSelection(hotels);
   });
 }
 
@@ -319,24 +377,32 @@ function addHotelToTour(hotelId, hotelName) {
   const nights = parseInt(nightsInput.value);
 
   if (!nights || nights < 1) {
-    alert("Укажите количество ночей");
+    alert("Укажите количество ночей (минимум 1)");
     return;
   }
 
-  const existing = selectedHotels.find((h) => h.hotel_id === hotelId);
-  if (existing) {
-    alert("Этот отель уже добавлен");
-    return;
-  }
+  // Проверяем, не добавлен ли уже этот отель
+  const existingIndex = selectedHotels.findIndex((h) => h.hotel_id === hotelId);
 
-  selectedHotels.push({
-    hotel_id: hotelId,
-    nights: nights,
-    name: hotelName,
-  });
+  if (existingIndex !== -1) {
+    // Обновляем количество ночей для существующего отеля
+    selectedHotels[existingIndex].nights = nights;
+  } else {
+    // Добавляем новый отель
+    selectedHotels.push({
+      hotel_id: hotelId,
+      nights: nights,
+      name: hotelName,
+    });
+  }
 
   nightsInput.value = "";
   renderSelectedHotels();
+
+  // Перерисовываем список отелей для обновления состояния кнопок
+  loadAvailableHotels().then((hotels) => {
+    renderHotelSelection(hotels);
+  });
 }
 
 function renderSelectedHotels() {
@@ -365,6 +431,11 @@ function renderSelectedHotels() {
 function removeHotelFromTour(index) {
   selectedHotels.splice(index, 1);
   renderSelectedHotels();
+
+  // Перерисовываем список отелей
+  loadAvailableHotels().then((hotels) => {
+    renderHotelSelection(hotels);
+  });
 }
 
 function addRouteCity() {
@@ -501,22 +572,18 @@ async function submitTourForm(event) {
     price: parseFloat(formData.get("price")),
     discount_percent: parseFloat(formData.get("discount_percent")) || 0,
     currency: formData.get("currency"),
-    season: season,
+    season,
     trip_type: tripType,
     booking_deadline: formData.get("booking_deadline"),
     urls: formData.get("photo_url")
       ? formData
           .get("photo_url")
           .split(",")
-          .map((url) => url.trim())
-          .filter((url) => url)
+          .map((u) => u.trim())
+          .filter(Boolean)
       : [],
     active: formData.get("active") === "on",
     main: formData.get("main") === "on",
-    hotels: selectedHotels.map((h) => ({
-      hotel_id: h.hotel_id,
-      nights: h.nights,
-    })),
   };
 
   // Собираем маршрут - фильтруем только заполненные города
@@ -562,18 +629,32 @@ async function submitTourForm(event) {
     });
   }
 
-  const allHotels = [
-    ...selectedHotels.map((h) => ({ hotel_id: h.hotel_id, nights: h.nights })),
-    ...newHotels,
-  ];
-
   const requestData = {
     trip: tripData,
     routes,
-    hotels: allHotels,
   };
 
-  console.log("Отправляемые данные:", requestData);
+  // если пользователь менял отели
+  if (selectedHotels.length > 0) {
+    requestData.hotels = selectedHotels.map((h) => ({
+      hotel_id: h.hotel_id,
+      nights: h.nights,
+    }));
+  }
+
+  // если отели НЕ трогали — НЕ отправляем hotels вообще
+
+  console.log(
+    "HOTELS PAYLOAD:",
+    JSON.stringify(
+      selectedHotels.map((h) => ({
+        hotel_id: h.hotel_id,
+        nights: h.nights,
+      })),
+      null,
+      2
+    )
+  );
 
   try {
     const token = localStorage.getItem("authToken");
@@ -653,6 +734,24 @@ async function deleteTour(tourId) {
       alert("Не удалось удалить тур");
     }
   }
+}
+function updateHotelNights(hotelId, value) {
+  const nights = Number(value);
+  if (!nights || nights < 1) return;
+
+  const existing = selectedHotels.find((h) => h.hotel_id === hotelId);
+  if (existing) {
+    existing.nights = nights;
+  } else {
+    // Добавляем объект с hotel_id, чтобы он точно был в payload
+    selectedHotels.push({
+      hotel_id: hotelId,
+      nights,
+      name: "Неизвестный отель",
+    });
+  }
+
+  renderSelectedHotels();
 }
 
 // Загружаем туры при загрузке страницы

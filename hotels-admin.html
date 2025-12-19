@@ -913,9 +913,13 @@
                     <small>${hotel.distance_text || ""}</small>
                 </div>
                 <div class="hotel-selection-actions">
-                    <input type="number" class="form-input-small" placeholder="ночей" id="nights_${
-                      hotel.id
-                    }">
+                    <input type="number" min="1" placeholder="Ночей"
+  id="nights_${hotel.id}"
+  class="form-input-small"
+  value="${selectedHotel ? selectedHotel.nights : ''}"
+
+  onchange="updateHotelNights(${hotel.id}, this.value)" />
+
                     <button type="button" class="btn-small" onclick="addHotelToTour(${
                       hotel.id
                     }, '${hotel.name}')">Добавить</button>
