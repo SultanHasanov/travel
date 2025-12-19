@@ -1,9 +1,9 @@
 async function loadTourDetails(tourId) {
   try {
     // Показываем лоадер при начале загрузки
-    const loader = document.querySelector('.tour__hotel-loader');
+    const loader = document.querySelector(".tour__hotel-loader");
     if (loader) {
-      loader.style.display = 'flex';
+      loader.style.display = "flex";
     }
 
     const response = await fetch(
@@ -28,13 +28,13 @@ async function loadTourDetails(tourId) {
     fillTourData(tourData, tourRoutes);
   } catch (error) {
     console.error("Ошибка:", error);
-    
+
     // Скрываем лоадер при ошибке
-    const loader = document.querySelector('.tour__hotel-loader');
+    const loader = document.querySelector(".tour__hotel-loader");
     if (loader) {
-      loader.style.display = 'none';
+      loader.style.display = "none";
     }
-    
+
     // Показываем сообщение об ошибке вместо алерта
     const slidesImg = document.querySelector(".tour__hotel-slides");
     const errorDiv = document.createElement("div");
@@ -53,18 +53,18 @@ function fillTourData(data, tourRoutes) {
   const routes = tourRoutes;
 
   // 1. Сначала скрываем лоадер
-  const loader = document.querySelector('.tour__hotel-loader');
+  const loader = document.querySelector(".tour__hotel-loader");
   if (loader) {
-    loader.style.display = 'none';
+    loader.style.display = "none";
   }
 
   // 2. Получение изображений отеля
   const slidesImg = document.querySelector(".tour__hotel-slides");
-  
+
   // Очищаем только если есть контент кроме лоадера
   // Оставляем лоадер скрытым для возможного повторного использования
-  const slidesToRemove = slidesImg.querySelectorAll('.tour__hotel-slide');
-  slidesToRemove.forEach(slide => slide.remove());
+  const slidesToRemove = slidesImg.querySelectorAll(".tour__hotel-slide");
+  slidesToRemove.forEach((slide) => slide.remove());
 
   // 3. Проверяем, есть ли отели и изображения
   if (
@@ -81,10 +81,10 @@ function fillTourData(data, tourRoutes) {
       const img = document.createElement("img");
       img.src = url;
       img.alt = `Изображения отеля ${index + 1}`;
-      
+
       // Добавляем обработчик ошибки загрузки изображения
-      img.onerror = function() {
-        this.src = 'assets/images/pages/tour/gallery/hotel-fallback.png';
+      img.onerror = function () {
+        this.src = "assets/images/pages/tour/gallery/hotel-fallback.png";
       };
 
       slide.appendChild(img);
@@ -131,18 +131,28 @@ function fillTourData(data, tourRoutes) {
 
   // Отели
   fillHotels(hotels);
+  fillTopHotel(hotels);
+
+  const discountedNumberEl = document.querySelector(
+    ".tour__details-price__discounted-number"
+  );
+  const undiscountedNumberEl = document.querySelector(
+    ".tour__details-price__undiscounted-number"
+  );
+
+  discountedNumberEl.innerHTML = '<span class="loader">Загрузка...</span>';
+  undiscountedNumberEl.innerHTML = '<span class="loader">Загрузка...</span>';
 
   // Цены
-  document.querySelector(
-    ".tour__details-price__discounted-number"
-  ).innerHTML = `${tour.final_price.toLocaleString()} <span>руб.</span>`;
+  if (tour.final_price != null) {
+    discountedNumberEl.innerHTML = `${tour.final_price.toLocaleString()} <span>руб.</span>
+    <img src="assets/icons/dollar-sign--grey.svg" alt="Dollar Sign"/>`;
+  }
 
-  if (tour.discount_percent > 0) {
-    document.querySelector(
-      ".tour__details-price__undiscounted-number"
-    ).textContent = `${tour.price.toLocaleString()} руб.`;
+  if (tour.discount_percent > 0 && tour.price != null) {
+    undiscountedNumberEl.innerHTML = `${tour.price.toLocaleString()} <span>руб.</span>
+    <img src="assets/icons/dollar-sign--grey.svg" alt="Dollar Sign"/>`;
   } else {
-    // Скрываем старую цену если нет скидки
     document.querySelector(".tour__details-price__undiscounted").style.display =
       "none";
   }
@@ -225,6 +235,13 @@ function fillRoute(routeData) {
         <br>
         <span>${routeData.total_duration}</span>
     `;
+}
+
+function fillTopHotel(hotels) {
+  const topHotelNameEl = document.querySelector(".tour__top-hotel__name");
+  if (topHotelNameEl && hotels && hotels.length > 0) {
+    topHotelNameEl.textContent = hotels[0].name; // первый отель
+  }
 }
 
 function fillHotels(hotels) {
