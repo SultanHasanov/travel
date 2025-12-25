@@ -345,7 +345,7 @@ function renderToursForHome(tours) {
 
   // Инициализация Swiper
   new Swiper(".tours__cards", {
-    slidesPerView: 3,
+    slidesPerView: "auto",
     spaceBetween: 20,
     navigation: {
       nextEl: ".tours-top__next",
@@ -558,7 +558,7 @@ function renderToursForHome(tours) {
   }
 
   window.toursSwiper = new Swiper(".tours__cards", {
-    slidesPerView: 3,
+    slidesPerView: "auto",
     spaceBetween: 20,
     navigation: {
       nextEl: ".tours-top__next",

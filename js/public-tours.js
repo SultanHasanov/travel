@@ -68,15 +68,15 @@ function renderToursForHome(tours) {
 
   // Инициализация Swiper
   new Swiper(".tours__cards", {
-    slidesPerView: 3,
+    slidesPerView: "auto",
     spaceBetween: 20,
     navigation: {
       nextEl: ".tours-top__next",
     },
-    breakpoints: {
-      768: { slidesPerView: 2 },
-      480: { slidesPerView: 1 },
-    },
+    // breakpoints: {
+    //   768: { slidesPerView: 2 },
+    //   480: { slidesPerView: 1 },
+    // },
   });
 }
 
