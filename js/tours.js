@@ -350,10 +350,10 @@ function renderToursForHome(tours) {
     navigation: {
       nextEl: ".tours-top__next",
     },
-    breakpoints: {
-      768: { slidesPerView: 2 },
-      480: { slidesPerView: 1 },
-    },
+    // breakpoints: {
+    //   768: { slidesPerView: 2 },
+    //   480: { slidesPerView: 1 },
+    // },
   });
 }
 
@@ -563,10 +563,10 @@ function renderToursForHome(tours) {
     navigation: {
       nextEl: ".tours-top__next",
     },
-    breakpoints: {
-      768: { slidesPerView: 2 },
-      480: { slidesPerView: 1 },
-    },
+    // breakpoints: {
+    //   768: { slidesPerView: 2 },
+    //   480: { slidesPerView: 1 },
+    // },
   });
 
   // Добавляем обработчики для новых кнопок
