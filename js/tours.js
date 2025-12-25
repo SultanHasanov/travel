@@ -569,7 +569,7 @@ function renderToursForHome(tours) {
     // },
   });
 
-  // Добавляем обработчики для новых кнопок
+  // Добавляем обработчики для новых кнопокллл
   addTourButtonHandlers(tours);
 }
 
